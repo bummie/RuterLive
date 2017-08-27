@@ -1,0 +1,32 @@
+<!-- 
+// Henter reiserute for gitt nummer
+http://reisapi.ruter.no/Place/GetStopsByLineID/411
+
+// Henter avganger fra gitt stoppested
+http://reisapi.ruter.no/StopVisit/GetDepartures/2280425
+
+// Liste over alle stoppesteder
+http://reisapi.ruter.no/Place/GetStopsRuter 
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClR0KjmU1mJysUUiezMNZJ25WCXB4W7ag&callback=initMap">
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="js/googlemaps.js"></script>
+        <script src="js/transportmiddel.js"></script>
+
+        <style>
+            #map {
+                height: 400px;
+                width: 50%;
+                margin: auto;
+                }
+        </style>
+    </head>
+    <body>
+            <div id="map"></div>
+    </body>
+</html>

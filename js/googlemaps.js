@@ -22,7 +22,20 @@ function initMap()
           center: osloCoords
         });
     
-    for(var i = 0; i < 100; i++)
+    generateBusses(120, map);
+}
+
+function updateMap()
+{
+    for(var i = 0; i < bussMarkers.length; i++)
+    {
+        bussMarkers[i].move();
+    }
+}
+
+function generateBusses(antall, map)
+{
+    for(var i = 0; i < antall; i++)
     {
         var marker = new google.maps.Marker({
             icon: ikoner.buss,
@@ -33,13 +46,5 @@ function initMap()
         bussMarkers[i] = new Transport(i, marker, osloCoords);
         var ranVel = {x: Math.random() * 0.001, y: Math.random() * 0.001};
         bussMarkers[i].setVelocity(ranVel);
-    }
-}
-
-function updateMap()
-{
-    for(var i = 0; i < bussMarkers.length; i++)
-    {
-        bussMarkers[i].move();
     }
 }

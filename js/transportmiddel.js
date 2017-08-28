@@ -10,6 +10,12 @@ function Transport(id, marker, pos)
                         y: 0
                     };
     
+    // destination
+    // depature
+    // headingToStop
+    // headingFromStop
+    // Tider
+    
     this.getId = function()
     {
         return this.id;

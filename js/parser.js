@@ -1,1 +1,32 @@
 // Parse all the data!
+
+var stopPosFileLocation = "data/StoppeSteder.stop";
+
+// Dummydata
+var bussStopTestIdListe = [3010013, 3010017, 3010065, 3010076, 3010110, 3010132, 3010140, 3010143, 3010146, 3010151, 3010152, 3010153, 3010154, 3010155, 3010156, 3010157, 3010162, 3010163, 3010164, 3010436, 3010437, 3010441, 3010442, 3010445, 3010446, 3010447, 3010465, 3010510, 3010519, 3010524, 3010531, 3012134, 3012135 ];
+
+
+// Henter stoppestedposisjon fra stoppesteder.stop
+function getStopPositions(stoppIdList)
+{
+    if(stoppIdList != null && stoppIdList.length > 0)
+    {
+        $.get(stopPosFileLocation, function(response) 
+        {
+            var fileLine = response.split("\n");
+            $.each(fileLine, function(n, bussStopp) 
+            {
+                $.each(stoppIdList, function(n, stoppId) 
+                {
+                    if(bussStopp.split(",")[0] == stoppId)
+                    {
+                        console.log(bussStopp);
+                    }
+                });
+            });
+            
+        });
+    }
+    else
+        return null;
+}

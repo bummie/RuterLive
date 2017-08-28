@@ -1,8 +1,6 @@
 // Todo smart shit
 
 
-
-
 // 1 Velger rute
 // 2 Henter rute
 // Søker gjennom stoppesteder basert på idene i rutefilene
@@ -10,6 +8,7 @@
 // Sorterer de i forhold til distanse mellom stoppene
 // KJØRE BUSSER
 
+// getStopPositions(bussStopTestIdListe);
 function Route()
 {
     this.id = 0;

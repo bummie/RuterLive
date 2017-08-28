@@ -11,21 +11,29 @@ function getStopPositions(stoppIdList)
 {
     if(stoppIdList != null && stoppIdList.length > 0)
     {
+        var stopsList = new Array(stoppIdList.length);
+        var arrayIncrementer = 0;
         $.get(stopPosFileLocation, function(response) 
         {
             var fileLine = response.split("\n");
             $.each(fileLine, function(n, bussStopp) 
             {
-                $.each(stoppIdList, function(n, stoppId) 
+                $.each(stoppIdList, function(i, stoppId) 
                 {
-                    if(bussStopp.split(",")[0] == stoppId)
+                    var busSplit = bussStopp.split(",");
+                    if(busSplit[0] == stoppId)
                     {
-                        console.log(bussStopp);
+                        var pos = {lat: busSplit[2], lng: busSplit[3]};
+                        stopsList[arrayIncrementer] = new Stop(busSplit[0], busSplit[1], pos);
+                        
+                        
+                        console.log(stopsList[arrayIncrementer].getName());
+                        arrayIncrementer++;
                     }
                 });
             });
-            
         });
+        return stopsList;
     }
     else
         return null;

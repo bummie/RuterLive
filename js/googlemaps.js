@@ -11,7 +11,7 @@ var ikoner = {
 // Map
 var osloCoords = {lat: 59.9138688, lng: 10.7522454};
 
-var bussMarkers = new Array(50);
+var bussMarkers = new Array(5);
 
 setInterval(updateMap, 100); 
 
@@ -22,7 +22,7 @@ function initMap()
           center: osloCoords
         });
     
-    generateBusses(120, map);
+    generateBusses(5, map);
 }
 
 function updateMap()

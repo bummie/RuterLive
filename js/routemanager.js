@@ -20,4 +20,20 @@ function Stop(id, name, position)
     this.id = id;
     this.name = name;
     this.position = position;
+    
+    this.getName = function()
+    {
+        return this.name;
+    }
+}
+
+function test()
+{
+     var stops = getStopPositions(bussStopTestIdListe);
+    
+    // jquery leser fil i bakgrunn blir ferdig etter koden under kjører FIKSE
+    console.log(stops.length);
+if(stops != null)
+    console.log(stops[1].Stop.getName());
+
 }

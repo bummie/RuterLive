@@ -63,7 +63,6 @@ function Transport(id, marker, pos)
     
     this.move = function()
     {
-        console.log("Movng");
         var newPos = {
                     lat: this.getPosition().lat+this.getVelocity().x, 
                     lng: this.getPosition().lng+this.getVelocity().y

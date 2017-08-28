@@ -3,8 +3,12 @@
 
 
 
-
-
+// 1 Velger rute
+// 2 Henter rute
+// Søker gjennom stoppesteder basert på idene i rutefilene
+// Lager Stoppobjekter og plasserer de i Routeobjekt
+// Sorterer de i forhold til distanse mellom stoppene
+// KJØRE BUSSER
 
 function Route()
 {

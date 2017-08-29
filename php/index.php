@@ -1,0 +1,40 @@
+<?php
+
+$MASTER_URL = 'http://reisapi.ruter.no/';
+$LOAD_STOPS = 'Place/GetStopsByLineID/';
+
+// Henter stoppene for gitt linje
+function getStopIdList()
+{
+    global $MASTER_URL;
+    global $LOAD_STOPS;
+    $linje = $_GET['linje'];
+    $url = $MASTER_URL . $LOAD_STOPS . $linje;    
+
+    print_r(getSiteData($url));
+}
+
+// Henter data fra Ruters API
+function getSiteData($url)
+{
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1" );
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_REFERER, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+    $side = curl_exec($curl);
+    curl_close($curl);
+    
+    return $side;
+    
+}
+
+switch($_GET["type"])
+{
+    case 'stops':
+        getStopIdList();
+    break;
+}

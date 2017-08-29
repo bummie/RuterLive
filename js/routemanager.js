@@ -21,9 +21,19 @@ function Stop(id, name, position)
     this.name = name;
     this.position = position;
     
+    this.getId = function()
+    {
+        return this.id;
+    }
+    
     this.getName = function()
     {
         return this.name;
+    }
+    
+    this.getPosition = function()
+    {
+        return this.position;
     }
 }
 
@@ -32,8 +42,15 @@ function test()
      var stops = getStopPositions(bussStopTestIdListe);
     
     // jquery leser fil i bakgrunn blir ferdig etter koden under kjører FIKSE
-    console.log(stops.length);
 if(stops != null)
-    console.log(stops[1].Stop.getName());
+    console.log(stops[1].getName());
 
+}
+
+function doneLoadingStops(stopsArray)
+{
+    for(var i = 0; i < stopsArray.length; i++)
+    {
+        console.log(i + " " + stopsArray[i].getId() + "" + stopsArray[i].getName());
+    }
 }

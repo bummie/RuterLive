@@ -13,28 +13,83 @@ function getStopPositions(stoppIdList)
     {
         var stopsList = new Array(stoppIdList.length);
         var arrayIncrementer = 0;
-        $.get(stopPosFileLocation, function(response) 
+        jQuery.ajax(
         {
-            var fileLine = response.split("\n");
-            $.each(fileLine, function(n, bussStopp) 
+            url: stopPosFileLocation,
+            success: function(response)
             {
-                $.each(stoppIdList, function(i, stoppId) 
-                {
-                    var busSplit = bussStopp.split(",");
-                    if(busSplit[0] == stoppId)
+                 var fileLine = response.split("\n");
+                    $.each(fileLine, function(n, bussStopp) 
                     {
-                        var pos = {lat: busSplit[2], lng: busSplit[3]};
-                        stopsList[arrayIncrementer] = new Stop(busSplit[0], busSplit[1], pos);
-                        
-                        
-                        console.log(stopsList[arrayIncrementer].getName());
-                        arrayIncrementer++;
-                    }
-                });
-            });
+                        $.each(stoppIdList, function(i, stoppId) 
+                        {
+                            var busSplit = bussStopp.split(",");
+                            if(busSplit[0] == stoppId)
+                            {
+                                var pos = {lat: busSplit[2], lng: busSplit[3]};
+                                stopsList[arrayIncrementer] = new Stop(busSplit[0], busSplit[1], pos);  
+                                //console.log(stopsList[arrayIncrementer].getName());
+                                arrayIncrementer++;
+                            }
+                        });
+                    });
+                    doneLoadingStops(sorterStopp(stopsList, 7));
+                    //doneLoadingStops(stopsList);
+
+            },
+            async:true
         });
-        return stopsList;
     }
     else
-        return null;
+        doneLoadingStops(null);
+}
+
+// Sorterer busstoppene, de nærmeste ved siden av hverandre
+function sorterStopp(stoppArray, startStopp)
+{
+    var sortertArray = new Array(stoppArray.length);
+    sortertArray[0] = stoppArray[startStopp];
+    stoppArray[startStopp] = null;
+    for ( j = 0; j < sortertArray.length; j++)
+    {
+        var shortestDistance = null;
+        var shortestDistIndex= null;
+        for ( i = 0; i < stoppArray.length; i++)
+        {
+            if(stoppArray[i] != null && sortertArray[j] != null)
+            {
+                var dist = calculateDistance(sortertArray[j].getPosition().lat, sortertArray[j].getPosition().lng, stoppArray[i].getPosition().lat, stoppArray[i].getPosition().lng, "K");
+                if(shortestDistance == null || dist < shortestDistance )
+                {
+                    shortestDistance = dist;
+                    shortestDistIndex = i;
+                }
+            }
+        }
+        //console.log(stoppArray[shortestDistIndex].getName());
+        if(sortertArray.length-1 >= (j+1))
+        {
+            sortertArray[j+1] = stoppArray[shortestDistIndex];
+            stoppArray[shortestDistIndex] = null;    
+        }   
+    }
+    return sortertArray;
+}
+ 
+// Regner ut avstand mellom to koordinater
+function calculateDistance(lat1, lon1, lat2, lon2, unit)
+{
+        var radlat1 = Math.PI * lat1/180
+        var radlat2 = Math.PI * lat2/180
+        var radlon1 = Math.PI * lon1/180
+        var radlon2 = Math.PI * lon2/180
+        var theta = lon1-lon2
+        var radtheta = Math.PI * theta/180
+        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        dist = Math.acos(dist)
+        dist = dist * 180/Math.PI
+        dist = dist * 60 * 1.1515
+        if (unit=="K") { dist = dist * 1.609344 }
+        if (unit=="N") { dist = dist * 0.8684 }
+        return dist
 }

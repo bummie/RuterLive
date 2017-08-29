@@ -2,15 +2,36 @@
 
 $MASTER_URL = 'http://reisapi.ruter.no/';
 $LOAD_STOPS = 'Place/GetStopsByLineID/';
+$LOAD_SANNTID = 'StopVisit/GetDepartures/';
+
+switch($_GET["type"])
+{
+    case 'stops':
+        getStopIdList();
+    break;
+    
+    case 'sanntid':
+        getSanntid();
+    break;
+}
 
 // Henter stoppene for gitt linje
 function getStopIdList()
 {
-    global $MASTER_URL;
-    global $LOAD_STOPS;
+    global $MASTER_URL, $LOAD_STOPS;
     $linje = $_GET['linje'];
     $url = $MASTER_URL . $LOAD_STOPS . $linje;    
 
+    print_r(getSiteData($url));
+}
+
+// Henter stoppene for gitt linje
+function getSanntid()
+{
+    global $MASTER_URL, $LOAD_SANNTID;
+    $id = $_GET['id'];
+    $linje = $_GET['linje'];
+    $url = $MASTER_URL . $LOAD_SANNTID . $id . '?linenames=' . $linje;    
     print_r(getSiteData($url));
 }
 
@@ -30,11 +51,4 @@ function getSiteData($url)
     
     return $side;
     
-}
-
-switch($_GET["type"])
-{
-    case 'stops':
-        getStopIdList();
-    break;
 }

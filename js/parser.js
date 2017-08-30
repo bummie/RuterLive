@@ -4,6 +4,8 @@ var stopPosFileLocation = "data/StoppeSteder.stop";
 var URL_SANNTID = "php/index.php?type=sanntid";
 var URL_STOPPESTEDER = "php/index.php?type=stops";
 
+var LOG_PARSE = "[PARSER]: ";
+
 // Dummydata
 var bussStopTestIdListe = [3010013, 3010017, 3010065, 3010076, 3010110, 3010132, 3010140, 3010143, 3010146, 3010151, 3010152, 3010153, 3010154, 3010155, 3010156, 3010157, 3010162, 3010163, 3010164, 3010436, 3010437, 3010441, 3010442, 3010445, 3010446, 3010447, 3010465, 3010510, 3010519, 3010524, 3010531, 3012134, 3012135 ];
 
@@ -20,12 +22,13 @@ function getStops(linje)
             {
                 var data = JSON.parse(response);
                 var stoppArr = new Array(data.length);
-                console.log(stoppArr.length);
+                //console.log(stoppArr.length);
                 for(var i = 0; i < data.length; i++)
                 {
                     stoppArr[i] = data[i].ID;
                     //console.log(i + " " + data[i].ID);
                 }
+                console.log(LOG_PARSE + " getStops done");
                 getStartStop(stoppArr, linje);
             },
             async:true
@@ -48,6 +51,8 @@ function getStartStop(stoppArray, linje)
                 var data = JSON.parse(response);
                 var startStoppId = data[0]["MonitoredVehicleJourney"].OriginRef;
                 console.log("Startstopp = " + startStoppId);
+                
+                console.log(LOG_PARSE + " getStartStop done");
                 getStopPositions(stoppArray, startStoppId);
             },
             async:true
@@ -78,12 +83,14 @@ function getStopPositions(stoppIdList, startStopp)
                                 var pos = {lat: busSplit[2], lng: busSplit[3]};
                                 stopsList[arrayIncrementer] = new Stop(busSplit[0], busSplit[1], pos);  
                                
-                                console.log(stopsList[arrayIncrementer].getName());
+                                //console.log(stopsList[arrayIncrementer].getName());
                                 
                                 arrayIncrementer++;
                             }
                         });
                     });
+                console.log(LOG_PARSE + " getStopPositions done");
+                
                 doneLoadingStops(sorterStopp(stopsList, startStopp));
             },
             async:true
@@ -96,6 +103,15 @@ function getStopPositions(stoppIdList, startStopp)
 // Sorterer busstoppene, de nærmeste ved siden av hverandre
 function sorterStopp(stoppArray, startStopp)
 {
+    for ( i = 0; i < stoppArray.length; i++)
+    {
+        if(stoppArray[i].getId() == startStopp)
+        {
+            startStopp = i;
+            break;
+        }
+    }
+    
     var sortertArray = new Array(stoppArray.length);
     sortertArray[0] = stoppArray[startStopp];
     stoppArray[startStopp] = null;

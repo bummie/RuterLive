@@ -17,10 +17,10 @@ setInterval(updateSanntid, 10000);
 
 function initMap()
 {
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          center: osloCoords
-        });
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: osloCoords
+    });
 }
 
 function updateMap()
@@ -35,11 +35,26 @@ function updateMap()
                 var transport = ROUTE_MANAGER[i].getTransport();
                 for(var j = 0; j < transport.length; j++)
                 { 
-             transport[j].setPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
+                    if(transport[j].getLastPosition() == null)
+                        transport[j].setLastPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getOriginId()));
+                    transport[j].setTowardsPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
                 }
             }
         }    
-    }  
+    } 
+    
+    if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
+    {
+        for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        {
+            var transport = ROUTE_MANAGER[i].getTransport();
+            for(var j = 0; j < transport.length; j++)
+            { 
+                transport[j].move();
+            }
+        }
+    }    
+    
 }
 
 function updateSanntid()

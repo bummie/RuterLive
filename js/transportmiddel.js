@@ -2,8 +2,10 @@ function Transport(id, marker, pos)
 {
     this.id = id;
     this.marker = marker;
-    this.title = "-1"
+    this.title = "";
     this.position = pos;
+    this.towardsPosition = pos;
+    this.lastPosition = null;
     this.marker.setPosition(pos);
     this.velocity = {
                         x: 0,
@@ -19,6 +21,8 @@ function Transport(id, marker, pos)
     this.headingTo = null;
     this.headingFrom = null;
     this.arrivalTime = null;
+    
+    this.arrived = true;
     
     // Getters and setters
     this.getId = function()
@@ -151,13 +155,47 @@ function Transport(id, marker, pos)
     {
         this.arrivalTime = time;
     }
+    
+    this.getTowardsPosition = function()
+    {
+        return this.towardsPosition;
+    }
+    
+    this.setTowardsPosition = function(pos)
+    {
+        this.towardsPosition = pos;
+    }
+    
+    this.getLastPosition = function()
+    {
+        return this.lastPosition;
+    }
+    
+    this.setLastPosition = function(pos)
+    {
+        this.lastPosition = pos;
+    }
+    
     // Do stuff functions
     this.move = function()
     {
+        var direction = {
+                            x: this.getTowardsPosition().lat - this.getPosition().lat, 
+                            y: this.getTowardsPosition().lng - this.getPosition().lng
+                        };
+        var dateNow = new Date();
+        var changeSecond = Math.abs((dateNow - this.getArrivalTime())/1000);
+        var speed = calculateDistance(this.getTowardsPosition().lat, this.getTowardsPosition().lng, this.getPosition().lat, this.getPosition().lng ) / changeSecond;
+        
+        //console.log(speed + " SPEED" + " SECOND" + changeSecond);
+        
         var newPos = {
-                    lat: this.getPosition().lat+this.getVelocity().x, 
-                    lng: this.getPosition().lng+this.getVelocity().y
-                };
+                            lat: this.getPosition().lat + direction.x * speed, 
+                            lng: this.getPosition().lng + direction.y * speed
+                        };
+        //console.log(direction.x + ", " + direction.y);
+        
         this.setPosition(newPos);
     }
+
 }

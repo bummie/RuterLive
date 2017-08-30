@@ -10,12 +10,17 @@ function Transport(id, marker, pos)
                         y: 0
                     };
     
-    // destination
-    // depature
-    // headingToStop
-    // headingFromStop
-    // Tider
+    this.originId = null;
+    this.originName = null;
+    this.desinationId = null;
+    this.destinationName = null;
     
+    this.alive = false;
+    this.headingTo = null;
+    this.headingFrom = null;
+    this.arrivalTime = null;
+    
+    // Getters and setters
     this.getId = function()
     {
         return this.id;
@@ -67,6 +72,86 @@ function Transport(id, marker, pos)
         this.velocity = vel;
     }
     
+    this.getOriginId = function()
+    {
+        return this.originId;
+    }
+    
+    this.setOriginId = function(id)
+    {
+        this.originId = id;
+    }
+    
+    this.getOriginName = function()
+    {
+        return this.originName;
+    }
+    
+    this.setOriginName = function(name)
+    {
+        this.originName = name;
+    }
+    
+    this.getDestinationId = function()
+    {
+        return this.desinationId;
+    }
+    
+    this.setDestinationId = function(id)
+    {
+        this.desinationId = id;
+    }
+    
+    this.getDestinationName = function()
+    {
+        return this.destinationName;
+    }
+    
+    this.setDestinationName = function(name)
+    {
+        this.destinationName = name;
+    }
+    
+    this.isAlive = function()
+    {
+        return this.alive;
+    }
+    
+    this.setAlive = function(alive)
+    {
+        this.alive = alive;
+    }
+    
+    this.getHeadingTo = function()
+    {
+        return this.headingTo;
+    }
+    
+    this.setHeadingTo = function(id)
+    {
+        this.headingTo = id;
+    }
+    
+    this.getHeadingFrom = function()
+    {
+        return this.headingFrom;
+    }
+    
+    this.setHeadingFrom = function(id)
+    {
+        this.headingFrom = id;
+    }
+    
+    this.getArrivalTime = function()
+    {
+        return this.arrivalTime;
+    }
+    
+    this.setArrivalTime = function(time)
+    {
+        this.arrivalTime = time;
+    }
+    // Do stuff functions
     this.move = function()
     {
         var newPos = {

@@ -9,14 +9,14 @@ var ikoner = {
 
 // Map
 var osloCoords = {lat: 59.9138688, lng: 10.7522454};
-
-var bussMarkers = new Array(5);
+var map;
+var bussMarkers = new Array();
 
 setInterval(updateMap, 100); 
 
 function initMap()
 {
-        var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
           center: osloCoords
         });
@@ -34,7 +34,7 @@ function updateMap()
     //console.log("Routes = " + ROUTE_MANAGER.length);
 }
 
-function generateBusses(antall, map)
+function generateBusses(antall)
 {
     for(var i = 0; i < antall; i++)
     {

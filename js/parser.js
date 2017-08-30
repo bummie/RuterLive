@@ -6,6 +6,27 @@ var URL_STOPPESTEDER = "php/index.php?type=stops";
 
 var LOG_PARSE = "[PARSER]: ";
 
+function getSanntid(stoppId, linje)
+{
+    var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppId + "&linje=" + linje;
+
+    if(linje != null)
+    {
+        jQuery.ajax(
+        {
+            url: URL_SANNTID,
+            success: function(response)
+            {
+                var data = JSON.parse(response);
+                
+                console.log(LOG_PARSE + " getSanntid done");
+                doneLoadingTransport(data, linje);
+            },
+            async:true
+        });
+    }
+}
+
 function getStops(linje)
 {
     var URL_SANNTID = "php/index.php?type=stops&linje=" + linje;
@@ -46,7 +67,6 @@ function getStartStop(stoppArray, linje)
             {
                 var data = JSON.parse(response);
                 var startStoppId = data[0]["MonitoredVehicleJourney"].OriginRef;
-                console.log("Startstopp = " + startStoppId);
                 
                 console.log(LOG_PARSE + " getStartStop done");
                 getStopPositions(stoppArray, startStoppId, linje);
@@ -78,8 +98,6 @@ function getStopPositions(stoppIdList, startStopp, linje)
                             {
                                 var pos = {lat: busSplit[2], lng: busSplit[3]};
                                 stopsList[arrayIncrementer] = new Stop(busSplit[0], busSplit[1], pos);  
-                               
-                                //console.log(stopsList[arrayIncrementer].getName());
                                 
                                 arrayIncrementer++;
                             }

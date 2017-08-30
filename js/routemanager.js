@@ -1,6 +1,10 @@
 // Seb (c) 2017
 
 var ROUTE_MANAGER = new Array();
+var UPDATING_SANNTID = false;
+var UPDATING_SANNTID_AMOUNT = 0;
+var UPDATING_SANNTID_SIZE = 0;
+
 
 function Route(id, stopArray)
 {
@@ -72,6 +76,8 @@ function doneLoadingStops(stopsArray, linje)
 
 function doneLoadingTransport(transportArray, linje)
 {
+    UPDATING_SANNTID_AMOUNT += 1;
+
     if(transportArray != null)
     {
         // Finne Ruten dataen gjelder for
@@ -122,13 +128,20 @@ function doneLoadingTransport(transportArray, linje)
                         {
                             transportRouteArray[transportRouteArray.length] = generateTransport(transportArray[i]);
                             //console.log("La til i egen");
-                        }
-                            
+                        }     
                 }
             }
         }
         route.setTransport(transportRouteArray);
-
+        
+        //console.log(UPDATING_SANNTID_AMOUNT + " : " + UPDATING_SANNTID_SIZE);
+        if(UPDATING_SANNTID_AMOUNT >= UPDATING_SANNTID_SIZE)
+        {
+            UPDATING_SANNTID = false;
+            UPDATING_SANNTID_AMOUNT = 0;
+            UPDATING_SANNTID_SIZE = 0;
+        }
+            
         //console.log("Received " + transportArray.length + " transports");
     }
 }
@@ -165,10 +178,18 @@ function updateTransport(transport, data)
         // Sjekke om datotingen her fungerer
         var arrivalTime = new Date(data["MonitoredVehicleJourney"]["MonitoredCall"].ExpectedArrivalTime);
 
+        // IF ARRIVALTIME HAS PASSED THEN NULL HENT NY TID YEAH
             // Bussen flytter seg fjerne gammel tid, ellers blir den superior yo 
-            if(transport.getArrivalTime() > arrivalTime )
+            if(transport.getArrivalTime() < new Date())
             {
                 transport.setHeadingFrom(transport.getHeadingTo());
+                transport.setArrivalTime(null);
+            }
+                
+            if(transport.getArrivalTime() > arrivalTime || transport.getArrivalTime() == null)
+            {
+                if(transport.getHeadingFrom() == null)
+                    transport.setHeadingFrom(transport.getHeadingTo());
                 transport.setHeadingTo(data.MonitoringRef);
                 transport.setArrivalTime(arrivalTime);
             }    

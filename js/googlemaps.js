@@ -25,26 +25,32 @@ function initMap()
 
 function updateMap()
 {
-    if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
+    if(!UPDATING_SANNTID)
     {
-        for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        console.log("UPDATING MOVEMENT");
+        if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
         {
-            var transport = ROUTE_MANAGER[i].getTransport();
-            for(var j = 0; j < transport.length; j++)
-            { 
-                transport[j].setPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
+            for(var i = 0; i < ROUTE_MANAGER.length; i++)
+            {
+                var transport = ROUTE_MANAGER[i].getTransport();
+                for(var j = 0; j < transport.length; j++)
+                { 
+             transport[j].setPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
+                }
             }
-        }
-    } 
+        }    
+    }  
 }
 
 function updateSanntid()
 {
-   if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
+    if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
     {
         for(var i = 0; i < ROUTE_MANAGER.length; i++)
         {
             var stops = ROUTE_MANAGER[i].getStops();
+            UPDATING_SANNTID_SIZE += stops.length;
+            UPDATING_SANNTID = true;
             for(var j = 0; j < stops.length; j++)
             {
                 getSanntid(stops[j].getId(), ROUTE_MANAGER[i].getId());

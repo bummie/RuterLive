@@ -13,7 +13,7 @@ var map;
 var bussMarkers = new Array();
 
 setInterval(updateMap, 100); 
-setInterval(updateSanntid, 5000); 
+setInterval(updateSanntid, 10000); 
 
 function initMap()
 {
@@ -21,17 +21,21 @@ function initMap()
           zoom: 12,
           center: osloCoords
         });
-    
-    generateBusses(5, map);
 }
 
 function updateMap()
 {
-    for(var i = 0; i < bussMarkers.length; i++)
+    if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
     {
-        bussMarkers[i].move();
-    }
-    //console.log("Routes = " + ROUTE_MANAGER.length);
+        for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        {
+            var transport = ROUTE_MANAGER[i].getTransport();
+            for(var j = 0; j < transport.length; j++)
+            { 
+                transport[j].setPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
+            }
+        }
+    } 
 }
 
 function updateSanntid()
@@ -44,28 +48,7 @@ function updateSanntid()
             for(var j = 0; j < stops.length; j++)
             {
                 getSanntid(stops[j].getId(), ROUTE_MANAGER[i].getId());
-                for(var x = 0; x < ROUTE_MANAGER[i].getTransport().length; x++)
-                {
-                    ROUTE_MANAGER[i].getTransport()[x].setPosition(stops[j].getPosition());
-                }
             }
         }
     } 
-}
-
-
-function generateBusses(antall)
-{
-    for(var i = 0; i < antall; i++)
-    {
-        var marker = new google.maps.Marker({
-            icon: ikoner.buss,
-            map: map,
-            title: "30",
-            label: "411"
-        });
-        bussMarkers[i] = new Transport(i, marker, osloCoords);
-        var ranVel = {x: Math.random() * 0.001, y: Math.random() * 0.001};
-        bussMarkers[i].setVelocity(ranVel);
-    }
 }

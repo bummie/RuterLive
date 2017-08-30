@@ -27,6 +27,16 @@ function Route(id, stopArray)
     {
         this.transport = transportArray; 
     }
+    
+    this.getPositionFromStop = function(stopId)
+    {
+        var stops = this.getStops();
+        for(var i = 0; i < stops.length; i++)
+        {
+            if(stops[i].getId() == stopId)
+                return stops[i].getPosition();
+        }
+    }
 }
 
 function Stop(id, name, position)

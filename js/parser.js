@@ -6,9 +6,6 @@ var URL_STOPPESTEDER = "php/index.php?type=stops";
 
 var LOG_PARSE = "[PARSER]: ";
 
-// Dummydata
-var bussStopTestIdListe = [3010013, 3010017, 3010065, 3010076, 3010110, 3010132, 3010140, 3010143, 3010146, 3010151, 3010152, 3010153, 3010154, 3010155, 3010156, 3010157, 3010162, 3010163, 3010164, 3010436, 3010437, 3010441, 3010442, 3010445, 3010446, 3010447, 3010465, 3010510, 3010519, 3010524, 3010531, 3012134, 3012135 ];
-
 function getStops(linje)
 {
     var URL_SANNTID = "php/index.php?type=stops&linje=" + linje;
@@ -36,7 +33,6 @@ function getStops(linje)
     }
 }
 
-// 3010013
 function getStartStop(stoppArray, linje)
 {
     var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppArray[0] + "&linje=" + linje;

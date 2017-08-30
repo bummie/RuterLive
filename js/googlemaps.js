@@ -31,6 +31,8 @@ function updateMap()
     {
         bussMarkers[i].move();
     }
+    
+    console.log("Routes = " + ROUTE_MANAGER.length);
 }
 
 function generateBusses(antall, map)

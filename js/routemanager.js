@@ -1,18 +1,21 @@
-// Todo smart shit
+// Seb (c) 2017
 
+var ROUTE_MANAGER = new Array();
 
-// 1 Velger rute
-// 2 Henter rute
-// Søker gjennom stoppesteder basert på idene i rutefilene
-// Lager Stoppobjekter og plasserer de i Routeobjekt
-// Sorterer de i forhold til distanse mellom stoppene
-// KJØRE BUSSER
-
-// getStopPositions(bussStopTestIdListe);
-function Route()
+function Route(id, stopArray)
 {
-    this.id = 0;
-    this.stops = new Array(0);
+    this.id = id;
+    this.stops = stopArray
+    
+    this.getId = function()
+    {
+        return this.id;
+    }
+    
+    this.getStops = function()
+    {
+        return this.stops;
+    }
 }
 
 function Stop(id, name, position)
@@ -37,33 +40,11 @@ function Stop(id, name, position)
     }
 }
 
-function test()
-{
-     var stops = getStopPositions(bussStopTestIdListe);
-    
-    // jquery leser fil i bakgrunn blir ferdig etter koden under kjører FIKSE
-if(stops != null)
-    console.log(stops[1].getName());
-
-}
-
 function doneLoadingStops(stopsArray)
 {
     if(stopsArray != null)
     {
-        for(var i = 0; i < stopsArray.length; i++)
-        {
-            if(stopsArray[i] != null)
-            {
-                console.log(i + " " + stopsArray[i].getId() + "" + stopsArray[i].getName());    
-            }else
-            {
-                console.log(i + " er null");
-            }
-
-        }    
-    }else
-    {
-        console.log("null stopsArray");
+        console.log("Added " + stopsArray.length + " stops to Routearray");
+        ROUTE_MANAGER[ROUTE_MANAGER.length] = stopsArray;
     }
 }

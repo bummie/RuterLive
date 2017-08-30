@@ -44,17 +44,20 @@ function updateMap()
 
 function updateSanntid()
 {
-    if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
+    if(!UPDATING_SANNTID)
     {
-        for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
         {
-            var stops = ROUTE_MANAGER[i].getStops();
-            UPDATING_SANNTID_SIZE += stops.length;
-            UPDATING_SANNTID = true;
-            for(var j = 0; j < stops.length; j++)
+            for(var i = 0; i < ROUTE_MANAGER.length; i++)
             {
-                getSanntid(stops[j].getId(), ROUTE_MANAGER[i].getId());
+                var stops = ROUTE_MANAGER[i].getStops();
+                UPDATING_SANNTID_SIZE += stops.length;
+                UPDATING_SANNTID = true;
+                for(var j = 0; j < stops.length; j++)
+                {
+                    getSanntid(stops[j].getId(), ROUTE_MANAGER[i].getId());
+                }
             }
         }
-    } 
+    }
 }

@@ -162,12 +162,16 @@ function updateTransport(transport, data)
 {
     if(data != null && transport != null)
     {   
+        // Sjekke om datotingen her fungerer
         var arrivalTime = new Date(data["MonitoredVehicleJourney"]["MonitoredCall"].ExpectedArrivalTime);
-        if(transport.getArrivalTime() > arrivalTime )
-        {
-            transport.setHeadingTo(data.MonitoringRef);
-            transport.setArrivalTime(arrivalTime);
-        }
+
+            // Bussen flytter seg fjerne gammel tid, ellers blir den superior yo 
+            if(transport.getArrivalTime() > arrivalTime )
+            {
+                transport.setHeadingFrom(transport.getHeadingTo());
+                transport.setHeadingTo(data.MonitoringRef);
+                transport.setArrivalTime(arrivalTime);
+            }    
         
         return transport;
     }

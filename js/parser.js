@@ -9,32 +9,46 @@ var bussStopTestIdListe = [3010013, 3010017, 3010065, 3010076, 3010110, 3010132,
 
 function getStops(linje)
 {
+    var URL_SANNTID = "php/index.php?type=stops&linje=" + linje;
+
     if(linje != null)
     {
         jQuery.ajax(
         {
-            url: stopPosFileLocation,
+            url: URL_SANNTID,
             success: function(response)
             {
-               
+                var data = JSON.parse(response);
+                var stoppArr = new Array(data.length);
+                console.log(stoppArr.length);
+                for(var i = 0; i < data.length; i++)
+                {
+                    stoppArr[i] = data[i].ID;
+                    //console.log(i + " " + data[i].ID);
+                }
+                getStartStop(stoppArr, linje);
             },
             async:true
         });
     }
 }
 
-function getStartStop(id, linje)
+// 3010013
+function getStartStop(stoppArray, linje)
 {
-    var URL_SANNTID = "php/index.php?type=sanntid";
+    var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppArray[0] + "&linje=" + linje;
 
     if(linje != null)
     {
         jQuery.ajax(
         {
-            url: stopPosFileLocation,
+            url: URL_SANNTID,
             success: function(response)
             {
-               
+                var data = JSON.parse(response);
+                var startStoppId = data[0]["MonitoredVehicleJourney"].OriginRef;
+                console.log("Startstopp = " + startStoppId);
+                getStopPositions(stoppArray, startStoppId);
             },
             async:true
         });
@@ -42,7 +56,7 @@ function getStartStop(id, linje)
 }
 
 // Henter stoppestedposisjon fra stoppesteder.stop
-function getStopPositions(stoppIdList)
+function getStopPositions(stoppIdList, startStopp)
 {
     if(stoppIdList != null && stoppIdList.length > 0)
     {
@@ -63,14 +77,14 @@ function getStopPositions(stoppIdList)
                             {
                                 var pos = {lat: busSplit[2], lng: busSplit[3]};
                                 stopsList[arrayIncrementer] = new Stop(busSplit[0], busSplit[1], pos);  
-                                //console.log(stopsList[arrayIncrementer].getName());
+                               
+                                console.log(stopsList[arrayIncrementer].getName());
+                                
                                 arrayIncrementer++;
                             }
                         });
                     });
-                    doneLoadingStops(sorterStopp(stopsList, 7));
-                    //doneLoadingStops(stopsList);
-
+                doneLoadingStops(sorterStopp(stopsList, startStopp));
             },
             async:true
         });

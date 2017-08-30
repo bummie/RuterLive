@@ -51,6 +51,13 @@ function doneLoadingStops(stopsArray)
 {
     for(var i = 0; i < stopsArray.length; i++)
     {
-        console.log(i + " " + stopsArray[i].getId() + "" + stopsArray[i].getName());
+        if(stopsArray[i] != null)
+        {
+            console.log(i + " " + stopsArray[i].getId() + "" + stopsArray[i].getName());    
+        }else
+        {
+            console.log(i + " er null");
+        }
+        
     }
 }

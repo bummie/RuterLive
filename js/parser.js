@@ -96,7 +96,7 @@ function getStopPositions(stoppIdList, startStopp, linje)
                             var busSplit = bussStopp.split(",");
                             if(busSplit[0] == stoppId)
                             {
-                                var pos = {lat: busSplit[2], lng: busSplit[3]};
+                                var pos = {lat: parseFloat(busSplit[2]), lng: parseFloat(busSplit[3])};
                                 stopsList[arrayIncrementer] = new Stop(busSplit[0], busSplit[1], pos);  
                                 
                                 arrayIncrementer++;

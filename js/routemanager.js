@@ -80,11 +80,11 @@ function doneLoadingTransport(transportArray, linje)
         for(var i = 0; i < transportArray.length; i++)
         {
             var transportId = transportArray[i]["MonitoredVehicleJourney"].VehicleRef;
-            console.log("TransportID: " + transportId);
+            //console.log("TransportID: " + transportId);
             var hasFoundTransport = false;
             if(transportId != null)
             {
-                console.log("Str_transportArray: " + transportRouteArray.length);
+                //console.log("Str_transportArray: " + transportRouteArray.length);
                 for(var j = 0; j < transportRouteArray.length; j++)
                 {
                     if(transportId == transportRouteArray[j].getId())
@@ -100,7 +100,7 @@ function doneLoadingTransport(transportArray, linje)
                         var added = false;
                         for(var j = 0; j < transportRouteArray.length; j++)
                         {
-                            console.log(j + " " + transportRouteArray[j]);
+                            //console.log(j + " " + transportRouteArray[j]);
                             if(transportRouteArray[j] == null)
                             {
                                 transportRouteArray[j] = generateTransport(transportArray[i]);
@@ -111,7 +111,7 @@ function doneLoadingTransport(transportArray, linje)
                         if(!added)
                         {
                             transportRouteArray[transportRouteArray.length] = generateTransport(transportArray[i]);
-                            console.log("La til i egen");
+                            //console.log("La til i egen");
                         }
                             
                 }
@@ -119,7 +119,7 @@ function doneLoadingTransport(transportArray, linje)
         }
         route.setTransport(transportRouteArray);
 
-        console.log("Received " + transportArray.length + " transports");
+        //console.log("Received " + transportArray.length + " transports");
     }
 }
     
@@ -136,7 +136,7 @@ function generateTransport(data)
         var transObject = new Transport(data["MonitoredVehicleJourney"].VehicleRef, marker, osloCoords);
         
         transObject.setTitle(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay);
-        //transObject.setOriginId(data["MonitoredVehicleJourney"].OriginRef);
+        transObject.setOriginId(data["MonitoredVehicleJourney"].OriginRef);
         transObject.setOriginName(data["MonitoredVehicleJourney"].OriginName);
         transObject.setDestinationId(data["MonitoredVehicleJourney"].DestinationRef);
         transObject.setDestinationName(data["MonitoredVehicleJourney"].DestinationName);

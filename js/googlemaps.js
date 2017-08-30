@@ -13,6 +13,7 @@ var map;
 var bussMarkers = new Array();
 
 setInterval(updateMap, 100); 
+setInterval(updateSanntid, 5000); 
 
 function initMap()
 {
@@ -30,9 +31,28 @@ function updateMap()
     {
         bussMarkers[i].move();
     }
-    
     //console.log("Routes = " + ROUTE_MANAGER.length);
 }
+
+function updateSanntid()
+{
+   if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
+    {
+        for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        {
+            var stops = ROUTE_MANAGER[i].getStops();
+            for(var j = 0; j < stops.length; j++)
+            {
+                getSanntid(stops[j].getId(), ROUTE_MANAGER[i].getId());
+                for(var x = 0; x < ROUTE_MANAGER[i].getTransport().length; x++)
+                {
+                    ROUTE_MANAGER[i].getTransport()[x].setPosition(stops[j].getPosition());
+                }
+            }
+        }
+    } 
+}
+
 
 function generateBusses(antall)
 {

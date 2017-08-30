@@ -49,7 +49,7 @@ function getStartStop(stoppArray, linje)
                 console.log("Startstopp = " + startStoppId);
                 
                 console.log(LOG_PARSE + " getStartStop done");
-                getStopPositions(stoppArray, startStoppId);
+                getStopPositions(stoppArray, startStoppId, linje);
             },
             async:true
         });
@@ -57,7 +57,7 @@ function getStartStop(stoppArray, linje)
 }
 
 // Henter stoppestedposisjon fra stoppesteder.stop
-function getStopPositions(stoppIdList, startStopp)
+function getStopPositions(stoppIdList, startStopp, linje)
 {
     if(stoppIdList != null && stoppIdList.length > 0)
     {
@@ -87,7 +87,7 @@ function getStopPositions(stoppIdList, startStopp)
                     });
                 console.log(LOG_PARSE + " getStopPositions done");
                 
-                doneLoadingStops(sorterStopp(stopsList, startStopp));
+                doneLoadingStops(sorterStopp(stopsList, startStopp), linje);
             },
             async:true
         });

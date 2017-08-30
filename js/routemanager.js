@@ -40,11 +40,11 @@ function Stop(id, name, position)
     }
 }
 
-function doneLoadingStops(stopsArray)
+function doneLoadingStops(stopsArray, linje)
 {
     if(stopsArray != null)
     {
         console.log("Added " + stopsArray.length + " stops to Routearray");
-        ROUTE_MANAGER[ROUTE_MANAGER.length] = stopsArray;
+        ROUTE_MANAGER[ROUTE_MANAGER.length] = new Route(linje, stopsArray);
     }
 }

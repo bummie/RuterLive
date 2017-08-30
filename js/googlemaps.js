@@ -1,4 +1,3 @@
-
 // Ikoner
 var ikonBase  = "img/ikoner/";
 var ikoner = {
@@ -32,7 +31,7 @@ function updateMap()
         bussMarkers[i].move();
     }
     
-    console.log("Routes = " + ROUTE_MANAGER.length);
+    //console.log("Routes = " + ROUTE_MANAGER.length);
 }
 
 function generateBusses(antall, map)

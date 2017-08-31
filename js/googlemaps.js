@@ -1,6 +1,7 @@
 // Ikoner
 var ikonBase  = "img/ikoner/";
-var ikoner = {
+var ikoner = 
+        {
           buss: ikonBase + 'ikon_buss.png',
           trikk: ikonBase + 'ikon_buss.png',
           tbane: ikonBase + 'ikon_buss.png',
@@ -28,9 +29,27 @@ function initMap()
 
 function updateMap()
 {
-    if(!UPDATING_SANNTID)
+    if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
     {
-        console.log("UPDATING MOVEMENT");
+        if(!UPDATING_SANNTID)
+        {
+            console.log("UPDATING MOVEMENT");
+            print("Flytter busser");
+            if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
+            {
+                for(var i = 0; i < ROUTE_MANAGER.length; i++)
+                {
+                    var transport = ROUTE_MANAGER[i].getTransport();
+                    for(var j = 0; j < transport.length; j++)
+                    { 
+                        if(transport[j].getLastPosition() == null)
+                            transport[j].setLastPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getOriginId()));
+                        transport[j].setTowardsPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
+                    }
+                }
+            }    
+        } 
+
         if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
         {
             for(var i = 0; i < ROUTE_MANAGER.length; i++)
@@ -38,27 +57,13 @@ function updateMap()
                 var transport = ROUTE_MANAGER[i].getTransport();
                 for(var j = 0; j < transport.length; j++)
                 { 
-                    if(transport[j].getLastPosition() == null)
-                        transport[j].setLastPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getOriginId()));
-                    transport[j].setTowardsPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
+                    transport[j].move();
                 }
             }
         }    
-    } 
-    
-    if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
-    {
-        for(var i = 0; i < ROUTE_MANAGER.length; i++)
-        {
-            var transport = ROUTE_MANAGER[i].getTransport();
-            for(var j = 0; j < transport.length; j++)
-            { 
-                transport[j].move();
-            }
-        }
-    }    
-    
-    updateInfo();
+
+        updateInfo();
+    }
 }
 
 function updateSanntid()
@@ -113,6 +118,17 @@ function getStopNameFromId(routeId, stopId)
     }
 }
 
+function btnAddTransport()
+{
+    var inputValue = document.getElementById("inputTransportId").value;
+    if(inputValue != null || inputValue === "" )
+    {
+        getStops(inputValue);
+        print("Henter stoppdata for rute " + inputValue);
+        document.getElementById("btnAddTransport").disabled = true;
+    }
+}
+
 function updateInfo()
 {
     if(selectedMarkerRoute != null && selectedMarkerTransport != null)
@@ -122,7 +138,7 @@ function updateInfo()
         if(tran != null)
         {
             document.getElementById("infoTitle").innerHTML = "Tittel: " + tran.getTitle();
-            document.getElementById("infoPosition").innerHTML = "Posisjon: " + tran.getPosition().lat + ", " + tran.getPosition().lng;
+            document.getElementById("infoPosition").innerHTML = "Posisjon: " + tran.getPosition().lat + ",\n " + tran.getPosition().lng;
             //document.getElementById("infoTowardsPosition").innerHTML = "På vei til: " + tran.getTowardsPosition();
             //document.getElementById("infoLastPosition").innerHTML = "Forrige Pos: " + tran.getLastPosition();
             //document.getElementById("infoOriginId").innerHTML = "StartId: " + tran.getOriginId();
@@ -133,8 +149,13 @@ function updateInfo()
             document.getElementById("infoHeadingFrom").innerHTML = "SistStopp: " + getStopNameFromId(selectedMarkerRoute, tran.getHeadingFrom());
             
             var changeSecond = Math.abs((new Date() - tran.getArrivalTime())/1000);
-            document.getElementById("infoTimeLeft").innerHTML = "Tid igjen: " + changeSecond;
+            document.getElementById("infoTimeLeft").innerHTML = "Tid igjen: " + changeSecond + " sekunder";
 
         }
     }
+}
+
+function print(text)
+{
+     document.getElementById("infoConsole").innerHTML = text;
 }

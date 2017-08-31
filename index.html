@@ -22,22 +22,35 @@ http://reisapi.ruter.no/Place/GetStopsRuter
         
         <!--CSS-->
         <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
     </head>
+    
     <body>
-        <div id="map"></div>
+        <div id="headerContainer">
+            <div id="TitleText">#RuterLive</div>
+        </div>
         
-        <div class="infoContainer">
-            <div id="infoTitle"></div>
-            <div id="infoPosition"></div>
-            <div id="infoTowardsPosition"></div>
-            <div id="infoLastPosition"></div>
-            <div id="infoOriginId"></div>
-            <div id="infoOriginName"></div>
-            <div id="infoDestinationId"></div>
-            <div id="infoDestinationName"></div>
-            <div id="infoHeadingTo"></div>
-            <div id="infoHeadingFrom"></div>
-            <div id="infoTimeLeft"></div>
+         <div id="bodyContainer">
+            <div id="map"></div>
+            <div class="centerContainer">
+                <button id="btnAddTransport" onclick="btnAddTransport()">Legg til transport</button>
+                <input id="inputTransportId" type="text" name="transportId" placeholder="Linjenummer..">
+                <div id="infoConsole"></div>
+
+                 <div class="infoContainer">
+                    <div class="InfoText" id="infoTitle"></div>
+                    <div class="InfoText" id="infoPosition"></div>
+                    <div class="InfoText" id="infoTowardsPosition"></div>
+                    <div class="InfoText" id="infoLastPosition"></div>
+                    <div class="InfoText" id="infoOriginId"></div>
+                    <div class="InfoText" id="infoOriginName"></div>
+                    <div class="InfoText" id="infoDestinationId"></div>
+                    <div class="InfoText" id="infoDestinationName"></div>
+                    <div class="InfoText" id="infoHeadingTo"></div>
+                    <div class="InfoText" id="infoHeadingFrom"></div>
+                    <div class="InfoText" id="infoTimeLeft"></div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

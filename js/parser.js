@@ -20,6 +20,7 @@ function getSanntid(stoppId, linje)
                 var data = JSON.parse(response);
                 
                 console.log(LOG_PARSE + " getSanntid done");
+
                 doneLoadingTransport(data, linje);
             },
             async:true
@@ -104,7 +105,8 @@ function getStopPositions(stoppIdList, startStopp, linje)
                         });
                     });
                 console.log(LOG_PARSE + " getStopPositions done");
-                
+                print(LOG_PARSE + " getStopPositions done");
+
                 doneLoadingStops(sorterStopp(stopsList, startStopp), linje);
             },
             async:true

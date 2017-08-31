@@ -69,6 +69,7 @@ function doneLoadingStops(stopsArray, linje)
     if(stopsArray != null)
     {
         console.log("Added " + stopsArray.length + " stops to Routearray");
+        print("Added " + stopsArray.length + " stops to Routearray");
         ROUTE_MANAGER[ROUTE_MANAGER.length] = new Route(linje, stopsArray);
     }
 }
@@ -133,6 +134,7 @@ function doneLoadingTransport(transportArray, linje)
         }
         route.setTransport(transportRouteArray);
         
+        print(LOG_PARSE + " Hentet sanntidsdata ["+UPDATING_SANNTID_AMOUNT+"/"+UPDATING_SANNTID_SIZE+"]");
         //console.log(UPDATING_SANNTID_AMOUNT + " : " + UPDATING_SANNTID_SIZE);
         if(UPDATING_SANNTID_AMOUNT >= UPDATING_SANNTID_SIZE)
         {

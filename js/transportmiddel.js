@@ -184,7 +184,7 @@ function Transport(id, marker, pos)
                             y: this.getTowardsPosition().lng - this.getPosition().lng
                         };
         var dateNow = new Date();
-        var changeSecond = Math.abs((dateNow - this.getArrivalTime())/1000);
+        var changeSecond = Math.abs((new Date() - this.getArrivalTime())/1000);
         var speed = calculateDistance(this.getTowardsPosition().lat, this.getTowardsPosition().lng, this.getPosition().lat, this.getPosition().lng ) / changeSecond;
         
         //console.log(speed + " SPEED" + " SECOND" + changeSecond);

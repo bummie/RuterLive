@@ -5,7 +5,6 @@ var UPDATING_SANNTID = false;
 var UPDATING_SANNTID_AMOUNT = 0;
 var UPDATING_SANNTID_SIZE = 0;
 
-
 function Route(id, stopArray)
 {
     this.id = id;
@@ -113,22 +112,22 @@ function doneLoadingTransport(transportArray, linje)
                 
                 if(!hasFoundTransport)
                 {
-                        var added = false;
-                        for(var j = 0; j < transportRouteArray.length; j++)
+                    var added = false;
+                    for(var j = 0; j < transportRouteArray.length; j++)
+                    {
+                        //console.log(j + " " + transportRouteArray[j]);
+                        if(transportRouteArray[j] == null)
                         {
-                            //console.log(j + " " + transportRouteArray[j]);
-                            if(transportRouteArray[j] == null)
-                            {
-                                transportRouteArray[j] = generateTransport(transportArray[i]);
-                                added = true;
-                                break;
-                            }
+                            transportRouteArray[j] = generateTransport(transportArray[i]);
+                            added = true;
+                            break;
                         }
-                        if(!added)
-                        {
-                            transportRouteArray[transportRouteArray.length] = generateTransport(transportArray[i]);
-                            //console.log("La til i egen");
-                        }     
+                    }
+                    if(!added)
+                    {
+                        transportRouteArray[transportRouteArray.length] = generateTransport(transportArray[i]);
+                        //console.log("La til i egen");
+                    }     
                 }
             }
         }
@@ -156,6 +155,7 @@ function generateTransport(data)
             title: data["MonitoredVehicleJourney"].LineRef,
             label: data["MonitoredVehicleJourney"].LineRef
         });
+        
         var transObject = new Transport(data["MonitoredVehicleJourney"].VehicleRef, marker, osloCoords);
         
         transObject.setTitle(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay);
@@ -165,6 +165,12 @@ function generateTransport(data)
         transObject.setDestinationName(data["MonitoredVehicleJourney"].DestinationName);
         transObject.setHeadingTo(data.MonitoringRef);
         transObject.setArrivalTime(new Date(data["MonitoredVehicleJourney"]["MonitoredCall"].ExpectedArrivalTime));
+        
+        transObject.getMarker().addListener('click', 
+                                            function()
+                                            {
+                                                changeCurrentMarker(transObject.getId())
+                                            });
         
         return transObject;
     }

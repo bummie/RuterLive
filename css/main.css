@@ -1,0 +1,13 @@
+#map 
+{
+    height: 400px;
+    width: 50%;
+    margin: auto;
+}
+
+.infoContainer
+{
+    background: gray;
+    margin: auto;
+}
+

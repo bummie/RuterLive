@@ -19,16 +19,25 @@ http://reisapi.ruter.no/Place/GetStopsRuter
         <script src="js/googlemaps.js"></script>
         <script src="js/transportmiddel.js"></script>
         <script src="js/parser.js"></script>
-
-        <style>
-            #map {
-                height: 400px;
-                width: 50%;
-                margin: auto;
-                }
-        </style>
+        
+        <!--CSS-->
+        <link rel="stylesheet" type="text/css" href="css/main.css">
     </head>
     <body>
-            <div id="map"></div>
+        <div id="map"></div>
+        
+        <div class="infoContainer">
+            <div id="infoTitle"></div>
+            <div id="infoPosition"></div>
+            <div id="infoTowardsPosition"></div>
+            <div id="infoLastPosition"></div>
+            <div id="infoOriginId"></div>
+            <div id="infoOriginName"></div>
+            <div id="infoDestinationId"></div>
+            <div id="infoDestinationName"></div>
+            <div id="infoHeadingTo"></div>
+            <div id="infoHeadingFrom"></div>
+            <div id="infoTimeLeft"></div>
+        </div>
     </body>
 </html>

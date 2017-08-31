@@ -155,7 +155,12 @@ function generateTransport(data)
             icon: ikoner.buss,
             map: map,
             title: data["MonitoredVehicleJourney"].LineRef,
-            label: data["MonitoredVehicleJourney"].LineRef
+            label: {
+                        text: data["MonitoredVehicleJourney"].LineRef,
+                        color: "black",
+                        fontWeight: "bold",
+                        fontSize: "20px"
+                    }
         });
         
         var transObject = new Transport(data["MonitoredVehicleJourney"].VehicleRef, marker, osloCoords);
@@ -173,6 +178,8 @@ function generateTransport(data)
                                             {
                                                 changeCurrentMarker(transObject.getId())
                                             });
+        console.log("Opprettet buss " + transObject.getId() );
+        print("Oppretet buss " + transObject.getId() );
         
         return transObject;
     }

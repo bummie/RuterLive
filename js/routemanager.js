@@ -134,7 +134,7 @@ function doneLoadingTransport(transportArray, linje)
         }
         route.setTransport(transportRouteArray);
         
-        print(LOG_PARSE + " Hentet sanntidsdata ["+UPDATING_SANNTID_AMOUNT+"/"+UPDATING_SANNTID_SIZE+"]");
+        print(LOG_PARSE + " Henter sanntidsdata ["+UPDATING_SANNTID_AMOUNT+"/"+UPDATING_SANNTID_SIZE+"]");
         //console.log(UPDATING_SANNTID_AMOUNT + " : " + UPDATING_SANNTID_SIZE);
         if(UPDATING_SANNTID_AMOUNT >= UPDATING_SANNTID_SIZE)
         {

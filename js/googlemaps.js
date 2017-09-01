@@ -60,6 +60,9 @@ function updateMap()
                 }
             }
         }    
+        
+        if(selectedMarkerRoute != null && document.getElementById("chkMapFollow").checked)
+            map.setCenter(ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport].getPosition());
 
         updateInfo();
     }

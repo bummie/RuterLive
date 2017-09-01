@@ -12,8 +12,10 @@ function getSanntid(stoppId, linje, transType)
 {
     var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppId;
     
-    if(transType == 2) // Om buss legg til filter
+    if(transType === 2) // Om buss legg til filter
          URL_SANNTID = URL_SANNTID + "&linje=" + linje;
+    
+    //print( transType + " " + URL_SANNTID);
     if(linje != null)
     {
         jQuery.ajax(

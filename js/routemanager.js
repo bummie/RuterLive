@@ -34,7 +34,7 @@ function Route(id, stopArray, transType)
     
     this.getTransportationType = function()
     {
-        return this.getTransportationType;
+        return this.transportType;
     }
     
     this.getPositionFromStop = function(stopId)

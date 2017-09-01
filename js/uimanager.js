@@ -22,6 +22,7 @@ function updateInfo()
             document.getElementById("infoTitle").innerHTML = "Tittel: " + tran.getTitle();
             document.getElementById("infoId").innerHTML = "Id: " + tran.getId();
             document.getElementById("infoPosition").innerHTML = "Posisjon: " + tran.getPosition().lat + ",\n " + tran.getPosition().lng;
+            document.getElementById("infoSpeed").innerHTML = "Hastighet: " + tran.getVelocity();
             //document.getElementById("infoTowardsPosition").innerHTML = "På vei til: " + tran.getTowardsPosition();
             //document.getElementById("infoLastPosition").innerHTML = "Forrige Pos: " + tran.getLastPosition();
             //document.getElementById("infoOriginId").innerHTML = "StartId: " + tran.getOriginId();

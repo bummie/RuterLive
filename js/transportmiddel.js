@@ -7,10 +7,7 @@ function Transport(id, marker, pos)
     this.towardsPosition = pos;
     this.lastPosition = null;
     this.marker.setPosition(pos);
-    this.velocity = {
-                        x: 0,
-                        y: 0
-                    };
+    this.velocity = null;
     
     this.originId = null;
     this.originName = null;
@@ -21,6 +18,7 @@ function Transport(id, marker, pos)
     this.headingTo = null;
     this.headingFrom = null;
     this.arrivalTime = null;
+    this.lastArrivalTime = null;
     
     this.arrived = true;
     
@@ -184,6 +182,7 @@ function Transport(id, marker, pos)
         
         if(this.getTowardsPosition() != null)
         {
+            
             var direction = 
                 {
                     x: this.getTowardsPosition().lat - this.getPosition().lat, 
@@ -201,18 +200,22 @@ function Transport(id, marker, pos)
                 if(direction.x != correctDirection.x && direction.y != correctDirection.y)
                     this.setPosition(this.getLastPosition());
             }*/
-
-            var dateNow = new Date();
-            var changeSecond = Math.abs((new Date() - this.getArrivalTime())/1000);
-            var speed = calculateDistance(this.getTowardsPosition().lat, this.getTowardsPosition().lng, this.getPosition().lat, this.getPosition().lng ) / changeSecond;
-
-            //console.log(speed + " SPEED" + " SECOND" + changeSecond);
-
+            
+            if(this.lastArrivalTime !== this.getArrivalTime() || this.lastArrivalTime == null )
+            {
+                var dateNow = new Date();
+                var changeSecond = Math.abs((new Date() - this.getArrivalTime())/1000);
+                if(changeSecond == 0)
+                    changeSecond = 1;
+                this.setVelocity(calculateDistance(this.getTowardsPosition().lat, this.getTowardsPosition().lng, this.getPosition().lat, this.getPosition().lng ) / changeSecond);
+                
+                this.lastArrivalTime = this.getArrivalTime();
+            }
+          
             var newPos = {
-                                lat: this.getPosition().lat + direction.x * speed, 
-                                lng: this.getPosition().lng + direction.y * speed
+                                lat: this.getPosition().lat + direction.x * this.getVelocity(), 
+                                lng: this.getPosition().lng + direction.y * this.getVelocity()
                             };
-            //console.log(direction.x + ", " + direction.y);
 
             this.setPosition(newPos);   
         }

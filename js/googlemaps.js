@@ -43,12 +43,7 @@ function updateMap()
                     { 
                         if(transport[j].getLastPosition() == null)
                             transport[j].setLastPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getOriginId()));
-                       
-                        if(isNaN(transport[j].getPosition().lat || isNaN(transport[j].getPosition().lng)))
-                        {
-                            console.log("FANT EN NAN GJENOPPRETTER");
-                        transport[j].setPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
-                        } transport[j].setTowardsPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
+                        transport[j].setTowardsPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
                     }
                 }
             }    
@@ -86,7 +81,7 @@ function updateSanntid()
                     for(var j = 0; j < stops.length; j++)
                     {
                         if(stops[j] != null)
-                            getSanntid(stops[j].getId(), ROUTE_MANAGER[i].getId());
+                            getSanntid(stops[j].getId(), ROUTE_MANAGER[i].getId(), ROUTE_MANAGER[i].getTransportationType());
                     } 
                 }
                 else

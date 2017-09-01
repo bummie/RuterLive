@@ -8,10 +8,12 @@ var URL_STOPPESTEDER = "php/index.php?type=stops";
 
 var LOG_PARSE = "[PARSER]: ";
 
-function getSanntid(stoppId, linje)
+function getSanntid(stoppId, linje, transType)
 {
-    var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppId + "&linje=" + linje;
-
+    var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppId;
+    
+    if(transType == 2) // Om buss legg til filter
+         URL_SANNTID = URL_SANNTID + "&linje=" + linje;
     if(linje != null)
     {
         jQuery.ajax(
@@ -61,11 +63,9 @@ function getStartStop(stoppArray, linje, transType)
 {
     var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppArray[0] 
     
-    print("Transport: " + transType);
     if(transType == 2) // Om buss legg til filter
          URL_SANNTID = URL_SANNTID + "&linje=" + linje;
     
-        print("URL: " + URL_SANNTID);
     if(linje != null)
     {
         jQuery.ajax(
@@ -146,11 +146,19 @@ function getLinjeData(linjeNavn)
             success: function(response)
             {
                 var funnetNavn = false;
+                var idEksisterer = false;
                 for(var i = 0; i < response.length; i++)
                 {
                     if(response[i].Name === linjeNavn)
                     {
-                        getStops(response[i].ID, response[i].Transportation);
+                        for(var j = 0; j < ROUTE_MANAGER.length; j++)
+                        {
+                            if(ROUTE_MANAGER[j].getId() === response[i].ID )
+                                idEksisterer = true;
+                        }
+                        
+                        if(!idEksisterer)
+                            getStops(response[i].ID, response[i].Transportation);
                         funnetNavn = true;
                         break;
                     }
@@ -159,6 +167,8 @@ function getLinjeData(linjeNavn)
                     print("Fant linje: " + linjeNavn);
                 else
                     print("Fant ikke linje: " + linjeNavn);
+                 if(idEksisterer)
+                    print("Denne linjen eksisterer allerede!");
 
             },
             async:true

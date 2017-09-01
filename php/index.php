@@ -3,6 +3,8 @@
 $MASTER_URL = 'http://reisapi.ruter.no/';
 $LOAD_STOPS = 'Place/GetStopsByLineID/';
 $LOAD_SANNTID = 'StopVisit/GetDepartures/';
+$LOAD_LINJER = 'Line/GetLines/';
+
 
 switch($_GET["type"])
 {
@@ -12,6 +14,10 @@ switch($_GET["type"])
     
     case 'sanntid':
         getSanntid();
+    break;
+        
+    case 'linjer':
+        getLinjer();
     break;
 }
 
@@ -30,8 +36,20 @@ function getSanntid()
 {
     global $MASTER_URL, $LOAD_SANNTID;
     $id = $_GET['id'];
-    $linje = $_GET['linje'];
-    $url = $MASTER_URL . $LOAD_SANNTID . $id . '?linenames=' . $linje;    
+    $url = $MASTER_URL . $LOAD_SANNTID . $id;   
+    if(isset($_GET['linje']))
+    {
+        $linje = $_GET['linje'];
+        $url = $url . '?linenames=' . $linje;  
+    }
+    print_r(getSiteData($url));
+}
+
+// Henter linjene
+function getLinjer()
+{
+    global $MASTER_URL, $LOAD_LINJER;
+    $url = $MASTER_URL . $LOAD_LINJER;    
     print_r(getSiteData($url));
 }
 

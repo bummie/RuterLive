@@ -1,6 +1,8 @@
 // Parse all the data!
 
 var stopPosFileLocation = "data/StoppeSteder.stop";
+var linjerFileLocation = "data/Linjer.json";
+
 var URL_SANNTID = "php/index.php?type=sanntid";
 var URL_STOPPESTEDER = "php/index.php?type=stops";
 
@@ -28,7 +30,7 @@ function getSanntid(stoppId, linje)
     }
 }
 
-function getStops(linje)
+function getStops(linje, transType)
 {
     var URL_SANNTID = "php/index.php?type=stops&linje=" + linje;
 
@@ -47,18 +49,23 @@ function getStops(linje)
                     stoppArr[i] = data[i].ID;
                     //console.log(i + " " + data[i].ID);
                 }
-                console.log(LOG_PARSE + " getStops done");
-                getStartStop(stoppArr, linje);
+                print(LOG_PARSE + " getStops done");
+                getStartStop(stoppArr, linje, transType);
             },
             async:true
         });
     }
 }
 
-function getStartStop(stoppArray, linje)
+function getStartStop(stoppArray, linje, transType)
 {
-    var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppArray[0] + "&linje=" + linje;
-
+    var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppArray[0] 
+    
+    print("Transport: " + transType);
+    if(transType == 2) // Om buss legg til filter
+         URL_SANNTID = URL_SANNTID + "&linje=" + linje;
+    
+        print("URL: " + URL_SANNTID);
     if(linje != null)
     {
         jQuery.ajax(
@@ -67,10 +74,18 @@ function getStartStop(stoppArray, linje)
             success: function(response)
             {
                 var data = JSON.parse(response);
-                var startStoppId = data[0]["MonitoredVehicleJourney"].OriginRef;
+                if(data != null && data.length > 0)
+                {
+                    var startStoppId = data[0]["MonitoredVehicleJourney"].OriginRef;
+                    if(startStoppId == null)
+                        print("Fant ingen startId");
+                    
+                    print(LOG_PARSE + " getStartStop done");
+                    getStopPositions(stoppArray, startStoppId, linje, transType);    
+
+                }else
+                    print(LOG_PARSE + "Fant ikke startId, kan ikke hente stoppesteder");
                 
-                console.log(LOG_PARSE + " getStartStop done");
-                getStopPositions(stoppArray, startStoppId, linje);
             },
             async:true
         });
@@ -78,7 +93,7 @@ function getStartStop(stoppArray, linje)
 }
 
 // Henter stoppestedposisjon fra stoppesteder.stop
-function getStopPositions(stoppIdList, startStopp, linje)
+function getStopPositions(stoppIdList, startStopp, linje, transType)
 {
     if(stoppIdList != null && stoppIdList.length > 0)
     {
@@ -97,6 +112,7 @@ function getStopPositions(stoppIdList, startStopp, linje)
                             var busSplit = bussStopp.split(",");
                             if(busSplit[0] == stoppId)
                             {
+                                //print(busSplit[0] + " = " + stoppId);
                                 var pos = {lat: parseFloat(busSplit[2]), lng: parseFloat(busSplit[3])};
                                 stopsList[arrayIncrementer] = new Stop(busSplit[0], busSplit[1], pos);  
                                 
@@ -104,16 +120,52 @@ function getStopPositions(stoppIdList, startStopp, linje)
                             }
                         });
                     });
-                console.log(LOG_PARSE + " getStopPositions done");
-                print(LOG_PARSE + " getStopPositions done");
-
-                doneLoadingStops(sorterStopp(stopsList, startStopp), linje);
+                
+                print(LOG_PARSE + " getStopPositions done, " + arrayIncrementer + " stopp funnet");
+                if(startStopp != null)
+                    stopsList = sorterStopp(stopsList, startStopp);
+                    
+                doneLoadingStops(stopsList, linje, transType);
             },
             async:true
         });
     }
     else
         doneLoadingStops(null);
+}
+
+// Henter busslinjedata fra Linjer.json
+function getLinjeData(linjeNavn)
+{
+    if(linjeNavn != null)
+    { 
+        linjeNavn = linjeNavn.toUpperCase();
+        jQuery.ajax(
+        {
+            url: linjerFileLocation,
+            success: function(response)
+            {
+                var funnetNavn = false;
+                for(var i = 0; i < response.length; i++)
+                {
+                    if(response[i].Name === linjeNavn)
+                    {
+                        getStops(response[i].ID, response[i].Transportation);
+                        funnetNavn = true;
+                        break;
+                    }
+                }
+                if(funnetNavn)
+                    print("Fant linje: " + linjeNavn);
+                else
+                    print("Fant ikke linje: " + linjeNavn);
+
+            },
+            async:true
+        });
+    }
+    else
+        print("Linje kan ikke være av typen null");
 }
 
 // Sorterer busstoppene, de nærmeste ved siden av hverandre
@@ -140,16 +192,23 @@ function sorterStopp(stoppArray, startStopp)
             if(stoppArray[i] != null && sortertArray[j] != null)
             {
                 var dist = calculateDistance(sortertArray[j].getPosition().lat, sortertArray[j].getPosition().lng, stoppArray[i].getPosition().lat, stoppArray[i].getPosition().lng, "K");
-                if(shortestDistance == null || dist < shortestDistance )
+                if(shortestDistance == null || shortestDistIndex == null || dist < shortestDistance )
                 {
                     shortestDistance = dist;
                     shortestDistIndex = i;
                 }
+            }else
+            {
+                print("StoppArray er null");
             }
         }
         //console.log(stoppArray[shortestDistIndex].getName());
         if(sortertArray.length-1 >= (j+1))
         {
+            if(shortestDistIndex == null)
+                print("NULL INDEX");
+            if(stoppArray[shortestDistIndex] == null)
+                print("NULL SORTERT");
             sortertArray[j+1] = stoppArray[shortestDistIndex];
             stoppArray[shortestDistIndex] = null;    
         }   

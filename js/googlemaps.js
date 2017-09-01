@@ -3,7 +3,7 @@ var ikonBase  = "img/ikoner/";
 var ikoner = 
         {
           buss: ikonBase + 'ikon_buss.png',
-          trikk: ikonBase + 'ikon_buss.png',
+          buss_selected: ikonBase + 'ikon_buss_selected.png',
           tbane: ikonBase + 'ikon_buss.png',
           tog: ikonBase + 'ikon_buss.png'
         };
@@ -33,8 +33,7 @@ function updateMap()
     {
         if(!UPDATING_SANNTID)
         {
-            console.log("UPDATING MOVEMENT");
-            print("Flytter busser");
+            print("Flytter transportmidler");
             if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
             {
                 for(var i = 0; i < ROUTE_MANAGER.length; i++)
@@ -44,7 +43,12 @@ function updateMap()
                     { 
                         if(transport[j].getLastPosition() == null)
                             transport[j].setLastPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getOriginId()));
-                        transport[j].setTowardsPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
+                       
+                        if(isNaN(transport[j].getPosition().lat || isNaN(transport[j].getPosition().lng)))
+                        {
+                            console.log("FANT EN NAN GJENOPPRETTER");
+                        transport[j].setPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
+                        } transport[j].setTowardsPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
                     }
                 }
             }    
@@ -75,12 +79,18 @@ function updateSanntid()
             for(var i = 0; i < ROUTE_MANAGER.length; i++)
             {
                 var stops = ROUTE_MANAGER[i].getStops();
-                UPDATING_SANNTID_SIZE += stops.length;
-                UPDATING_SANNTID = true;
-                for(var j = 0; j < stops.length; j++)
+                if(stops != null && stops.length > 0)
                 {
-                    getSanntid(stops[j].getId(), ROUTE_MANAGER[i].getId());
+                    UPDATING_SANNTID_SIZE += stops.length;
+                    UPDATING_SANNTID = true;
+                    for(var j = 0; j < stops.length; j++)
+                    {
+                        if(stops[j] != null)
+                            getSanntid(stops[j].getId(), ROUTE_MANAGER[i].getId());
+                    } 
                 }
+                else
+                    print("Stops er tom");
             }
         }
     }
@@ -90,6 +100,9 @@ function changeCurrentMarker(vehicleId)
 {
     if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
     {
+        if(selectedMarkerRoute != null)
+            ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport].getMarker().setIcon(ikoner.buss);
+
         for(var i = 0; i < ROUTE_MANAGER.length; i++)
         {
             var transport = ROUTE_MANAGER[i].getTransport();
@@ -97,6 +110,7 @@ function changeCurrentMarker(vehicleId)
             { 
                 if(transport[j].getId() == vehicleId)
                 {
+                    transport[j].getMarker().setIcon(ikoner.buss_selected);
                     selectedMarkerRoute = i;
                     selectedMarkerTransport = j;
                 }
@@ -123,7 +137,7 @@ function btnAddTransport()
     var inputValue = document.getElementById("inputTransportId").value;
     if(inputValue != null || inputValue === "" )
     {
-        getStops(inputValue);
+        getLinjeData(inputValue);
         print("Henter stoppdata for rute " + inputValue);
         document.getElementById("btnAddTransport").disabled = true;
     }
@@ -157,5 +171,6 @@ function updateInfo()
 
 function print(text)
 {
-     document.getElementById("infoConsole").innerHTML = text;
+    console.log(text);
+    document.getElementById("infoConsole").innerHTML = text;
 }

@@ -19,6 +19,8 @@ http://reisapi.ruter.no/Place/GetStopsRuter
         <script src="js/googlemaps.js"></script>
         <script src="js/transportmiddel.js"></script>
         <script src="js/parser.js"></script>
+        <script src="js/uimanager.js"></script>
+
         
         <!--CSS-->
         <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -35,10 +37,13 @@ http://reisapi.ruter.no/Place/GetStopsRuter
             <div class="centerContainer">
                 <button id="btnAddTransport" onclick="btnAddTransport()">Legg til transport</button>
                 <input id="inputTransportId" type="text" name="transportId" placeholder="Linjenummer..">
+                <select id="selectRoute" onchange="onChangeRoute()"></select>
+                <select id="selectTransport" onchange="onChangeTransport()"></select>
+                
                 <div id="infoConsole"></div>
-
                  <div class="infoContainer">
                     <div class="InfoText" id="infoTitle"></div>
+                    <div class="InfoText" id="infoId"></div>
                     <div class="InfoText" id="infoPosition"></div>
                     <div class="InfoText" id="infoTowardsPosition"></div>
                     <div class="InfoText" id="infoLastPosition"></div>

@@ -76,6 +76,8 @@ function doneLoadingStops(stopsArray, linje, transType)
     {
         print("Added " + stopsArray.length + " stops to Routearray");
         ROUTE_MANAGER[ROUTE_MANAGER.length] = new Route(linje, stopsArray, transType);
+        updateDropdown();
+
     }else
         print("Fikk ingen stopp");
 }
@@ -148,7 +150,8 @@ function doneLoadingTransport(transportArray, linje)
             UPDATING_SANNTID_AMOUNT = 0;
             UPDATING_SANNTID_SIZE = 0;
         }
-            
+        
+        updateDropdown();
         //console.log("Received " + transportArray.length + " transports");
     }
 }

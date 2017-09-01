@@ -100,9 +100,6 @@ function changeCurrentMarker(vehicleId)
 {
     if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
     {
-        if(selectedMarkerRoute != null)
-            ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport].getMarker().setIcon(ikoner.buss);
-
         for(var i = 0; i < ROUTE_MANAGER.length; i++)
         {
             var transport = ROUTE_MANAGER[i].getTransport();
@@ -110,13 +107,19 @@ function changeCurrentMarker(vehicleId)
             { 
                 if(transport[j].getId() == vehicleId)
                 {
-                    transport[j].getMarker().setIcon(ikoner.buss_selected);
-                    selectedMarkerRoute = i;
-                    selectedMarkerTransport = j;
+                   setSelected(i, j);
                 }
             }
         }
     }    
+}
+
+function changeIcon(transport, icon)
+{
+    if(transport != null && icon != null)
+    {
+        transport.getMarker().setIcon(icon);
+    }
 }
 
 function getStopNameFromId(routeId, stopId)
@@ -130,47 +133,4 @@ function getStopNameFromId(routeId, stopId)
                 return stops[i].getName();
         }
     }
-}
-
-function btnAddTransport()
-{
-    var inputValue = document.getElementById("inputTransportId").value;
-    if(inputValue != null || inputValue === "" )
-    {
-        getLinjeData(inputValue);
-        print("Henter stoppdata for rute " + inputValue);
-        document.getElementById("btnAddTransport").disabled = true;
-    }
-}
-
-function updateInfo()
-{
-    if(selectedMarkerRoute != null && selectedMarkerTransport != null)
-    {
-        var tran = ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport];
-
-        if(tran != null)
-        {
-            document.getElementById("infoTitle").innerHTML = "Tittel: " + tran.getTitle();
-            document.getElementById("infoPosition").innerHTML = "Posisjon: " + tran.getPosition().lat + ",\n " + tran.getPosition().lng;
-            //document.getElementById("infoTowardsPosition").innerHTML = "På vei til: " + tran.getTowardsPosition();
-            //document.getElementById("infoLastPosition").innerHTML = "Forrige Pos: " + tran.getLastPosition();
-            //document.getElementById("infoOriginId").innerHTML = "StartId: " + tran.getOriginId();
-            document.getElementById("infoOriginName").innerHTML = "StartNavn: " + tran.getOriginName();
-            //document.getElementById("infoDestinationId").innerHTML = "DestinasjonsId: " + tran.getDestinationId();
-            document.getElementById("infoDestinationName").innerHTML = "DestinasjonsNavn: " + tran.getDestinationName();
-            document.getElementById("infoHeadingTo").innerHTML = "NesteStopp: " + getStopNameFromId(selectedMarkerRoute, tran.getHeadingTo());
-            document.getElementById("infoHeadingFrom").innerHTML = "SistStopp: " + getStopNameFromId(selectedMarkerRoute, tran.getHeadingFrom());
-            
-            var changeSecond = Math.abs((new Date() - tran.getArrivalTime())/1000);
-            document.getElementById("infoTimeLeft").innerHTML = "Tid igjen: " + changeSecond + " sekunder";
-
-        }
-    }
-}
-
-function print(text)
-{
-    console.log(text);
-    document.getElementById("infoConsole").innerHTML = text;
 }

@@ -5,12 +5,13 @@ var UPDATING_SANNTID = false;
 var UPDATING_SANNTID_AMOUNT = 0;
 var UPDATING_SANNTID_SIZE = 0;
 
-function Route(id, stopArray, transType)
+function Route(id, stopArray, transType, stopsSorted)
 {
     this.id = id;
     this.stops = stopArray
     this.transport = new Array();
     this.transportType = transType;
+    this.stopsSorted = stopsSorted;
     
     this.getId = function()
     {
@@ -35,6 +36,11 @@ function Route(id, stopArray, transType)
     this.getTransportationType = function()
     {
         return this.transportType;
+    }
+    
+    this.areStopsSorted = function()
+    {
+        return this.stopsSorted;
     }
     
     this.getPositionFromStop = function(stopId)
@@ -70,12 +76,12 @@ function Stop(id, name, position)
     }
 }
 
-function doneLoadingStops(stopsArray, linje, transType)
+function doneLoadingStops(stopsArray, linje, transType, sorted)
 {
     if(stopsArray != null && stopsArray.length > 0)
     {
         print("Added " + stopsArray.length + " stops to Routearray");
-        ROUTE_MANAGER[ROUTE_MANAGER.length] = new Route(linje, stopsArray, transType);
+        ROUTE_MANAGER[ROUTE_MANAGER.length] = new Route(linje, stopsArray, transType, sorted);
         updateDropdown();
 
     }else

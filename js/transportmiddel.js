@@ -5,7 +5,7 @@ function Transport(id, marker, pos)
     this.title = "";
     this.position = pos;
     this.towardsPosition = pos;
-    this.lastPosition = null;
+    this.lastPosition = pos;
     this.marker.setPosition(pos);
     this.velocity = null;
     
@@ -17,10 +17,13 @@ function Transport(id, marker, pos)
     this.alive = false;
     this.headingTo = null;
     this.headingFrom = null;
+    
     this.arrivalTime = null;
     this.lastArrivalTime = null;
+    this.totalTime = null;
     
     this.arrived = true;
+    this.timeSinceUpdate = null;
     
     // Getters and setters
     this.getId = function()
@@ -177,48 +180,40 @@ function Transport(id, marker, pos)
     // Do stuff functions
     this.move = function()
     {
-        if(this.getHeadingFrom() == null)
+        if(this.lastArrivalTime !== this.getArrivalTime())
+        {
+            this.totalTime = Math.abs((new Date() - this.getArrivalTime())/1000);
+            this.lastArrivalTime = this.getArrivalTime();
+        }
+        
+         if(this.getHeadingFrom() == null)
             this.setPosition(this.getTowardsPosition());
         
         if(this.getTowardsPosition() != null)
-        {
+        {   
+            var timeLeft = (this.getArrivalTime() - (new Date()))/1000;
+            //console.log(timeLeft);
             
-            var direction = 
-                {
-                    x: this.getTowardsPosition().lat - this.getPosition().lat, 
-                    y: this.getTowardsPosition().lng - this.getPosition().lng
-                };
-        
-            // Cray eksperiment korrigering av pos
-            /*
-            if(this.getLastPosition() != null)
+            // Så bussen stopper når den er fremme yo
+            if(timeLeft > 0)
             {
-                var correctDirection = {
-                                x: this.getTowardsPosition().lat - this.getLastPosition().lat, 
-                                y: this.getTowardsPosition().lng - this.getLastPosition().lng
-                            };
-                if(direction.x != correctDirection.x && direction.y != correctDirection.y)
-                    this.setPosition(this.getLastPosition());
-            }*/
-            
-            if(this.lastArrivalTime !== this.getArrivalTime() || this.lastArrivalTime == null )
-            {
-                var dateNow = new Date();
-                var changeSecond = Math.abs((new Date() - this.getArrivalTime())/1000);
-                if(changeSecond == 0)
-                    changeSecond = 1;
-                this.setVelocity(calculateDistance(this.getTowardsPosition().lat, this.getTowardsPosition().lng, this.getPosition().lat, this.getPosition().lng ) / changeSecond);
-                
-                this.lastArrivalTime = this.getArrivalTime();
-            }
-          
-            var newPos = {
-                                lat: this.getPosition().lat + direction.x * this.getVelocity(), 
-                                lng: this.getPosition().lng + direction.y * this.getVelocity()
-                            };
+                var changeSecond = ((this.totalTime - (Math.abs((new Date()) - this.getArrivalTime())/1000)) / this.totalTime);
+           
+                var latDistance = this.getTowardsPosition().lat - this.getLastPosition().lat;
+                var lngDistance = this.getTowardsPosition().lng - this.getLastPosition().lng;
 
-            this.setPosition(newPos);   
+                var changeLat = ((latDistance * changeSecond));//* deltaTime);
+                var changeLng = ((lngDistance * changeSecond));// * deltaTime);
+
+                this.setVelocity(changeLat);
+                //console.log("x: " + changeLat + " y:" + changeLng);
+                var newPos = {
+                                    lat: this.getLastPosition().lat + changeLat, 
+                                    lng: this.getLastPosition().lng + changeLng
+                                };
+
+                this.setPosition(newPos);   
+            }
         }
     }
-
 }

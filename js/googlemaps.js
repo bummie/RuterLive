@@ -44,6 +44,9 @@ function updateMap()
                         if(transport[j].getLastPosition() == null)
                             transport[j].setLastPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getOriginId()));
                         transport[j].setTowardsPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
+                       
+                        if(transport[j].getHeadingFrom() != null)
+                            transport[j].setLastPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingFrom()));
                     }
                 }
             }    

@@ -124,10 +124,14 @@ function getStopPositions(stoppIdList, startStopp, linje, transType)
                     });
                 
                 print(LOG_PARSE + " getStopPositions done, " + arrayIncrementer + " stopp funnet");
+                var sortert = false;
                 if(startStopp != null)
+                {
                     stopsList = sorterStopp(stopsList, startStopp);
+                    sortert = true;
+                }
                     
-                doneLoadingStops(stopsList, linje, transType);
+                doneLoadingStops(stopsList, linje, transType, sortert);
             },
             async:true
         });
@@ -243,5 +247,5 @@ function calculateDistance(lat1, lon1, lat2, lon2, unit)
         dist = dist * 60 * 1.1515
         if (unit=="K") { dist = dist * 1.609344 }
         if (unit=="N") { dist = dist * 0.8684 }
-        return dist;
+        return dist*1000;
 }

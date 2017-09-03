@@ -23,11 +23,11 @@ function updateInfo()
             document.getElementById("infoId").innerHTML = "Id: " + tran.getId();
             document.getElementById("infoPosition").innerHTML = "Posisjon: " + tran.getPosition().lat + ",\n " + tran.getPosition().lng;
             document.getElementById("infoSpeed").innerHTML = "Hastighet: " + tran.getVelocity();
-            //document.getElementById("infoTowardsPosition").innerHTML = "På vei til: " + tran.getTowardsPosition();
-            //document.getElementById("infoLastPosition").innerHTML = "Forrige Pos: " + tran.getLastPosition();
-            //document.getElementById("infoOriginId").innerHTML = "StartId: " + tran.getOriginId();
+            document.getElementById("infoTowardsPosition").innerHTML = "Towards-Posisjon: " + tran.getTowardsPosition().lat + ",\n " + tran.getTowardsPosition().lng;
+            document.getElementById("infoLastPosition").innerHTML = "Last-Posisjon: " + tran.getLastPosition().lat + ",\n " + tran.getLastPosition().lng;
+            document.getElementById("infoOriginId").innerHTML = "StartId: " + tran.getOriginId();
             document.getElementById("infoOriginName").innerHTML = "StartNavn: " + tran.getOriginName();
-            //document.getElementById("infoDestinationId").innerHTML = "DestinasjonsId: " + tran.getDestinationId();
+            document.getElementById("infoDestinationId").innerHTML = "DestinasjonsId: " + tran.getDestinationId();
             document.getElementById("infoDestinationName").innerHTML = "DestinasjonsNavn: " + tran.getDestinationName();
             document.getElementById("infoHeadingTo").innerHTML = "NesteStopp: " + getStopNameFromId(selectedMarkerRoute, tran.getHeadingTo());
             document.getElementById("infoHeadingFrom").innerHTML = "SistStopp: " + getStopNameFromId(selectedMarkerRoute, tran.getHeadingFrom());
@@ -40,7 +40,7 @@ function updateInfo()
 
 function print(text)
 {
-    console.log(text);
+    //console.log(text);
     document.getElementById("infoConsole").innerHTML = text;
 }
 

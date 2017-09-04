@@ -23,7 +23,7 @@ function btnRemoveTransport()
                 var tran = ROUTE_MANAGER[i].getTransport();
                 for(var j = 0; j < tran.length; j++)
                 {
-                    tran[j].setMarker = null;
+                    tran[j].getMarker().setMap(null);
                 }
                 ROUTE_MANAGER[i] = null;
                 print("Slettet rute: " + selectRoute.value);

@@ -31,30 +31,30 @@ function updateMap()
 {
     if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
     {
-        if(!UPDATING_SANNTID)
+        for(var i = 0; i < ROUTE_MANAGER.length; i++)
         {
-            print("Flytter transportmidler");
-            if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
+            if(ROUTE_MANAGER[i] != null)
             {
-                for(var i = 0; i < ROUTE_MANAGER.length; i++)
+                if(!ROUTE_MANAGER[i].updateSanntid)
                 {
+                    print("Flytter " + ROUTE_MANAGER[i].getId());
                     var transport = ROUTE_MANAGER[i].getTransport();
                     for(var j = 0; j < transport.length; j++)
                     { 
                         if(transport[j].getLastPosition() == null)
                             transport[j].setLastPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getOriginId()));
                         transport[j].setTowardsPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingTo()));
-                       
+
                         if(transport[j].getHeadingFrom() != null)
                             transport[j].setLastPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingFrom()));
                     }
-                }
-            }    
-        } 
+                }   
+            }
+        }
 
-        if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
+        for(var i = 0; i < ROUTE_MANAGER.length; i++)
         {
-            for(var i = 0; i < ROUTE_MANAGER.length; i++)
+            if(ROUTE_MANAGER[i] != null)
             {
                 var transport = ROUTE_MANAGER[i].getTransport();
                 for(var j = 0; j < transport.length; j++)
@@ -62,7 +62,7 @@ function updateMap()
                     transport[j].move();
                 }
             }
-        }    
+        }   
         
         if(selectedMarkerRoute != null && document.getElementById("chkMapFollow").checked)
             map.setCenter(ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport].getPosition());
@@ -73,25 +73,28 @@ function updateMap()
 
 function updateSanntid()
 {
-    if(!UPDATING_SANNTID)
+    if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
     {
-        if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
-        {
-            for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        { 
+            if(ROUTE_MANAGER[i] != null)
             {
-                var stops = ROUTE_MANAGER[i].getStops();
-                if(stops != null && stops.length > 0)
+               if(!ROUTE_MANAGER[i].updateSanntid)
                 {
-                    UPDATING_SANNTID_SIZE += stops.length;
-                    UPDATING_SANNTID = true;
-                    for(var j = 0; j < stops.length; j++)
+                    var stops = ROUTE_MANAGER[i].getStops();
+                    if(stops != null && stops.length > 0)
                     {
-                        if(stops[j] != null)
-                            getSanntid(stops[j].getId(), ROUTE_MANAGER[i].getId(), ROUTE_MANAGER[i].getTransportationType());
-                    } 
-                }
-                else
-                    print("Stops er tom");
+                        ROUTE_MANAGER[i].updateSanntidSize = stops.length;
+                        ROUTE_MANAGER[i].updateSanntid = true;
+                        for(var j = 0; j < stops.length; j++)
+                        {
+                            if(stops[j] != null)
+                                getSanntid(stops[j].getId(), ROUTE_MANAGER[i].getId(), ROUTE_MANAGER[i].getTransportationType());
+                        } 
+                    }
+                    else
+                        print("Stops er tom");
+                } 
             }
         }
     }

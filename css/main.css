@@ -23,7 +23,20 @@ button
      -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
+}
 
+.btnDel
+{
+     -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #af4c4c; /* Green */
+}
+
+.btnDel:hover
+{
+    background-color: #cc8b8b; /* Green */
+    cursor: grab;
 }
 
 button:hover {

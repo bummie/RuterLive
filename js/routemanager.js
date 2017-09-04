@@ -13,6 +13,10 @@ function Route(id, stopArray, transType, stopsSorted)
     this.transportType = transType;
     this.stopsSorted = stopsSorted;
     
+    this.updateSanntid = false;
+    this.updateSanntidAmount = 0;
+    this.updateSanntidSize = 0;
+    
     this.getId = function()
     {
         return this.id;
@@ -90,20 +94,24 @@ function doneLoadingStops(stopsArray, linje, transType, sorted)
 
 function doneLoadingTransport(transportArray, linje)
 {
-    UPDATING_SANNTID_AMOUNT += 1;
-
     if(transportArray != null)
     {
         // Finne Ruten dataen gjelder for
         var route = null;
         for(var i = 0; i < ROUTE_MANAGER.length; i++)
         {
+            if(ROUTE_MANAGER[i] == null)
+                return;
             if(ROUTE_MANAGER[i].getId() == linje)
             {
                 route = ROUTE_MANAGER[i];
                 break;
             }
         }
+        
+        
+        
+        route.updateSanntidAmount += 1;
         
         // Finne transport i forhold til id og oppdatere data
         var transportRouteArray = route.getTransport();
@@ -148,13 +156,13 @@ function doneLoadingTransport(transportArray, linje)
         }
         route.setTransport(transportRouteArray);
         
-        print(LOG_PARSE + " Henter sanntidsdata ["+UPDATING_SANNTID_AMOUNT+"/"+UPDATING_SANNTID_SIZE+"]");
+        print(LOG_PARSE + " Henter sanntidsdata ["+route.updateSanntidAmount+"/"+route.updateSanntidSize+"]");
         //console.log(UPDATING_SANNTID_AMOUNT + " : " + UPDATING_SANNTID_SIZE);
-        if(UPDATING_SANNTID_AMOUNT >= UPDATING_SANNTID_SIZE)
+        if(route.updateSanntidAmount >= route.updateSanntidSize)
         {
-            UPDATING_SANNTID = false;
-            UPDATING_SANNTID_AMOUNT = 0;
-            UPDATING_SANNTID_SIZE = 0;
+            route.updateSanntid = false;
+            route.updateSanntidAmount = 0;
+            route.updateSanntidSize = 0;
         }
         
         updateDropdown();
@@ -221,6 +229,7 @@ function updateTransport(transport, data)
                     transport.setHeadingFrom(transport.getHeadingTo());
                 transport.setHeadingTo(data.MonitoringRef);
                 transport.setArrivalTime(arrivalTime);
+                transport.setTitle(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay);
             }    
         
         return transport;

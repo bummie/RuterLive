@@ -11,12 +11,35 @@ function btnAddTransport()
     }
 }
 
+function btnRemoveTransport()
+{
+    var selectRoute = document.getElementById("selectRoute");
+    if(selectRoute != null)
+    {
+        for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        {
+            if(selectRoute.value == i)
+            {
+                var tran = ROUTE_MANAGER[i].getTransport();
+                for(var j = 0; j < tran.length; j++)
+                {
+                    tran[j].setMarker = null;
+                }
+                ROUTE_MANAGER[i] = null;
+                print("Slettet rute: " + selectRoute.value);
+            }
+        }
+    }
+}
+
 function updateInfo()
 {
     if(selectedMarkerRoute != null && selectedMarkerTransport != null)
     {
-        var tran = ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport];
-
+        var route = ROUTE_MANAGER[selectedMarkerRoute];
+        if(route != null)
+            var tran = route.getTransport()[selectedMarkerTransport];
+        else return;
         if(tran != null)
         {
             document.getElementById("infoTitle").innerHTML = "Tittel: " + tran.getTitle();
@@ -40,7 +63,7 @@ function updateInfo()
 
 function print(text)
 {
-    //console.log(text);
+    console.log(text);
     document.getElementById("infoConsole").innerHTML = text;
 }
 

@@ -201,7 +201,7 @@ function generateTransport(data)
                                             {
                                                 changeCurrentMarker(transObject.getId())
                                             });
-        print("Oppretet buss " + transObject.getId() );
+        //print("Oppretet buss " + transObject.getId() );
         
         return transObject;
     }

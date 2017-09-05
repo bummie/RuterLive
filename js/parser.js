@@ -12,7 +12,7 @@ function getSanntid(stoppId, linje, transType)
 {
     var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppId;
     
-    if(transType === 2) // Om buss legg til filter
+    if(transType === 2 || transType === 7 || transType === 8 ) // Om buss legg til filter
          URL_SANNTID = URL_SANNTID + "&linje=" + linje;
     
     //print( transType + " " + URL_SANNTID);
@@ -24,6 +24,8 @@ function getSanntid(stoppId, linje, transType)
             error: function()
             {
                 print("Henting av sanntid brukte for lang tid");
+                doneLoadingTransport(null, linje);
+
             },
             success: function(response)
             {
@@ -33,7 +35,7 @@ function getSanntid(stoppId, linje, transType)
 
                 doneLoadingTransport(data, linje);
             },
-            timeout: 3000,
+            timeout: 5000,
             async:true
         });
     }
@@ -70,7 +72,7 @@ function getStartStop(stoppArray, linje, transType)
 {
     var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppArray[0] 
     
-    if(transType == 2) // Om buss legg til filter
+    if(transType === 2 || transType === 7 || transType === 8 ) // Om buss legg til filter
          URL_SANNTID = URL_SANNTID + "&linje=" + linje;
     
     console.log(URL_SANNTID);
@@ -125,7 +127,6 @@ function getStopPositions(stoppIdList, startStopp, linje, transType)
                                 var pos = {lat: parseFloat(busSplit[2]), lng: parseFloat(busSplit[3])};
                                 stopsList[arrayIncrementer] = new Stop(busSplit[0], busSplit[1], pos);  
                                 
-                                console.log("Stopp: " + busSplit[0]);
                                 arrayIncrementer++;
                             }
                         });
@@ -133,7 +134,7 @@ function getStopPositions(stoppIdList, startStopp, linje, transType)
                 
                 print(LOG_PARSE + " getStopPositions done, " + arrayIncrementer + " stopp funnet");
                 var sortert = false;
-                if(startStopp != null)
+                if(startStopp != null && stopsList != null)
                 {
                     stopsList = sorterStopp(stopsList, startStopp);
                     sortert = true;

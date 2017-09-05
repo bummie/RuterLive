@@ -29,6 +29,7 @@ function btnRemoveTransport()
                 print("Slettet rute: " + selectRoute.value);
             }
         }
+        updateSelected();
     }
 }
 

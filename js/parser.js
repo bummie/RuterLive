@@ -21,6 +21,10 @@ function getSanntid(stoppId, linje, transType)
         jQuery.ajax(
         {
             url: URL_SANNTID,
+            error: function()
+            {
+                print("Henting av sanntid brukte for lang tid");
+            },
             success: function(response)
             {
                 var data = JSON.parse(response);
@@ -29,6 +33,7 @@ function getSanntid(stoppId, linje, transType)
 
                 doneLoadingTransport(data, linje);
             },
+            timeout: 3000,
             async:true
         });
     }
@@ -67,6 +72,8 @@ function getStartStop(stoppArray, linje, transType)
     
     if(transType == 2) // Om buss legg til filter
          URL_SANNTID = URL_SANNTID + "&linje=" + linje;
+    
+    console.log(URL_SANNTID);
     
     if(linje != null)
     {
@@ -118,6 +125,7 @@ function getStopPositions(stoppIdList, startStopp, linje, transType)
                                 var pos = {lat: parseFloat(busSplit[2]), lng: parseFloat(busSplit[3])};
                                 stopsList[arrayIncrementer] = new Stop(busSplit[0], busSplit[1], pos);  
                                 
+                                console.log("Stopp: " + busSplit[0]);
                                 arrayIncrementer++;
                             }
                         });
@@ -130,8 +138,11 @@ function getStopPositions(stoppIdList, startStopp, linje, transType)
                     stopsList = sorterStopp(stopsList, startStopp);
                     sortert = true;
                 }
-                    
-                doneLoadingStops(stopsList, linje, transType, sortert);
+                
+                if(stopsList != null)
+                    doneLoadingStops(stopsList, linje, transType, sortert);
+                else
+                    print("Feil med sortering");
             },
             async:true
         });
@@ -189,6 +200,8 @@ function sorterStopp(stoppArray, startStopp)
 {
     for ( i = 0; i < stoppArray.length; i++)
     {
+        if(stoppArray[i] ==  null)
+            return null;
         if(stoppArray[i].getId() == startStopp)
         {
             startStopp = i;

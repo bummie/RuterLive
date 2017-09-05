@@ -29,7 +29,15 @@ function btnRemoveTransport()
                 print("Slettet rute: " + selectRoute.value);
             }
         }
-        updateSelected();
+        for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        {
+            if(ROUTE_MANAGER[i] != null)
+            {
+                selectedMarkerRoute = i;
+                selectedMarkerTransport = 0;
+            }
+        }
+        updateDropdown();
     }
 }
 
@@ -79,10 +87,13 @@ function updateDropdown()
 
         for(var i = 0; i < ROUTE_MANAGER.length; i++)
         {
-            var valg = document.createElement("option");
-            valg.text = ROUTE_MANAGER[i].getId();
-            valg.value = i;
-            selectRoute.add(valg);
+            if(ROUTE_MANAGER[i] != null)
+            {
+                var valg = document.createElement("option");
+                valg.text = ROUTE_MANAGER[i].getId();
+                valg.value = i;
+                selectRoute.add(valg);   
+            }
         }
     }
     
@@ -93,24 +104,26 @@ function onChangeRoute()
 {
     if(ROUTE_MANAGER.length > 0)
     {
-        var transportArr = ROUTE_MANAGER[selectRoute.options[selectRoute.selectedIndex].value].getTransport();
-
-        if(transportArr != null && transportArr.length > 0)
+        if(ROUTE_MANAGER[selectRoute.options[selectRoute.selectedIndex].value] != null)
         {
-            if(transportArr.length != selectTransport.length)
+           var transportArr = ROUTE_MANAGER[selectRoute.options[selectRoute.selectedIndex].value].getTransport();
+        
+            if(transportArr != null && transportArr.length > 0)
             {
-                $('#selectTransport').empty()
-                for(var i = 0; i < transportArr.length; i++)
+                if(transportArr.length != selectTransport.length)
                 {
-                    var valg = document.createElement("option");
-                    valg.text = transportArr[i].getId();
-                    valg.value = i;
-                    selectTransport.add(valg);
+                    $('#selectTransport').empty()
+                    for(var i = 0; i < transportArr.length; i++)
+                    {
+                        var valg = document.createElement("option");
+                        valg.text = transportArr[i].getId();
+                        valg.value = i;
+                        selectTransport.add(valg);
+                    }
                 }
-            }
+            } 
         }
     }
-    
     updateSelected();
 }
   
@@ -126,13 +139,14 @@ function updateSelected()
     
     if(selectRoute.length > 0 && selectTransport.length > 0)
     {
-        if(selectedMarkerRoute != null)
+        if(selectedMarkerRoute != null && ROUTE_MANAGER[selectedMarkerRoute] != null)
             changeIcon( ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport], ikoner.buss);
         
         selectedMarkerRoute = selectRoute.options[selectRoute.selectedIndex].value;
         selectedMarkerTransport = selectTransport.options[selectTransport.selectedIndex].value;
         
-        changeIcon( ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport], ikoner.buss_selected);
+        if(ROUTE_MANAGER[selectedMarkerRoute] != null)
+            changeIcon( ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport], ikoner.buss_selected);
     }
 }
 

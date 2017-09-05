@@ -10,35 +10,42 @@ var LOG_PARSE = "[PARSER]: ";
 
 function getSanntid(stoppId, linje, transType)
 {
-    var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppId;
-    
-    if(transType === 2 || transType === 7 || transType === 8 ) // Om buss legg til filter
-         URL_SANNTID = URL_SANNTID + "&linje=" + linje;
-    
-    //print( transType + " " + URL_SANNTID);
-    if(linje != null)
+    if(stoppId != null)
     {
-        jQuery.ajax(
+       var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppId;
+    
+        if(transType === 2 || transType === 7 || transType === 8 ) // Om buss legg til filter
+             URL_SANNTID = URL_SANNTID + "&linje=" + linje;
+
+        //print( transType + " " + URL_SANNTID);
+        if(linje != null)
         {
-            url: URL_SANNTID,
-            error: function()
+            jQuery.ajax(
             {
-                print("Henting av sanntid brukte for lang tid");
-                doneLoadingTransport(null, linje);
+                url: URL_SANNTID,
+                error: function()
+                {
+                    print("Henting av sanntid brukte for lang tid");
+                    doneLoadingTransport(null, linje);
 
-            },
-            success: function(response)
-            {
-                var data = JSON.parse(response);
-                
-                console.log(LOG_PARSE + " getSanntid done");
+                },
+                success: function(response)
+                {
+                    var data = JSON.parse(response);
 
-                doneLoadingTransport(data, linje);
-            },
-            timeout: 5000,
-            async:true
-        });
+                    console.log(LOG_PARSE + " getSanntid done");
+
+                    doneLoadingTransport(data, linje);
+                },
+                timeout: 5000,
+                async:true
+            });
+        } 
     }
+    else
+    {
+        doneLoadingTransport(null, linje);
+    }   
 }
 
 function getStops(linje, transType)
@@ -171,8 +178,11 @@ function getLinjeData(linjeNavn)
                     {
                         for(var j = 0; j < ROUTE_MANAGER.length; j++)
                         {
-                            if(ROUTE_MANAGER[j].getId() === response[i].ID )
-                                idEksisterer = true;
+                            if(ROUTE_MANAGER[j] != null)
+                            {
+                                if(ROUTE_MANAGER[j].getId() === response[i].ID )
+                                idEksisterer = true;   
+                            }
                         }
                         
                         if(!idEksisterer)

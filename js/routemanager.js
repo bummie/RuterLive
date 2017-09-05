@@ -85,7 +85,16 @@ function doneLoadingStops(stopsArray, linje, transType, sorted)
     if(stopsArray != null && stopsArray.length > 0)
     {
         print("Added " + stopsArray.length + " stops to Routearray");
-        ROUTE_MANAGER[ROUTE_MANAGER.length] = new Route(linje, stopsArray, transType, sorted);
+        var pos = ROUTE_MANAGER.length;
+        for(var i = 0; i < pos; i++)
+        {
+            if(ROUTE_MANAGER[i] == null)
+            {
+                pos = i;
+                break;
+            }
+        }
+        ROUTE_MANAGER[pos] = new Route(linje, stopsArray, transType, sorted);
         updateDropdown();
 
     }else
@@ -94,26 +103,24 @@ function doneLoadingStops(stopsArray, linje, transType, sorted)
 
 function doneLoadingTransport(transportArray, linje)
 {
-    if(transportArray != null)
+    // Finne Ruten dataen gjelder for
+    var route = null;
+    for(var i = 0; i < ROUTE_MANAGER.length; i++)
     {
-        // Finne Ruten dataen gjelder for
-        var route = null;
-        for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        if(ROUTE_MANAGER[i] == null)
+            return;
+        if(ROUTE_MANAGER[i].getId() == linje)
         {
-            if(ROUTE_MANAGER[i] == null)
-                return;
-            if(ROUTE_MANAGER[i].getId() == linje)
-            {
-                route = ROUTE_MANAGER[i];
-                break;
-            }
+            route = ROUTE_MANAGER[i];
+            break;
         }
-        
-        
-        
-        route.updateSanntidAmount += 1;
-        
-        // Finne transport i forhold til id og oppdatere data
+    }
+
+    route.updateSanntidAmount += 1;
+
+    if(transportArray != -1 && transportArray != null)
+    {
+           // Finne transport i forhold til id og oppdatere data
         var transportRouteArray = route.getTransport();
         for(var i = 0; i < transportArray.length; i++)
         {
@@ -132,7 +139,7 @@ function doneLoadingTransport(transportArray, linje)
                         break;
                     }
                 }
-                
+
                 if(!hasFoundTransport)
                 {
                     var added = false;
@@ -153,21 +160,20 @@ function doneLoadingTransport(transportArray, linje)
                     }     
                 }
             }
-        }
+        }    
         route.setTransport(transportRouteArray);
-        
-        print(LOG_PARSE + " Henter sanntidsdata ["+route.updateSanntidAmount+"/"+route.updateSanntidSize+"]");
-        //console.log(UPDATING_SANNTID_AMOUNT + " : " + UPDATING_SANNTID_SIZE);
-        if(route.updateSanntidAmount >= route.updateSanntidSize)
-        {
-            route.updateSanntid = false;
-            route.updateSanntidAmount = 0;
-            route.updateSanntidSize = 0;
-        }
-        
-        updateDropdown();
-        //console.log("Received " + transportArray.length + " transports");
+    }    
+    print(LOG_PARSE + " Henter sanntidsdata ["+route.updateSanntidAmount+"/"+route.updateSanntidSize+"]");
+    //console.log(UPDATING_SANNTID_AMOUNT + " : " + UPDATING_SANNTID_SIZE);
+    if(route.updateSanntidAmount >= route.updateSanntidSize)
+    {
+        route.updateSanntid = false;
+        route.updateSanntidAmount = 0;
+        route.updateSanntidSize = 0;
     }
+
+    updateDropdown();
+    //console.log("Received " + transportArray.length + " transports");
 }
     
 function generateTransport(data)

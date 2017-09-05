@@ -88,8 +88,11 @@ function updateSanntid()
                         ROUTE_MANAGER[i].updateSanntid = true;
                         for(var j = 0; j < stops.length; j++)
                         {
-                            if(stops[j] != null)
-                                getSanntid(stops[j].getId(), ROUTE_MANAGER[i].getId(), ROUTE_MANAGER[i].getTransportationType());
+                            var stop = stops[j];
+                            if(stop != null)
+                                stop = stop.getId();
+                            
+                                getSanntid(stop, ROUTE_MANAGER[i].getId(), ROUTE_MANAGER[i].getTransportationType());
                         } 
                     }
                     else
@@ -106,13 +109,16 @@ function changeCurrentMarker(vehicleId)
     {
         for(var i = 0; i < ROUTE_MANAGER.length; i++)
         {
-            var transport = ROUTE_MANAGER[i].getTransport();
-            for(var j = 0; j < transport.length; j++)
-            { 
-                if(transport[j].getId() == vehicleId)
-                {
-                   setSelected(i, j);
-                }
+            if(ROUTE_MANAGER[i] != null)
+            {
+                var transport = ROUTE_MANAGER[i].getTransport();
+                for(var j = 0; j < transport.length; j++)
+                { 
+                    if(transport[j].getId() == vehicleId)
+                    {
+                       setSelected(i, j);
+                    }
+                }    
             }
         }
     }    

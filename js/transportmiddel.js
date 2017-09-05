@@ -8,6 +8,7 @@ function Transport(id, marker, pos)
     this.lastPosition = pos;
     this.marker.setPosition(pos);
     this.velocity = null;
+    this.firstInit = true;
     
     this.originId = null;
     this.originName = null;
@@ -180,40 +181,48 @@ function Transport(id, marker, pos)
     // Do stuff functions
     this.move = function()
     {
-        if(this.lastArrivalTime !== this.getArrivalTime())
+        if(!this.firstInit)
         {
-            this.totalTime = Math.abs((new Date() - this.getArrivalTime())/1000);
-            this.lastArrivalTime = this.getArrivalTime();
-        }
-        
-         if(this.getHeadingFrom() == null)
-            this.setPosition(this.getTowardsPosition());
-        
-        if(this.getTowardsPosition() != null)
-        {   
-            var timeLeft = (this.getArrivalTime() - (new Date()))/1000;
-            //console.log(timeLeft);
-            
-            // Så bussen stopper når den er fremme yo
-            if(timeLeft > 0)
+            if(this.lastArrivalTime !== this.getArrivalTime())
             {
-                var changeSecond = ((this.totalTime - (Math.abs((new Date()) - this.getArrivalTime())/1000)) / this.totalTime);
-           
-                var latDistance = this.getTowardsPosition().lat - this.getLastPosition().lat;
-                var lngDistance = this.getTowardsPosition().lng - this.getLastPosition().lng;
-
-                var changeLat = ((latDistance * changeSecond));//* deltaTime);
-                var changeLng = ((lngDistance * changeSecond));// * deltaTime);
-
-                this.setVelocity(changeLat);
-                //console.log("x: " + changeLat + " y:" + changeLng);
-                var newPos = {
-                                    lat: this.getLastPosition().lat + changeLat, 
-                                    lng: this.getLastPosition().lng + changeLng
-                                };
-
-                this.setPosition(newPos);   
+                this.totalTime = Math.abs((new Date() - this.getArrivalTime())/1000);
+                this.lastArrivalTime = this.getArrivalTime();
             }
+        
+            if(this.getHeadingFrom() == null)
+                this.setPosition(this.getTowardsPosition());
+        
+            if(this.getTowardsPosition() != null)
+            {   
+                var timeLeft = (this.getArrivalTime() - (new Date()))/1000;
+                //console.log(timeLeft);
+
+                // Så bussen stopper når den er fremme yo
+                if(timeLeft > 0)
+                {
+                    var changeSecond = ((this.totalTime - (Math.abs((new Date()) - this.getArrivalTime())/1000)) / this.totalTime);
+
+                    var latDistance = this.getTowardsPosition().lat - this.getLastPosition().lat;
+                    var lngDistance = this.getTowardsPosition().lng - this.getLastPosition().lng;
+
+                    var changeLat = ((latDistance * changeSecond));//* deltaTime);
+                    var changeLng = ((lngDistance * changeSecond));// * deltaTime);
+
+                    this.setVelocity(changeLat);
+                    //console.log("x: " + changeLat + " y:" + changeLng);
+                    var newPos = {
+                                        lat: this.getLastPosition().lat + changeLat, 
+                                        lng: this.getLastPosition().lng + changeLng
+                                    };
+
+                    this.setPosition(newPos);   
+                }
+            }   
+        }
+        else
+        {
+            this.setPosition(this.getTowardsPosition());
+            this.firstInit = false;
         }
     }
 }

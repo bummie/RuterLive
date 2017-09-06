@@ -181,14 +181,7 @@ function generateTransport(data, transType)
 {
     if(data != null)
     {         
-        var ikon =
-            {
-                url: getMarkerIcon(transType), // url
-                scaledSize: new google.maps.Size(20, 24),
-                origin: new google.maps.Point(0,0), 
-                anchor: new google.maps.Point(0, 0), 
-                labelOrigin: new google.maps.Point(10, -10)
-            };
+        var ikon = generateMapsIcon(transType, true);
         
         var marker = new google.maps.Marker({
             icon: ikon,
@@ -251,4 +244,17 @@ function updateTransport(transport, data)
         return transport;
     }
     return null;
+}
+
+function getStopNameFromId(routeId, stopId)
+{
+    if(routeId != null && stopId != null)
+    {
+        var stops = ROUTE_MANAGER[routeId].getStops();
+        for(var i = 0; i < stops.length; i++)
+        {
+            if(stops[i].getId() == stopId)
+                return stops[i].getName();
+        }
+    }
 }

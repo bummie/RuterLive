@@ -140,13 +140,13 @@ function updateSelected()
     if(selectRoute.length > 0 && selectTransport.length > 0)
     {
         if(selectedMarkerRoute != null && ROUTE_MANAGER[selectedMarkerRoute] != null)
-            changeIcon( ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport], ikoner.buss);
+            changeIcon( ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport], getMarkerIcon(ROUTE_MANAGER[selectedMarkerRoute].getTransportationType()));
         
         selectedMarkerRoute = selectRoute.options[selectRoute.selectedIndex].value;
         selectedMarkerTransport = selectTransport.options[selectTransport.selectedIndex].value;
         
         if(ROUTE_MANAGER[selectedMarkerRoute] != null)
-            changeIcon( ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport], ikoner.buss_selected);
+            changeIcon( ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport], ikoner.selected);
     }
 }
 
@@ -161,6 +161,53 @@ function setSelected(routeIndex, transportIndex)
         selectRoute.value = routeIndex;
         selectTransport.value = transportIndex;
     }
+}
+
+function changeCurrentMarker(vehicleId)
+{
+    if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
+    {
+        for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        {
+            if(ROUTE_MANAGER[i] != null)
+            {
+                var transport = ROUTE_MANAGER[i].getTransport();
+                for(var j = 0; j < transport.length; j++)
+                { 
+                    if(transport[j].getId() == vehicleId)
+                    {
+                       setSelected(i, j);
+                    }
+                }    
+            }
+        }
+    }    
+}
+
+function changeIcon(transport, icon)
+{
+    if(transport != null && icon != null)
+    {
+        transport.getMarker().setIcon(generateMapsIcon(icon, false));
+    }
+}
+
+function generateMapsIcon(iconVal, erTransportType)
+{
+    var url;
+    if(erTransportType)
+        url = getMarkerIcon(iconVal);
+    else
+        url = iconVal;
+     var ikon =
+            {
+                url: url, 
+                scaledSize: new google.maps.Size(20, 24),
+                origin: new google.maps.Point(0,0), 
+                anchor: new google.maps.Point(0, 0), 
+                labelOrigin: new google.maps.Point(10, -10)
+            };
+    return ikon;
 }
 
 function getMarkerIcon(transType)

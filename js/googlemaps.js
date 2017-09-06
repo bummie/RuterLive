@@ -3,7 +3,7 @@ var ikonBase  = "img/ikoner/";
 var ikoner = 
         {
             buss: ikonBase + 'buss.png',
-            buss_selected: ikonBase + 'ikon_buss_selected.png',
+            selected: ikonBase + 'selected.png',
             tbane: ikonBase + 'tbane.png',
             tog: ikonBase + 'tog.png',
             trikk: ikonBase + 'trikk.png',
@@ -102,48 +102,6 @@ function updateSanntid()
                         print("Stops er tom");
                 } 
             }
-        }
-    }
-}
-
-function changeCurrentMarker(vehicleId)
-{
-    if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
-    {
-        for(var i = 0; i < ROUTE_MANAGER.length; i++)
-        {
-            if(ROUTE_MANAGER[i] != null)
-            {
-                var transport = ROUTE_MANAGER[i].getTransport();
-                for(var j = 0; j < transport.length; j++)
-                { 
-                    if(transport[j].getId() == vehicleId)
-                    {
-                       setSelected(i, j);
-                    }
-                }    
-            }
-        }
-    }    
-}
-
-function changeIcon(transport, icon)
-{
-    if(transport != null && icon != null)
-    {
-        transport.getMarker().setIcon(icon);
-    }
-}
-
-function getStopNameFromId(routeId, stopId)
-{
-    if(routeId != null && stopId != null)
-    {
-        var stops = ROUTE_MANAGER[routeId].getStops();
-        for(var i = 0; i < stops.length; i++)
-        {
-            if(stops[i].getId() == stopId)
-                return stops[i].getName();
         }
     }
 }

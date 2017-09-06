@@ -94,6 +94,7 @@ function doneLoadingStops(stopsArray, linje, transType, sorted)
                 break;
             }
         }
+        console.log("TRANSTYPE PÅ RUTEN ER : " + transType);
         ROUTE_MANAGER[pos] = new Route(linje, stopsArray, transType, sorted);
         updateDropdown();
 
@@ -148,14 +149,14 @@ function doneLoadingTransport(transportArray, linje)
                         //console.log(j + " " + transportRouteArray[j]);
                         if(transportRouteArray[j] == null)
                         {
-                            transportRouteArray[j] = generateTransport(transportArray[i]);
+                            transportRouteArray[j] = generateTransport(transportArray[i], route.getTransportationType());
                             added = true;
                             break;
                         }
                     }
                     if(!added)
                     {
-                        transportRouteArray[transportRouteArray.length] = generateTransport(transportArray[i]);
+                        transportRouteArray[transportRouteArray.length] = generateTransport(transportArray[i], route.getTransportationType());
                         //console.log("La til i egen");
                     }     
                 }
@@ -176,12 +177,21 @@ function doneLoadingTransport(transportArray, linje)
     //console.log("Received " + transportArray.length + " transports");
 }
     
-function generateTransport(data)
+function generateTransport(data, transType)
 {
     if(data != null)
-    { 
+    {         
+        var ikon =
+            {
+                url: getMarkerIcon(transType), // url
+                scaledSize: new google.maps.Size(20, 24),
+                origin: new google.maps.Point(0,0), 
+                anchor: new google.maps.Point(0, 0), 
+                labelOrigin: new google.maps.Point(10, -10)
+            };
+        
         var marker = new google.maps.Marker({
-            icon: ikoner.buss,
+            icon: ikon,
             map: map,
             title: data["MonitoredVehicleJourney"].LineRef,
             label: {

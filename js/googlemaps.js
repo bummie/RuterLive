@@ -2,10 +2,13 @@
 var ikonBase  = "img/ikoner/";
 var ikoner = 
         {
-          buss: ikonBase + 'ikon_buss.png',
-          buss_selected: ikonBase + 'ikon_buss_selected.png',
-          tbane: ikonBase + 'ikon_buss.png',
-          tog: ikonBase + 'ikon_buss.png'
+            buss: ikonBase + 'buss.png',
+            buss_selected: ikonBase + 'ikon_buss_selected.png',
+            tbane: ikonBase + 'tbane.png',
+            tog: ikonBase + 'tog.png',
+            trikk: ikonBase + 'trikk.png',
+            baat: ikonBase + 'baat.png'
+
         };
 
 // Map

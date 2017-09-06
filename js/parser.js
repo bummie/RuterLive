@@ -37,7 +37,7 @@ function getSanntid(stoppId, linje, transType)
 
                     doneLoadingTransport(data, linje);
                 },
-                timeout: 5000,
+                timeout: 10000,
                 async:true
             });
         } 

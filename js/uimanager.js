@@ -162,3 +162,36 @@ function setSelected(routeIndex, transportIndex)
         selectTransport.value = transportIndex;
     }
 }
+
+function getMarkerIcon(transType)
+{
+    console.log("Transporttype: " + transType);
+    switch(transType)
+    {
+        case 1:
+        case 2:
+            return ikoner.buss;    
+        break;
+
+        case 5:
+            return ikoner.baat;    
+        break;
+        
+        case 6:
+            return ikoner.tog;    
+        break;
+        
+        case 7:
+            return ikoner.trikk;    
+        break;
+        
+        case 8:
+            return ikoner.tbane;    
+        break;
+            
+        default: 
+            return ikoner.buss;
+        break;
+            
+    }
+}

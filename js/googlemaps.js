@@ -20,9 +20,9 @@ var bussMarkers = new Array();
 var selectedMarkerRoute = null;
 var selectedMarkerTransport = null;
 
-window.mapsCallback = function () 
+window.mapsCallback = function ()
 {
-    initMap()
+    initMap();
 };
 
 function initMap()
@@ -31,6 +31,7 @@ function initMap()
       zoom: 12,
       center: osloCoords
     });
+    
     trafficLayer = new google.maps.TrafficLayer();
     setInterval(updateMap, 10); 
     setInterval(updateSanntid, 5000); 
@@ -38,6 +39,7 @@ function initMap()
 
 function setTrafikkLag()
 { 
+    console.log("Trafikk");
     if(document.getElementById("chkMapTraffic").checked)
         trafficLayer.setMap(map);
     else

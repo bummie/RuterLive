@@ -157,7 +157,6 @@ function doneLoadingTransport(transportArray, linje)
                     if(!added)
                     {
                         transportRouteArray[transportRouteArray.length] = generateTransport(transportArray[i], route.getTransportationType());
-                        //console.log("La til i egen");
                     }     
                 }
             }

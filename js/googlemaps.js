@@ -14,13 +14,16 @@ var ikoner =
 // Map
 var osloCoords = {lat: 59.9138688, lng: 10.7522454};
 var map;
+var trafficLayer;
 var bussMarkers = new Array();
 
 var selectedMarkerRoute = null;
 var selectedMarkerTransport = null;
 
-setInterval(updateMap, 10); 
-setInterval(updateSanntid, 5000); 
+window.mapsCallback = function () 
+{
+    initMap()
+};
 
 function initMap()
 {
@@ -28,6 +31,17 @@ function initMap()
       zoom: 12,
       center: osloCoords
     });
+    trafficLayer = new google.maps.TrafficLayer();
+    setInterval(updateMap, 10); 
+    setInterval(updateSanntid, 5000); 
+}
+
+function setTrafikkLag()
+{ 
+    if(document.getElementById("chkMapTraffic").checked)
+        trafficLayer.setMap(map);
+    else
+        trafficLayer.setMap(null);
 }
 
 function updateMap()

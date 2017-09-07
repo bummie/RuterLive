@@ -12,7 +12,7 @@ http://reisapi.ruter.no/Place/GetStopsRuter
 <html>
     <head>
         <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClR0KjmU1mJysUUiezMNZJ25WCXB4W7ag&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClR0KjmU1mJysUUiezMNZJ25WCXB4W7ag&callback=mapsCallback">
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="js/routemanager.js"></script>
@@ -41,6 +41,7 @@ http://reisapi.ruter.no/Place/GetStopsRuter
                 <select id="selectRoute" onchange="onChangeRoute()"></select>
                 <select id="selectTransport" onchange="onChangeTransport()"></select>
                 <input type="checkbox" id="chkMapFollow">Stalkermodus<br>
+                <input type="checkbox" id="chkMapTraffic" onclick='setTrafikkLag();'>Trafikk<br>
                 
                 <div id="infoConsole"></div>
                  <div class="infoContainer">

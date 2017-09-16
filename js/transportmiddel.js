@@ -10,6 +10,7 @@ function Transport(id, marker, pos, route)
     this.marker.setPosition(pos);
     this.velocity = null;
     this.firstInit = true;
+    this.firstInitCounter = 0;
     
     this.originId = null;
     this.originName = null;
@@ -212,11 +213,14 @@ function Transport(id, marker, pos, route)
     }
     
     // Do stuff functions
-    this.move = function()
+    this.move = function(inc)
     {
         if(!this.firstInit)
         {
-            if(!this.isStopNeighbour(this.route, this.getHeadingFrom(), this.getHeadingTo()))
+            //if(!this.isStopNeighbour(this.route, this.getHeadingFrom(), this.getHeadingTo()))
+                //this.setPosition(this.getTowardsPosition());
+            
+            if(this.getHeadingFrom() == null)
                 this.setPosition(this.getTowardsPosition());
             
             if(this.lastArrivalTime !== this.getArrivalTime())
@@ -254,9 +258,13 @@ function Transport(id, marker, pos, route)
         }
         else
         {
-            if(this.getHeadingFrom() == null)
+            if(this.firstInitCounter >= 2)
                 this.firstInit = false;
             this.setPosition(this.getTowardsPosition());
+            this.setHeadingFrom(null);
+            this.setLastPosition(this.getTowardsPosition());
+            this.firstInitCounter += inc;
+            console.log("HJELP FORSTATT I INIT: " + this.firstInitCounter);
         }
     }
 }

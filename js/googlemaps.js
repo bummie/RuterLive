@@ -20,6 +20,9 @@ var bussMarkers = new Array();
 var selectedMarkerRoute = null;
 var selectedMarkerTransport = null;
 
+// Misc
+var inc = 0;
+
 window.mapsCallback = function ()
 {
     initMap();
@@ -56,7 +59,7 @@ function updateMap()
             {
                 if(!ROUTE_MANAGER[i].updateSanntid)
                 {
-                    print("Flytter " + ROUTE_MANAGER[i].getId());
+                    //print("Flytter " + ROUTE_MANAGER[i].getId());
                     var transport = ROUTE_MANAGER[i].getTransport();
                     for(var j = 0; j < transport.length; j++)
                     { 
@@ -70,7 +73,8 @@ function updateMap()
                 }   
             }
         }
-
+        
+        console.log(inc + " OI");
         for(var i = 0; i < ROUTE_MANAGER.length; i++)
         {
             if(ROUTE_MANAGER[i] != null)
@@ -78,10 +82,11 @@ function updateMap()
                 var transport = ROUTE_MANAGER[i].getTransport();
                 for(var j = 0; j < transport.length; j++)
                 { 
-                    transport[j].move();
+                    transport[j].move(inc);
                 }
             }
         }   
+        inc = 0;
         
         if(selectedMarkerRoute != null && document.getElementById("chkMapFollow").checked)
             map.setCenter(ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport].getPosition());
@@ -100,6 +105,7 @@ function updateSanntid()
             {
                if(!ROUTE_MANAGER[i].updateSanntid)
                 {
+                    inc = 1;
                     var stops = ROUTE_MANAGER[i].getStops();
                     if(stops != null && stops.length > 0)
                     {

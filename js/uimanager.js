@@ -43,6 +43,7 @@ function btnRemoveTransport()
 
 function updateInfo()
 {
+    return;
     if(selectedMarkerRoute != null && selectedMarkerTransport != null)
     {
         var route = ROUTE_MANAGER[selectedMarkerRoute];
@@ -73,7 +74,7 @@ function updateInfo()
 function print(text)
 {
     console.log(text);
-    document.getElementById("infoConsole").innerHTML = text;
+    //document.getElementById("infoConsole").innerHTML = text;
 }
 
 function updateDropdown()

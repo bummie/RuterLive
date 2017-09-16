@@ -11,6 +11,8 @@ http://reisapi.ruter.no/Place/GetStopsRuter
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width">
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="js/routemanager.js"></script>
         <script src="js/googlemaps.js"></script>
@@ -28,38 +30,21 @@ http://reisapi.ruter.no/Place/GetStopsRuter
     </head>
     
     <body>
-        <div id="headerContainer">
-            <div id="TitleText">#RuterLive</div>
-        </div>
-        
          <div id="bodyContainer">
             <div id="map"></div>
-            <div class="centerContainer">
-                <button id="btnAddTransport" onclick="btnAddTransport()">Legg til transport</button>
-                <button class="btnDel" id="btnRemoveTransport" onclick="btnRemoveTransport()">Fjern</button>
-                <input id="inputTransportId" type="text" name="transportId" placeholder="Linjenummer..">
-                <select id="selectRoute" onchange="onChangeRoute()"></select>
-                <select id="selectTransport" onchange="onChangeTransport()"></select>
-                <input type="checkbox" id="chkMapFollow">Stalkermodus<br>
-                <input type="checkbox" id="chkMapTraffic" onclick='setTrafikkLag();'>Trafikk<br>
-                
-                <div id="infoConsole"></div>
-                 <div class="infoContainer">
-                    <div class="InfoText" id="infoTitle"></div>
-                    <div class="InfoText" id="infoId"></div>
-                    <div class="InfoText" id="infoPosition"></div>
-                    <div class="InfoText" id="infoSpeed"></div>
-                    <div class="InfoText" id="infoOriginId"></div>
-                    <div class="InfoText" id="infoOriginName"></div>
-                    <div class="InfoText" id="infoDestinationId"></div>
-                    <div class="InfoText" id="infoDestinationName"></div>
-                    <div class="InfoText" id="infoHeadingTo"></div>
-                    <div class="InfoText" id="infoTowardsPosition"></div>
-                    <div class="InfoText" id="infoHeadingFrom"></div>
-                    <div class="InfoText" id="infoLastPosition"></div>
-                    <div class="InfoText" id="infoTimeLeft"></div>
-                </div>
-            </div>
+             
+             <!--Search bar-->
+            <input id="inputTransportId" type="text" name="transportId" placeholder="Linjenummer..">
+            <button id="btnAddTransport" onclick="btnAddTransport()">Legg til transport</button>
+             
+            <!--Selected transport-->
+            <select id="selectRoute" onchange="onChangeRoute()"></select>
+            <select id="selectTransport" onchange="onChangeTransport()"></select>
+             
+            <!--Checkbokser-->
+            <input type="checkbox" id="chkMapFollow">Stalkermodus<br>
+            <input type="checkbox" id="chkMapTraffic" onclick='setTrafikkLag();'>Trafikk<br>
+
         </div>
     </body>
 </html>

@@ -10,12 +10,30 @@ body
     padding: 0;
 }
 
+
+/* Custom IDS */
+#bodyContainer
+{
+    margin: 0;
+}
+
+#map 
+{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    position: absolute;
+}
+
+
+
+/* Form Elements */
 button
 {
+    position: absolute;
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -23,6 +41,12 @@ button
      -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
+}
+
+button:hover 
+{
+    background-color: #8bcc8e; /* Green */
+    cursor: grab;
 }
 
 .btnDel
@@ -39,65 +63,67 @@ button
     cursor: grab;
 }
 
-button:hover {
-    background-color: #8bcc8e; /* Green */
-    cursor: grab;
-    
-}
-#headerContainer
+#btnAddTransport
 {
-    margin: 0;
-    width: 100%;
-    height: 20%;
-    background: #e60000;
-}
-
-#TitleText
-{
-    font-size: 50px;
-    font-family: 'Open Sans', sans-serif;
-    color: white;
-    text-align: center;
-}
-
-#bodyContainer
-{
-    margin: 0;
-}
-
-.centerContainer
-{
-    width: 50%;
-    margin: auto;
-    margin-top: 5px;
-}
-#map 
-{
-    height: 500px;
-    width: 50%;
-    margin: auto;
-}
-
-.infoContainer
-{
-    background: #252525;
-    margin: auto;
-    color: white;
-    border-radius: 5px;
-    padding: 3px;
-    text-align: center;
-}
-
-.InfoText
-{
-    font-size: 20px;
+    height: 5%;
+    width: 55%;
+    top: 5%;
+    right: 1%;
+    border-radius: 10px;
+    border: 1px solid black;
     font-family: 'Roboto', sans-serif;
-    text-align: left;
 }
 
-#infoConsole
+input
 {
-    font-size: 15px;
+    position: absolute;
     font-family: 'Roboto', sans-serif;
+    font-size: large;
     font-style: oblique;
 }
+
+#inputTransportId
+{
+    height: 5%;
+    width: 40%;
+    top: 5%;
+    left: 1%;
+    border-radius: 10px;
+    padding: 2px;
+}
+
+#chkMapFollow
+{
+    left: 1%;
+    bottom: 10%;
+    width: 10%;
+    height: 10%;
+}
+
+#chkMapTraffic
+{
+    left: 1%;
+    bottom: 16%;
+    width: 10%;
+    height: 10%;
+}
+
+select
+{
+    position: absolute;
+    height: 5%;
+    width: 30%;
+}
+
+#selectRoute
+{
+    bottom: 1%;
+    left: 29%;
+}
+
+#selectTransport
+{
+    bottom: 1%;
+    left: 60%;
+}
+

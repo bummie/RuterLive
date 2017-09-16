@@ -238,14 +238,15 @@ function Transport(id, marker, pos, route)
                 if(timeLeft > 0)
                 {
                     var changeSecond = ((this.totalTime - (Math.abs((new Date()) - this.getArrivalTime())/1000)) / this.totalTime);
-
+                    
                     var latDistance = this.getTowardsPosition().lat - this.getLastPosition().lat;
                     var lngDistance = this.getTowardsPosition().lng - this.getLastPosition().lng;
-
+                    
+                    console.log("DIST : " + latDistance);
                     var changeLat = ((latDistance * changeSecond));//* deltaTime);
                     var changeLng = ((lngDistance * changeSecond));// * deltaTime);
 
-                    this.setVelocity(changeLat);
+                    this.setVelocity(changeSecond * 100 + "%");
                     //console.log("x: " + changeLat + " y:" + changeLng);
                     var newPos = {
                                         lat: this.getLastPosition().lat + changeLat, 
@@ -264,7 +265,6 @@ function Transport(id, marker, pos, route)
             this.setHeadingFrom(null);
             this.setLastPosition(this.getTowardsPosition());
             this.firstInitCounter += inc;
-            console.log("HJELP FORSTATT I INIT: " + this.firstInitCounter);
         }
     }
 }

@@ -43,7 +43,6 @@ function btnRemoveTransport()
 
 function updateInfo()
 {
-    return;
     if(selectedMarkerRoute != null && selectedMarkerTransport != null)
     {
         var route = ROUTE_MANAGER[selectedMarkerRoute];
@@ -52,21 +51,8 @@ function updateInfo()
         else return;
         if(tran != null)
         {
-            document.getElementById("infoTitle").innerHTML = "Tittel: " + tran.getTitle();
-            document.getElementById("infoId").innerHTML = "Id: " + tran.getId();
-            document.getElementById("infoPosition").innerHTML = "Posisjon: " + tran.getPosition().lat + ",\n " + tran.getPosition().lng;
-            document.getElementById("infoSpeed").innerHTML = "Hastighet: " + tran.getVelocity();
-            document.getElementById("infoTowardsPosition").innerHTML = "Towards-Posisjon: " + tran.getTowardsPosition().lat + ",\n " + tran.getTowardsPosition().lng;
-            document.getElementById("infoLastPosition").innerHTML = "Last-Posisjon: " + tran.getLastPosition().lat + ",\n " + tran.getLastPosition().lng;
-            document.getElementById("infoOriginId").innerHTML = "StartId: " + tran.getOriginId();
-            document.getElementById("infoOriginName").innerHTML = "StartNavn: " + tran.getOriginName();
-            document.getElementById("infoDestinationId").innerHTML = "DestinasjonsId: " + tran.getDestinationId();
-            document.getElementById("infoDestinationName").innerHTML = "DestinasjonsNavn: " + tran.getDestinationName();
-            document.getElementById("infoHeadingTo").innerHTML = "NesteStopp: " + getStopNameFromId(selectedMarkerRoute, tran.getHeadingTo());
-            document.getElementById("infoHeadingFrom").innerHTML = "SistStopp: " + getStopNameFromId(selectedMarkerRoute, tran.getHeadingFrom());
-            
             var changeSecond = Math.abs((new Date() - tran.getArrivalTime())/1000);
-            document.getElementById("infoTimeLeft").innerHTML = "Tid igjen: " + changeSecond + " sekunder";
+            document.getElementById("textInfo").innerHTML = "NesteStopp: " + getStopNameFromId(selectedMarkerRoute, tran.getHeadingTo()) + " - " + changeSecond + "sek";
         }
     }
 }

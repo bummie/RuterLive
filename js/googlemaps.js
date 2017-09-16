@@ -30,9 +30,11 @@ window.mapsCallback = function ()
 
 function initMap()
 {
-    map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: osloCoords
+    map = new google.maps.Map(document.getElementById('map'),
+    {
+        zoom: 12,
+        center: osloCoords,
+        disableDefaultUI: true
     });
     
     trafficLayer = new google.maps.TrafficLayer();

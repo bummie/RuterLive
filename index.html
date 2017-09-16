@@ -34,12 +34,18 @@ http://reisapi.ruter.no/Place/GetStopsRuter
             <div id="map"></div>
              
              <!--Search bar-->
-            <input id="inputTransportId" type="text" name="transportId" placeholder="Linjenummer..">
-            <button id="btnAddTransport" onclick="btnAddTransport()">Legg til transport</button>
+             <div id="searchBarContainer">
+                <input id="inputTransportId" type="text" name="transportId" placeholder="Linjenummer..">
+                <button id="btnAddTransport" onclick="btnAddTransport()">Legg til transport</button>
+                 <div id="textInfo">TEST</div>
+            </div>
              
+
             <!--Selected transport-->
-            <select id="selectRoute" onchange="onChangeRoute()"></select>
-            <select id="selectTransport" onchange="onChangeTransport()"></select>
+            <div id="bottomContainer">
+                <select id="selectRoute" onchange="onChangeRoute()"></select>
+                <select id="selectTransport" onchange="onChangeTransport()"></select> 
+            </div>
              
             <!--Checkbokser-->
             <input type="checkbox" id="chkMapFollow">Stalkermodus<br>

@@ -1,6 +1,7 @@
-function Transport(id, marker, pos)
+function Transport(id, marker, pos, route)
 {
     this.id = id;
+    this.route = route;
     this.marker = marker;
     this.title = "";
     this.position = pos;
@@ -178,19 +179,51 @@ function Transport(id, marker, pos)
         this.lastPosition = pos;
     }
     
+    this.isStopNeighbour = function(route, id, neighid)
+    {
+        for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        {
+            if(ROUTE_MANAGER[i].getId === route)
+            {
+                var stops = ROUTE_MANAGER[i].getStops();
+                for(var j = 0; j < stops.length; j++)
+                {
+                    if(stops[j].getId() === id)
+                    {
+                        // Hvis stoppet etter i arrayen er nabo
+                        if(j+1 < stops.length)
+                        {
+                            if(stops[j+1] === neighid)
+                                return true;
+                        }
+
+                        // Hvis stoppet før i arrayen er nabo
+                        if(j-1 >= 0)
+                        {
+                            if(stops[j-1] === neighid)
+                                return true;
+                        }
+                    }
+                }
+            }
+        }
+       
+        return false;
+    }
+    
     // Do stuff functions
     this.move = function()
     {
         if(!this.firstInit)
         {
+            if(!this.isStopNeighbour(this.route, this.getHeadingFrom(), this.getHeadingTo()))
+                this.setPosition(this.getTowardsPosition());
+            
             if(this.lastArrivalTime !== this.getArrivalTime())
             {
                 this.totalTime = Math.abs((new Date() - this.getArrivalTime())/1000);
                 this.lastArrivalTime = this.getArrivalTime();
             }
-        
-            if(this.getHeadingFrom() == null)
-                this.setPosition(this.getTowardsPosition());
         
             if(this.getTowardsPosition() != null)
             {   
@@ -221,8 +254,9 @@ function Transport(id, marker, pos)
         }
         else
         {
+            if(this.getHeadingFrom() == null)
+                this.firstInit = false;
             this.setPosition(this.getTowardsPosition());
-            this.firstInit = false;
         }
     }
 }

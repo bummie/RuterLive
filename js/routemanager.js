@@ -149,14 +149,14 @@ function doneLoadingTransport(transportArray, linje)
                         //console.log(j + " " + transportRouteArray[j]);
                         if(transportRouteArray[j] == null)
                         {
-                            transportRouteArray[j] = generateTransport(transportArray[i], route.getTransportationType());
+                            transportRouteArray[j] = generateTransport(transportArray[i], route.getTransportationType(), route.getId());
                             added = true;
                             break;
                         }
                     }
                     if(!added)
                     {
-                        transportRouteArray[transportRouteArray.length] = generateTransport(transportArray[i], route.getTransportationType());
+                        transportRouteArray[transportRouteArray.length] = generateTransport(transportArray[i], route.getTransportationType(), route.getId());
                     }     
                 }
             }
@@ -176,7 +176,7 @@ function doneLoadingTransport(transportArray, linje)
     //console.log("Received " + transportArray.length + " transports");
 }
     
-function generateTransport(data, transType)
+function generateTransport(data, transType, routeId)
 {
     if(data != null)
     {         
@@ -194,7 +194,7 @@ function generateTransport(data, transType)
                     }
         });
         
-        var transObject = new Transport(data["MonitoredVehicleJourney"].VehicleRef, marker, osloCoords);
+        var transObject = new Transport(data["MonitoredVehicleJourney"].VehicleRef, marker, osloCoords, routeId);
         
         transObject.setTitle(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay);
         transObject.setOriginId(data["MonitoredVehicleJourney"].OriginRef);

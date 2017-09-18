@@ -47,11 +47,12 @@ body
 #sideBarContainer
 {
     position: absolute;
-    top: 50%;
+    bottom: 0;
     left: 0;
-    width: 20%;
-    height: 50%; 
-    
+    padding: 3px;
+    width: 20%;    
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10%;
 }
 
 #settingsContainer
@@ -123,16 +124,6 @@ input
     width: 40%;
     border-radius: 30px;
     padding: 3px;
-}
-
-#chkMapFollow
-{
-    
-}
-
-#chkMapTraffic
-{
-   
 }
 
 select

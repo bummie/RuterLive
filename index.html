@@ -44,15 +44,16 @@ http://reisapi.ruter.no/Place/GetStopsRuter
 
             <!--Selected transport-->
             <div id="bottomContainer">
-                <select id="selectRoute" onchange="onChangeRoute()"></select>
                 <select id="selectTransport" onchange="onChangeTransport()"></select> 
+                <select id="selectRoute" onchange="onChangeRoute()"></select>
             </div>
              
             <!--Checkbokser-->
             <div id="sideBarContainer">
-                <input type="checkbox" id="chkMapFollow">Stalkermodus<br>
+                <input type="checkbox" id="chkMapFollow">Stalker<br>
                 <input type="checkbox" id="chkMapTraffic" onclick='setTrafikkLag();'>Trafikk<br>
-                
+                <input type="checkbox" id="chkMapLine">Linje<br>
+
                 <button id="btnSettings" onclick="btnSettingsOpen()">Settings</button>
             </div>
              

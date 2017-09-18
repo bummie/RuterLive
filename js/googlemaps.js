@@ -13,8 +13,10 @@ var ikoner =
 
 // Map
 var osloCoords = {lat: 59.9138688, lng: 10.7522454};
+var linePathCoords = [{lat: 59.9138688, lng: 10.7522454}, {lat: 59.9138688, lng: 10.7522454}];
 var map;
 var trafficLayer;
+var linePath;
 var bussMarkers = new Array();
 
 var selectedMarkerRoute = null;
@@ -37,6 +39,15 @@ function initMap()
         disableDefaultUI: true
     });
     
+    // Linje tegnet fra transport til stoppested
+    linePath = new google.maps.Polyline({
+          path: linePathCoords,
+          geodesic: true,
+          strokeColor: '#d93838',
+          strokeOpacity: .8,
+          strokeWeight: 2
+        });
+    linePath.setMap(map);
     trafficLayer = new google.maps.TrafficLayer();
     setInterval(updateMap, 10); 
     setInterval(updateSanntid, 5000); 
@@ -89,9 +100,24 @@ function updateMap()
         }   
         inc = 0;
         
+        // Make google maps follow selected marker
         if(selectedMarkerRoute != null && document.getElementById("chkMapFollow").checked)
             map.setCenter(ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport].getPosition());
-
+        
+        // Draw line where transport is heading
+        if(selectedMarkerRoute != null && document.getElementById("chkMapLine").checked)
+        {
+            if(linePath.getMap() == null)
+                linePath.setMap(map);
+            var transport = ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport];
+            var lineCoords = [transport.getPosition(), transport.getTowardsPosition()];
+            linePath.setPath(lineCoords);
+        }else
+        {
+            if(linePath.getMap() != null)
+                linePath.setMap(null);
+        }
+        
         updateInfo();
     }
 }

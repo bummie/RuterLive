@@ -82,6 +82,7 @@ function updateInfo()
         
 }
 
+// Printer ut til konsoll og app
 function print(text)
 {
     console.log(text);

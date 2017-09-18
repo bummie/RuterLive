@@ -242,7 +242,6 @@ function Transport(id, marker, pos, route)
                     var latDistance = this.getTowardsPosition().lat - this.getLastPosition().lat;
                     var lngDistance = this.getTowardsPosition().lng - this.getLastPosition().lng;
                     
-                    console.log("DIST : " + latDistance);
                     var changeLat = ((latDistance * changeSecond));//* deltaTime);
                     var changeLng = ((lngDistance * changeSecond));// * deltaTime);
 

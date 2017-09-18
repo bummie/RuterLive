@@ -1,4 +1,7 @@
 // HTML UI COMS
+var CONSOLE_DELAY = 1500;
+var CONSOLE_LAST_MESSAGE_TIME = new Date();
+
 
 function btnAddTransport()
 {
@@ -9,6 +12,21 @@ function btnAddTransport()
         print("Henter stoppdata for rute " + inputValue);
         //document.getElementById("btnAddTransport").disabled = true;
     }
+}
+
+function btnSettingsSave(){}
+
+// Close button in the settings menu
+function btnSettingsClose()
+{
+    if(document.getElementById("settingsContainer") != null)
+        document.getElementById("settingsContainer").style.display = "none";
+}
+
+function btnSettingsOpen()
+{
+    if(document.getElementById("settingsContainer") != null)
+        document.getElementById("settingsContainer").style.display = "block";
 }
 
 function btnRemoveTransport()
@@ -51,16 +69,25 @@ function updateInfo()
         else return;
         if(tran != null)
         {
-            var changeSecond = Math.abs((new Date() - tran.getArrivalTime())/1000);
-            document.getElementById("textInfo").innerHTML = "NesteStopp: " + getStopNameFromId(selectedMarkerRoute, tran.getHeadingTo()) + " - " + changeSecond + "sek";
+            var changeSecond =  Math.trunc(Math.abs((new Date() - tran.getArrivalTime())/1000));
+            document.getElementById("textInfo").innerHTML = getStopNameFromId(selectedMarkerRoute, tran.getHeadingTo()) + " - " + changeSecond + "sek";
         }
     }
+    
+    // Om siste melding blir for gammel så fjerner vi den
+    if(((new Date()) - CONSOLE_LAST_MESSAGE_TIME) >= CONSOLE_DELAY)
+    {
+            document.getElementById("textConsole").style.display = "none";
+    }
+        
 }
 
 function print(text)
 {
     console.log(text);
-    //document.getElementById("infoConsole").innerHTML = text;
+    document.getElementById("textConsole").innerHTML = text;
+    document.getElementById("textConsole").style.display = "inline-block";
+    CONSOLE_LAST_MESSAGE_TIME = new Date();
 }
 
 function updateDropdown()

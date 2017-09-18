@@ -37,7 +37,8 @@ http://reisapi.ruter.no/Place/GetStopsRuter
              <div id="searchBarContainer">
                 <input id="inputTransportId" type="text" name="transportId" placeholder="Linjenummer..">
                 <button id="btnAddTransport" onclick="btnAddTransport()">Legg til transport</button>
-                 <div id="textInfo">TEST</div>
+                 <div id="textInfo" class="textInfoStyle"></div>
+                 <div id="textConsole" class="textInfoStyle"></div>
             </div>
              
 
@@ -51,7 +52,19 @@ http://reisapi.ruter.no/Place/GetStopsRuter
             <div id="sideBarContainer">
                 <input type="checkbox" id="chkMapFollow">Stalkermodus<br>
                 <input type="checkbox" id="chkMapTraffic" onclick='setTrafikkLag();'>Trafikk<br>
+                
+                <button id="btnSettings" onclick="btnSettingsOpen()">Settings</button>
             </div>
+             
+             <!--Settings-->
+            <div id="settingsContainer">
+                <div id="headerContainer">
+                    <div id="txtHeader">Settings</div>
+                    <button id="btnClose" onclick="btnSettingsClose()">Close</button>
+                 </div>
+            </div>
+             
+             
         </div>
     </body>
 </html>

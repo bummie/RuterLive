@@ -30,10 +30,9 @@ body
 #searchBarContainer
 {
     position: absolute;
-    top: 1%;
+    top: 0;
     left: 0;
     width: 100%;
-    height: 10%;
 }
 
 #bottomContainer
@@ -52,6 +51,18 @@ body
     left: 0;
     width: 20%;
     height: 50%; 
+    
+}
+
+#settingsContainer
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(51, 51, 51, 0.9);
+    display: none;
 }
 
 /* Form Elements */
@@ -70,7 +81,7 @@ button
     cursor: pointer;
 }
 
-button:hover 
+button:active 
 {
     background-color: #8bcc8e; /* Green */
     cursor: grab;
@@ -81,12 +92,12 @@ button:hover
      -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
-    background-color: #af4c4c; /* Green */
+    background-color: #af4c4c;
 }
 
-.btnDel:hover
+.btnDel:active
 {
-    background-color: #cc8b8b; /* Green */
+    background-color: #cc8b8b;
     cursor: grab;
 }
 
@@ -116,7 +127,7 @@ input
 
 #chkMapFollow
 {
-   
+    
 }
 
 #chkMapTraffic
@@ -134,10 +145,54 @@ select
     margin-bottom: 0;
 }
 
-#textInfo
+
+.textInfoStyle
 {
-    width: 100%;
     font-family: 'Roboto', sans-serif;
     font-size: larger;
     font-style: oblique;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10%;
+    margin: 1px;
+    display: inline-block;
+    padding: 2px;
+}
+
+/*SettingsContainer Elements*/
+
+#settingsContainer #headerContainer
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+    margin: 0;
+    background: #333333;
+    
+    font-family: 'Roboto', sans-serif;
+    font-size: larger;
+    font-style: oblique;
+}
+
+#settingsContainer #txtHeader
+{
+    position: relative;
+    display: inline;
+    width: 100%;
+    height: 100%;
+    color: white;
+    margin: auto;
+    text-align: center;
+}
+
+#settingsContainer #btnClose
+{
+    position: relative;
+    height: 100%;
+    color: white;
+    background: red;
+    text-align: center;
+    margin: 0;
+    float: right;
 }

@@ -76,7 +76,6 @@ function updateMap()
             }
         }
         
-        console.log(inc + " OI");
         for(var i = 0; i < ROUTE_MANAGER.length; i++)
         {
             if(ROUTE_MANAGER[i] != null)

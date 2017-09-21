@@ -11,15 +11,20 @@ http://reisapi.ruter.no/Place/GetStopsRuter
 <!DOCTYPE html>
 <html>
     <head>
+        <!--Meta-->
         <meta name="viewport" content="width=device-width">
+        <meta charset="UTF-8">
+        <meta name="description" content="Live visning av Ruters kollektive trafikk">
+        <meta name="keywords" content="Ruter, kart, live, buss, trikk, tog, baat, ruterlive">
+        <meta name="author" content="Sebastian S. Berge">
         
+        <!--Scripts-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="js/routemanager.js"></script>
         <script src="js/googlemaps.js"></script>
         <script src="js/transportmiddel.js"></script>
         <script src="js/parser.js"></script>
         <script src="js/uimanager.js"></script>
-        
         <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClR0KjmU1mJysUUiezMNZJ25WCXB4W7ag&callback=mapsCallback">
         </script>
@@ -48,12 +53,11 @@ http://reisapi.ruter.no/Place/GetStopsRuter
                 <select id="selectRoute" onchange="onChangeRoute()"></select>
             </div>
              
-            <!--Checkbokser-->
+            <!--Sidebarknapper-->
             <div id="sideBarContainer">
-                <input type="checkbox" id="chkMapFollow">Stalker<br>
-                <input type="checkbox" id="chkMapTraffic" onclick='setTrafikkLag();'>Trafikk<br>
-                <input type="checkbox" id="chkMapLine">Linje<br>
-
+                
+                <button id="btnHelp" onclick="btnHelpOpen()">Hjelp</button><br><br>
+                <button id="btnHistory" onclick="btnHistoryOpen()">Historie</button><br><br>
                 <button id="btnSettings" onclick="btnSettingsOpen()">Settings</button>
             </div>
              
@@ -63,9 +67,46 @@ http://reisapi.ruter.no/Place/GetStopsRuter
                     <div id="txtHeader">Settings</div>
                     <button id="btnClose" onclick="btnSettingsClose()">Close</button>
                  </div>
-            </div>
+                
+                <div id="bodyContainer">
+                    <div style="display: inline-block; text-align: left">
+                        <h3>Moduser</h3>
+                        <input type="checkbox" id="chkMapFollow">Stalker<br>
+                        <input type="checkbox" id="chkMapTraffic" onclick='setTrafikkLag();'>Trafikk<br>
+                        <input type="checkbox" id="chkMapLine">Linje<br>
+
+                        <h3>Hide</h3>
+                        <input type="checkbox" id="chkHideSearch">Søkebar<br>
+                        <input type="checkbox" id="chkHideSelect">Seleksjonsmenyer<br>
+                        <input type="checkbox" id="chkHideTransportInfo">Transportinformasjon<br>
+                        <input type="checkbox" id="chkHideInfo">Infoboks<br>
+                    </div>
+                </div>
+            </div> 
              
+             <!--Help-->
+            <div id="helpContainer">
+                <div id="headerContainer">
+                    <div id="txtHeader">Hjelp</div>
+                    <button id="btnClose" onclick="btnHelpClose()">Close</button>
+                 </div>
+                
+                <div id="bodyContainer">
+                  
+                </div>
+            </div> 
              
+             <!--History-->
+            <div id="historyContainer">
+                <div id="headerContainer">
+                    <div id="txtHeader">Historie</div>
+                    <button id="btnClose" onclick="btnHistoryClose()">Close</button>
+                 </div>
+                
+                <div id="bodyContainer">
+                  <h1>Ingen tidligere søk å vise frem :(</h1>
+                </div>
+            </div> 
         </div>
     </body>
 </html>

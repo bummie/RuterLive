@@ -1,9 +1,6 @@
 // Seb (c) 2017
 
 var ROUTE_MANAGER = new Array();
-var UPDATING_SANNTID = false;
-var UPDATING_SANNTID_AMOUNT = 0;
-var UPDATING_SANNTID_SIZE = 0;
 
 function Route(id, stopArray, transType, stopsSorted)
 {
@@ -164,7 +161,6 @@ function doneLoadingTransport(transportArray, linje)
         route.setTransport(transportRouteArray);
     }    
     print(LOG_PARSE + " Henter sanntidsdata ["+route.updateSanntidAmount+"/"+route.updateSanntidSize+"]");
-    //console.log(UPDATING_SANNTID_AMOUNT + " : " + UPDATING_SANNTID_SIZE);
     if(route.updateSanntidAmount >= route.updateSanntidSize)
     {
         route.updateSanntid = false;

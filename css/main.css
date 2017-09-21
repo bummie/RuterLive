@@ -49,13 +49,34 @@ body
     position: absolute;
     bottom: 0;
     left: 0;
-    padding: 3px;
-    width: 20%;    
+    padding: 5px;
     background: rgba(255, 255, 255, 0.6);
     border-radius: 10%;
 }
 
 #settingsContainer
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(51, 51, 51, 0.9);
+    display: none;
+}
+
+#helpContainer
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(51, 51, 51, 0.9);
+    display: none;
+}
+
+#historyContainer
 {
     position: absolute;
     top: 0;
@@ -166,11 +187,25 @@ select
     font-style: oblique;
 }
 
+#settingsContainer #bodyContainer
+{
+    position: absolute;
+    top: 5%;
+    left: 0;
+    width: 100%;
+    height: 95%;
+    margin: 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: larger;
+    font-style: oblique;
+    color: white;
+}
+
 #settingsContainer #txtHeader
 {
     position: relative;
-    display: inline;
-    width: 100%;
+    display: inline-block;
     height: 100%;
     color: white;
     margin: auto;
@@ -178,6 +213,112 @@ select
 }
 
 #settingsContainer #btnClose
+{
+    position: relative;
+    height: 100%;
+    color: white;
+    background: red;
+    text-align: center;
+    margin: 0;
+    float: right;
+}
+
+/*Hjelpecontainer Elements*/
+
+#helpContainer #headerContainer
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+    margin: 0;
+    background: #333333;
+    
+    font-family: 'Roboto', sans-serif;
+    font-size: larger;
+    font-style: oblique;
+}
+
+#helpContainer #bodyContainer
+{
+    position: absolute;
+    top: 5%;
+    left: 0;
+    width: 100%;
+    height: 95%;
+    margin: 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: larger;
+    font-style: oblique;
+    color: white;
+}
+
+#helpContainer #txtHeader
+{
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    color: white;
+    margin: auto;
+    text-align: center;
+}
+
+#helpContainer #btnClose
+{
+    position: relative;
+    height: 100%;
+    color: white;
+    background: red;
+    text-align: center;
+    margin: 0;
+    float: right;
+}
+
+/*historyContainer Elements*/
+
+#historyContainer #headerContainer
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+    margin: 0;
+    background: #333333;
+    
+    font-family: 'Roboto', sans-serif;
+    font-size: larger;
+    font-style: oblique;
+}
+
+#historyContainer #bodyContainer
+{
+    position: absolute;
+    top: 5%;
+    left: 0;
+    width: 100%;
+    height: 95%;
+    margin: 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: larger;
+    font-style: oblique;
+    color: white;
+}
+
+#historyContainer #txtHeader
+{
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    color: white;
+    margin: auto;
+    text-align: center;
+}
+
+#historyContainer #btnClose
 {
     position: relative;
     height: 100%;

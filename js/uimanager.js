@@ -29,6 +29,32 @@ function btnSettingsOpen()
         document.getElementById("settingsContainer").style.display = "block";
 }
 
+// Close button in the help menu
+function btnHelpClose()
+{
+    if(document.getElementById("helpContainer") != null)
+        document.getElementById("helpContainer").style.display = "none";
+}
+
+function btnHelpOpen()
+{
+    if(document.getElementById("helpContainer") != null)
+        document.getElementById("helpContainer").style.display = "block";
+}
+
+// Close button in the history menu
+function btnHistoryClose()
+{
+    if(document.getElementById("historyContainer") != null)
+        document.getElementById("historyContainer").style.display = "none";
+}
+
+function btnHistoryOpen()
+{
+    if(document.getElementById("historyContainer") != null)
+        document.getElementById("historyContainer").style.display = "block";
+}
+
 function btnRemoveTransport()
 {
     var selectRoute = document.getElementById("selectRoute");

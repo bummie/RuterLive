@@ -253,3 +253,70 @@ function getStopNameFromId(routeId, stopId)
         }
     }
 }
+
+function updateStopMarkers()
+{
+    if(selectedMarkerRoute != null)
+    {
+        if(loaded_stops_markers_line == null)
+        {
+           populateStopMarkers();
+        }
+        else if(loaded_stops_markers_line !== ROUTE_MANAGER[selectedMarkerRoute].getId())
+        {
+            emptyStopMarkers();
+            populateStopMarkers();
+        }
+        
+    }else
+    {
+       emptyStopMarkers();
+    }
+}
+
+// Oppretter stoppemarkører
+function populateStopMarkers()
+{
+    var ikon = generateMapsIcon(ikoner.stop, false);
+
+    var stops = ROUTE_MANAGER[selectedMarkerRoute].getStops();
+    for(var i = 0; i < stops.length; i++)
+    {
+        var label =
+        {
+            text: stops[i].getName(),
+            color: "black",
+            fontSize: "14px"
+        }
+
+        var marker = new google.maps.Marker(
+        {
+            icon: ikon,
+            map: map
+        });
+
+        marker.setPosition(stops[i].getPosition());
+        marker.setTitle(stops[i].getName());
+        marker.setLabel(label);
+        loaded_stops_markers[i] = marker;
+    }
+
+    loaded_stops_markers_line = ROUTE_MANAGER[selectedMarkerRoute].getId();     
+}
+
+// Fjerner stoppesedmarkørene
+function emptyStopMarkers()
+{
+ if(loaded_stops_markers_line != null)
+    {
+        for(var i = 0; i < loaded_stops_markers.length; i++)
+        {
+            if(loaded_stops_markers[i] != null)
+            {
+                loaded_stops_markers[i].setMap(null);
+            }            
+        }
+        loaded_stops_markers = new Array(); 
+        loaded_stops_markers_line = null;
+    }
+}

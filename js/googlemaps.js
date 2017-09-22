@@ -7,8 +7,9 @@ var ikoner =
             tbane: ikonBase + 'tbane.png',
             tog: ikonBase + 'tog.png',
             trikk: ikonBase + 'trikk.png',
-            baat: ikonBase + 'baat.png'
-
+            baat: ikonBase + 'baat.png',
+            stop: ikonBase + 'stopp.png'
+                
         };
 
 // Map
@@ -24,6 +25,8 @@ var selectedMarkerTransport = null;
 
 // Misc
 var inc = 0;
+var loaded_stops_markers_line = null;
+var loaded_stops_markers = new Array();
 
 window.mapsCallback = function ()
 {
@@ -36,7 +39,8 @@ function initMap()
     {
         zoom: 12,
         center: osloCoords,
-        disableDefaultUI: true
+        disableDefaultUI: true,
+        gestureHandling: "greedy"
     });
     
     // Linje tegnet fra transport til stoppested
@@ -117,6 +121,9 @@ function updateMap()
             if(linePath.getMap() != null)
                 linePath.setMap(null);
         }
+        
+        //Stoppesteder
+        updateStopMarkers();
         
         updateInfo();
     }

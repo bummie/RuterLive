@@ -245,9 +245,8 @@ function generateMapsIcon(iconVal, erTransportType)
                 url: url, 
                 scaledSize: new google.maps.Size(20, 24),
                 origin: new google.maps.Point(0,0), 
-                anchor: new google.maps.Point(0, 0), 
-                labelOrigin: new google.maps.Point(10, -10),
-                rotation: 270
+                anchor: new google.maps.Point(10, 24), 
+                labelOrigin: new google.maps.Point(10, -10)
             };
     return ikon;
 }

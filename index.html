@@ -42,7 +42,7 @@ http://reisapi.ruter.no/Place/GetStopsRuter
              <!--Search bar-->
              <div id="searchBarContainer">
                 <input id="inputTransportId" type="text" name="transportId" placeholder="Linjenummer..">
-                <button id="btnAddTransport" onclick="btnAddTransport()">Legg til transport</button>
+                <button id="btnAddTransport" onclick="btnAddTransport()"><img class="btnImage" src="img/ikoner/add.png">Legg til transport</button>
                  <div id="textInfo" class="textInfoStyle"></div>
                  <div id="textConsole" class="textInfoStyle"></div>
             </div>
@@ -57,9 +57,9 @@ http://reisapi.ruter.no/Place/GetStopsRuter
             <!--Sidebarknapper-->
             <div id="sideBarContainer">
                 
-                <button id="btnHelp" onclick="btnHelpOpen()">Hjelp</button><br><br>
-                <button id="btnHistory" onclick="btnHistoryOpen()">Historie</button><br><br>
-                <button id="btnSettings" onclick="btnSettingsOpen()">Settings</button>
+                <button id="btnHelp" class="btnSidebar" onclick="btnHelpOpen()"><img class="btnImage" src="img/ikoner/help.png">Hjelp</button>
+                <button id="btnHistory" class="btnSidebar" onclick="btnHistoryOpen()"><img class="btnImage" src="img/ikoner/book_addresses.png">Historie</button>
+                <button id="btnSettings" class="btnSidebar" onclick="btnSettingsOpen()"><img class="btnImage" src="img/ikoner/wrench.png">Innstillinger</button>
             </div>
              
              <!--Settings-->

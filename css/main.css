@@ -109,17 +109,40 @@ button:active
     cursor: grab;
 }
 
+.btnImage
+{
+    vertical-align: center;
+}
+
 .btnDel
 {
      -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
-    cursor: pointer;
     background-color: #af4c4c;
 }
 
 .btnDel:active
 {
     background-color: #cc8b8b;
+    cursor: grab;
+}
+
+.btnSidebar
+{
+    display: block;
+    width: 100%;
+    background: #4b4b4b;
+    border-radius: 5px;
+    margin-top: 1px;
+    text-align: left;
+    color: #efefef;
+     -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.btnSidebar:active
+{
+    background-color: #696969;
     cursor: grab;
 }
 

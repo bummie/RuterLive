@@ -361,3 +361,51 @@ select
     margin: 0;
     float: right;
 }
+
+
+/* Dekstop adsjustments */
+@media only screen and (min-width: 1025px) 
+{
+    #searchBarContainer
+    {
+        top: 0;
+        left: 0;
+        width: 50%;
+    }
+    
+    /* Panels */
+    #settingsContainer
+    {
+        top: 1%;
+        left: 59%;
+        width: 40%;
+        height: 70%;
+        border: 1px solid black;
+    }
+
+    #helpContainer
+    {
+        top: 1%;
+        left: 59%;
+        width: 40%;
+        height: 70%;
+        border: 1px solid black;
+    }
+
+    #historyContainer
+    {
+        top: 1%;
+        left: 59%;
+        width: 40%;
+        height: 70%;
+        border: 1px solid black;
+    }
+    
+    #bottomContainer
+    {
+        bottom: 0;
+        left: 50%;
+        width: 50%;
+        height: 5%;
+    }
+} 

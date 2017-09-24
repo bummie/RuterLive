@@ -35,6 +35,9 @@ function btnSettingsOpen()
 {
     if(document.getElementById("settingsContainer") != null)
         document.getElementById("settingsContainer").style.display = "block";
+    
+    btnHelpClose();
+    btnHistoryClose();
 }
 
 // Close button in the help menu
@@ -48,6 +51,9 @@ function btnHelpOpen()
 {
     if(document.getElementById("helpContainer") != null)
         document.getElementById("helpContainer").style.display = "block";
+    
+    btnSettingsClose();
+    btnHistoryClose();
 }
 
 // Close button in the history menu
@@ -61,6 +67,9 @@ function btnHistoryOpen()
 {
     if(document.getElementById("historyContainer") != null)
         document.getElementById("historyContainer").style.display = "block";
+    
+    btnSettingsClose();
+    btnHelpClose();
     
     loadHistory();
 }

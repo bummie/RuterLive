@@ -1,7 +1,7 @@
 // Seb (c) 2017
 
 var ROUTE_MANAGER = new Array();
-
+var last_zoom = -1;
 function Route(id, stopArray, transType, stopsSorted)
 {
     this.id = id;
@@ -268,9 +268,37 @@ function updateStopMarkers()
             populateStopMarkers();
         }
         
+        if(map.getZoom() !== last_zoom)
+            updateStopMarkersLabels();
     }else
     {
        emptyStopMarkers();
+    }
+}
+
+function updateStopMarkersLabels()
+{
+     if(selectedMarkerRoute != null && !getCheckboxValue("chkHideStops"))
+    {
+        if(loaded_stops_markers_line != null)
+        {
+            var stops = ROUTE_MANAGER[selectedMarkerRoute].getStops();
+            for(var i = 0; i < stops.length; i++)
+            {
+                var labelText = " ";
+                if(map.getZoom() >= 14)
+                    labelText = stops[i].getName();
+                var label =
+                {
+                    text: labelText,
+                    color: "black",
+                    fontSize: "14px"
+                }
+                loaded_stops_markers[i].setLabel(label);
+            }
+            last_zoom = map.getZoom();
+        }
+        
     }
 }
 
@@ -282,13 +310,6 @@ function populateStopMarkers()
     var stops = ROUTE_MANAGER[selectedMarkerRoute].getStops();
     for(var i = 0; i < stops.length; i++)
     {
-        var label =
-        {
-            text: stops[i].getName(),
-            color: "black",
-            fontSize: "14px"
-        }
-
         var marker = new google.maps.Marker(
         {
             icon: ikon,
@@ -297,7 +318,6 @@ function populateStopMarkers()
 
         marker.setPosition(stops[i].getPosition());
         marker.setTitle(stops[i].getName());
-        marker.setLabel(label);
         loaded_stops_markers[i] = marker;
     }
 

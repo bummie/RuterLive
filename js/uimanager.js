@@ -55,6 +55,7 @@ function btnHistoryOpen()
         document.getElementById("historyContainer").style.display = "block";
 }
 
+// Sletter valgt linje
 function btnRemoveTransport()
 {
     var selectRoute = document.getElementById("selectRoute");
@@ -85,6 +86,36 @@ function btnRemoveTransport()
     }
 }
 
+function updateHide()
+{
+    // Searchbar
+    updateHideElementById("inputTransportId", "chkHideSearch");
+    updateHideElementById("btnAddTransport", "chkHideSearch");
+    
+    // Select linje dropdowns
+    updateHideElementById("bottomContainer", "chkHideSelect");
+    
+    // Infotextboxes
+    updateHideElementById("textConsole", "chkHideTransportInfo");
+    updateHideElementById("textInfo", "chkHideInfo");
+}
+
+function updateHideElementById(id, chkboxid)
+{
+     if(document.getElementById(id) != null)
+     {
+         if(getCheckboxValue(chkboxid))
+            document.getElementById(id).style.display = "none";
+         else
+            document.getElementById(id).style.display = "inline-block";
+     }
+}
+
+function getCheckboxValue(id)
+{
+    return document.getElementById(id).checked;
+}
+
 function updateInfo()
 {
     if(selectedMarkerRoute != null && selectedMarkerTransport != null)
@@ -113,7 +144,8 @@ function print(text)
 {
     console.log(text);
     document.getElementById("textConsole").innerHTML = text;
-    document.getElementById("textConsole").style.display = "inline-block";
+    if(!getCheckboxValue("chkHideTransportInfo"))
+        document.getElementById("textConsole").style.display = "inline-block";
     CONSOLE_LAST_MESSAGE_TIME = new Date();
 }
 

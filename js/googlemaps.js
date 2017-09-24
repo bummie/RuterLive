@@ -60,7 +60,7 @@ function initMap()
 function setTrafikkLag()
 { 
     console.log("Trafikk");
-    if(document.getElementById("chkMapTraffic").checked)
+    if(getCheckboxValue("chkMapTraffic"))
         trafficLayer.setMap(map);
     else
         trafficLayer.setMap(null);
@@ -105,11 +105,11 @@ function updateMap()
         inc = 0;
         
         // Make google maps follow selected marker
-        if(selectedMarkerRoute != null && document.getElementById("chkMapFollow").checked)
+        if(selectedMarkerRoute != null && getCheckboxValue("chkMapFollow"))
             map.setCenter(ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport].getPosition());
         
         // Draw line where transport is heading
-        if(selectedMarkerRoute != null && document.getElementById("chkMapLine").checked)
+        if(selectedMarkerRoute != null && getCheckboxValue("chkMapLine"))
         {
             if(linePath.getMap() == null)
                 linePath.setMap(map);
@@ -122,11 +122,13 @@ function updateMap()
                 linePath.setMap(null);
         }
         
-        //Stoppesteder
+        //Oppdateringer
         updateStopMarkers();
-        
         updateInfo();
     }
+    
+    // Oppdatere UI
+    updateHide();
 }
 
 function updateSanntid()

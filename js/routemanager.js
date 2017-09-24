@@ -256,7 +256,7 @@ function getStopNameFromId(routeId, stopId)
 
 function updateStopMarkers()
 {
-    if(selectedMarkerRoute != null)
+    if(selectedMarkerRoute != null && !getCheckboxValue("chkHideStops"))
     {
         if(loaded_stops_markers_line == null)
         {

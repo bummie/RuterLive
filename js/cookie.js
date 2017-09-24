@@ -9,6 +9,8 @@ var settings =
         hideInfo: "chkHideInfo",
         hideStops: "chkHideStops"
     };
+var HISTORY = "history";
+var HISTORY_SIZE = 5;
 
 function setCookie(cname, cvalue) 
 {
@@ -33,6 +35,36 @@ function getCookie(cname)
         }
     }
     return "";
+}
+
+function addHistory(linjeId)
+{
+    var historyArray = getHistory();
+    var tempArr = new Array(HISTORY_SIZE);
+    if(historyArray[0] != null)
+    {
+        if(historyArray[0] === linjeId)
+            return;
+    }
+    for(var i = 0; i < historyArray.length-1; i++)
+    {
+        if(historyArray[i] != null)
+            tempArr[i+1] = historyArray[i];
+    }
+    tempArr[0] = linjeId;
+    
+    setCookie(HISTORY, JSON.stringify(tempArr));
+}
+
+function getHistory()
+{
+    var historyArray = new Array(HISTORY_SIZE);
+    var oldArr = getCookie(HISTORY);
+    
+    if(oldArr !== "")
+        historyArray = JSON.parse(oldArr);
+    
+    return historyArray;
 }
 
 function saveSettings()

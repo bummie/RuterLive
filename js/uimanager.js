@@ -14,6 +14,13 @@ function btnAddTransport()
     }
 }
 
+function btnHistory(linje)
+{
+    getLinjeData(linje.toString());
+    print("Henter stoppdata for rute " + linje);
+    btnHistoryClose();
+}
+
 function btnSettingsSave(){}
 
 // Close button in the settings menu
@@ -54,6 +61,8 @@ function btnHistoryOpen()
 {
     if(document.getElementById("historyContainer") != null)
         document.getElementById("historyContainer").style.display = "block";
+    
+    loadHistory();
 }
 
 // Sletter valgt linje
@@ -85,6 +94,35 @@ function btnRemoveTransport()
         }
         updateDropdown();
     }
+}
+
+// Laster inn tidligere søk fra cookies
+function loadHistory()
+{
+    var hist = getHistory();
+    var historyHtml = "<h1>Ingen tidligere søk å vise frem :(</h1>";
+
+    // Finne bodyContainer til historydiven
+    var historyDiv = document.getElementById("historyContainer");
+    for (var i = 0; i < historyDiv.childNodes.length; i++)
+    {
+        var child = historyDiv.childNodes[i];
+        if(child.id === "bodyContainer")
+            historyDiv = child;
+    }
+    
+    if(hist[0] != null)
+    {
+        historyHtml = "";
+        for(var i = 0; i < hist.length; i++)
+        {
+            if(hist[i] != null)
+                historyHtml += '<button id="btnHist" class="btnHistory" onclick="btnHistory(\'' + hist[i] + '\')">' + hist[i] + '</button>';
+        }
+        
+    }
+    
+    historyDiv.innerHTML = historyHtml;
 }
 
 function updateHide()

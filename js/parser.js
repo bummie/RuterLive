@@ -192,7 +192,10 @@ function getLinjeData(linjeNavn)
                     }
                 }
                 if(funnetNavn)
+                {
                     print("Fant linje: " + linjeNavn);
+                    addHistory(linjeNavn);
+                }
                 else
                     print("Fant ikke linje: " + linjeNavn);
                  if(idEksisterer)

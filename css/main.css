@@ -123,6 +123,14 @@ button:active
     cursor: grab;
 }
 
+.btnHistory
+{
+    width: 100%;
+    flex-grow: 1;
+    font-size: xx-large;
+    margin-top: 1px;
+}
+
 #btnAddTransport
 {
     width: 55%;
@@ -296,6 +304,8 @@ select
 #historyContainer #bodyContainer
 {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     top: 5%;
     left: 0;
     width: 100%;

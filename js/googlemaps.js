@@ -53,6 +53,10 @@ function initMap()
         });
     linePath.setMap(map);
     trafficLayer = new google.maps.TrafficLayer();
+    
+    // Load stored settings
+    loadSettings();
+    
     setInterval(updateMap, 10); 
     setInterval(updateSanntid, 5000); 
 }

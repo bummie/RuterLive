@@ -21,6 +21,7 @@ function btnSettingsClose()
 {
     if(document.getElementById("settingsContainer") != null)
         document.getElementById("settingsContainer").style.display = "none";
+    saveSettings();
 }
 
 function btnSettingsOpen()
@@ -114,6 +115,11 @@ function updateHideElementById(id, chkboxid)
 function getCheckboxValue(id)
 {
     return document.getElementById(id).checked;
+}
+
+function setCheckboxValue(id, checked)
+{
+    return document.getElementById(id).checked = checked;
 }
 
 function updateInfo()

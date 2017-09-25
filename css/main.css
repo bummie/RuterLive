@@ -10,6 +10,29 @@ body
     padding: 0;
 }
 
+a:link
+{
+    color: deepskyblue;
+    text-decoration: none;
+}
+
+a:visited
+{
+    color: deepskyblue;
+    text-decoration: none;
+}
+
+a:hover 
+{
+    color: #7cdeff;
+    text-decoration: underline;
+}
+
+a:active 
+{
+    color: 7cdeff;
+    text-decoration: underline;
+}
 
 /* Custom IDS */
 #bodyContainer
@@ -283,6 +306,7 @@ select
     font-family: 'Roboto', sans-serif;
     font-size: larger;
     font-style: oblique;
+    overflow-y: scroll;
     color: white;
 }
 

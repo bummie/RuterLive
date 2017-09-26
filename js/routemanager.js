@@ -186,7 +186,7 @@ function generateTransport(data, transType, routeId)
                         text: data["MonitoredVehicleJourney"].LineRef + " - " + shortenString(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay, 10),
                         color: "black",
                         fontWeight: "bold",
-                        fontSize: "20px"
+                        fontSize: "17px"
                     }
         });
         
@@ -235,7 +235,7 @@ function updateTransport(transport, data)
                 transport.setArrivalTime(arrivalTime);
                 transport.setTitle(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay);
                 var newMark = transport.getMarker();
-                newMark.label.text = transport.getTitle();
+                newMark.label.text = transport.getTitle(); // TODO:: Legge til linjenummer
                 transport.setMarker(newMark);
             }    
         

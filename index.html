@@ -41,7 +41,7 @@ http://reisapi.ruter.no/Place/GetStopsRuter
              
              <!--Search bar-->
              <div id="searchBarContainer">
-                <input id="inputTransportId" type="text" name="transportId" placeholder="Linjenummer..">
+                <input id="inputTransportId" type="text" name="transportId" placeholder="Linjenummer.." onkeydown="if (event.keyCode == 13) {btnAddTransport();}">
                 <button id="btnAddTransport" onclick="btnAddTransport()"><img class="btnImage" src="img/ikoner/add.png">Legg til transport</button>
                  <div id="textInfo" class="textInfoStyle"></div>
                  <div id="textConsole" class="textInfoStyle"></div>

@@ -183,7 +183,7 @@ function generateTransport(data, transType, routeId)
             map: map,
             title: data["MonitoredVehicleJourney"].LineRef,
             label: {
-                        text: data["MonitoredVehicleJourney"].LineRef,
+                        text: data["MonitoredVehicleJourney"].LineRef + " - " + shortenString(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay, 10),
                         color: "black",
                         fontWeight: "bold",
                         fontSize: "20px"
@@ -234,6 +234,9 @@ function updateTransport(transport, data)
                 transport.setHeadingTo(data.MonitoringRef);
                 transport.setArrivalTime(arrivalTime);
                 transport.setTitle(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay);
+                var newMark = transport.getMarker();
+                newMark.label.text = transport.getTitle();
+                transport.setMarker(newMark);
             }    
         
         return transport;

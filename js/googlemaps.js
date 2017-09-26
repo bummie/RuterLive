@@ -130,7 +130,6 @@ function updateMap()
         updateStopMarkers();
         updateInfo();
     }
-    
     // Oppdatere UI
     updateHide();
 }

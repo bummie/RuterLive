@@ -276,3 +276,13 @@ function calculateDistance(lat1, lon1, lat2, lon2, unit)
         if (unit=="N") { dist = dist * 0.8684 }
         return dist*1000;
 }
+
+function shortenString(text, length)
+{
+    if(text.length > length)
+    {
+        return (text.substring(0, length) + "..");
+    }
+    else
+        return text;
+}

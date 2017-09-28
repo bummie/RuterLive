@@ -399,6 +399,11 @@ select
 /* Dekstop adsjustments */
 @media only screen and (min-width: 1025px) 
 {
+    #versionText
+    {
+        top: 0;
+    }
+    
     #searchBarContainer
     {
         top: 0;

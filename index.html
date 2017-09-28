@@ -12,7 +12,7 @@ http://reisapi.ruter.no/Place/GetStopsRuter
 <html>
     <head>
         <!--Meta-->
-        <meta name="viewport" content="width=device-width">
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta charset="UTF-8">
         <meta name="description" content="Live visning av Ruters kollektive trafikk">
         <meta name="keywords" content="Ruter, kart, live, buss, trikk, tog, baat, ruterlive">
@@ -25,7 +25,7 @@ http://reisapi.ruter.no/Place/GetStopsRuter
         <script src="js/googlemaps.js"></script>
         <script src="js/transportmiddel.js"></script>
         <script src="js/parser.js"></script>
-        <script src="js/uimanager.js"></script>
+        <script src="js/uimanager.js?id=3"></script>
         <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClR0KjmU1mJysUUiezMNZJ25WCXB4W7ag&callback=mapsCallback">
         </script>
@@ -41,7 +41,7 @@ http://reisapi.ruter.no/Place/GetStopsRuter
              
              <!--Search bar-->
              <div id="searchBarContainer">
-                <input id="inputTransportId" type="text" name="transportId" placeholder="Linjenummer.." onkeydown="if (event.keyCode == 13) {btnAddTransport();}">
+                <input id="inputTransportId" tabindex="-1" type="text" name="transportId" placeholder="Linjenummer.." onkeydown="if (event.keyCode == 13) {btnAddTransport();}">
                 <button id="btnAddTransport" onclick="btnAddTransport()"><img class="btnImage" src="img/ikoner/add.png">Legg til transport</button>
                  <div id="textInfo" class="textInfoStyle"></div>
                  <div id="textConsole" class="textInfoStyle"></div>

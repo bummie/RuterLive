@@ -183,7 +183,7 @@ function generateTransport(data, transType, routeId)
             map: map,
             title: data["MonitoredVehicleJourney"].LineRef,
             label: {
-                        text: data["MonitoredVehicleJourney"].LineRef + " - " + shortenString(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay, 10),
+                        text: shortenString(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay, 10),
                         color: "black",
                         fontWeight: "bold",
                         fontSize: "17px"
@@ -235,7 +235,7 @@ function updateTransport(transport, data)
                 transport.setArrivalTime(arrivalTime);
                 transport.setTitle(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay);
                 var newMark = transport.getMarker();
-                newMark.label.text = transport.getTitle(); // TODO:: Legge til linjenummer
+                newMark.label.text = shortenString(transport.getTitle(), 10); // TODO:: Legge til linjenummer
                 transport.setMarker(newMark);
             }    
         

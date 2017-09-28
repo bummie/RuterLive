@@ -2,7 +2,6 @@
 var CONSOLE_DELAY = 1500;
 var CONSOLE_LAST_MESSAGE_TIME = new Date();
 
-
 function btnAddTransport()
 {
     var inputValue = document.getElementById("inputTransportId").value;
@@ -11,6 +10,8 @@ function btnAddTransport()
         getLinjeData(inputValue);
         print("Henter stoppdata for rute " + inputValue);
         //document.getElementById("btnAddTransport").disabled = true;
+        
+        $('#inputTransportId').blur();
     }
 }
 

@@ -91,7 +91,6 @@ function doneLoadingStops(stopsArray, linje, transType, sorted)
                 break;
             }
         }
-        console.log("TRANSTYPE PÅ RUTEN ER : " + transType);
         ROUTE_MANAGER[pos] = new Route(linje, stopsArray, transType, sorted);
         updateDropdown();
 
@@ -133,7 +132,7 @@ function doneLoadingTransport(transportArray, linje)
                     if(transportId == transportRouteArray[j].getId())
                     {
                         hasFoundTransport = true;
-                        transportRouteArray[j] = updateTransport(transportRouteArray[j], transportArray[i] );
+                        transportRouteArray[j] = updateTransport(transportRouteArray[j], transportArray[i],  route.updateSanntidAmount );
                         break;
                     }
                 }
@@ -212,21 +211,22 @@ function generateTransport(data, transType, routeId)
     return null;
 }
 
-function updateTransport(transport, data)
+function updateTransport(transport, data, stopIndex)
 {
     if(data != null && transport != null)
     {   
         // Sjekke om datotingen her fungerer
         var arrivalTime = new Date(data["MonitoredVehicleJourney"]["MonitoredCall"].ExpectedArrivalTime);
-
+        
         // IF ARRIVALTIME HAS PASSED THEN NULL HENT NY TID YEAH
             // Bussen flytter seg fjerne gammel tid, ellers blir den superior yo 
             if(transport.getArrivalTime() < new Date())
             {
                 transport.setHeadingFrom(transport.getHeadingTo());
-                transport.setArrivalTime(null);
+                if(stopIndex == 1)
+                    transport.setArrivalTime(null);
             }
-                
+        
             if(transport.getArrivalTime() > arrivalTime || transport.getArrivalTime() == null)
             {
                 if(transport.getHeadingFrom() == null)
@@ -237,7 +237,7 @@ function updateTransport(transport, data)
                 var newMark = transport.getMarker();
                 newMark.label.text = shortenString(transport.getTitle(), 10); // TODO:: Legge til linjenummer
                 transport.setMarker(newMark);
-            }    
+            }   
         
         return transport;
     }

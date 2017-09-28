@@ -181,7 +181,7 @@ function updateInfo()
         if(tran != null)
         {
             var changeSecond =  Math.trunc(Math.abs((new Date() - tran.getArrivalTime())/1000));
-            document.getElementById("textInfo").innerHTML = getStopNameFromId(selectedMarkerRoute, tran.getHeadingTo()) + " - " + changeSecond + "sek";
+            document.getElementById("textInfo").innerHTML = getStopNameFromId(selectedMarkerRoute, tran.getHeadingTo()) + " - " + fmtMSS(changeSecond) + "sek";
         }
     }
     
@@ -369,3 +369,5 @@ function getMarkerIcon(transType)
             
     }
 }
+
+function fmtMSS(s){return(s-(s%=60))/60+(9<s?':':':0')+s}

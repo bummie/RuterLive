@@ -48,6 +48,15 @@ a:active
     position: absolute;
 }
 
+#versionText
+{
+    position: absolute;
+    top: 5%;
+    right: 0;
+    font-size: xx-large;
+    font-family: 'Roboto', sans-serif;
+}
+
 /* Containere */
 
 #searchBarContainer

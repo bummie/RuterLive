@@ -132,7 +132,7 @@ function doneLoadingTransport(transportArray, linje)
                     if(transportId == transportRouteArray[j].getId())
                     {
                         hasFoundTransport = true;
-                        transportRouteArray[j] = updateTransport(transportRouteArray[j], transportArray[i],  route.updateSanntidAmount );
+                        transportRouteArray[j] = updateTransport(transportRouteArray[j], transportArray[i] );
                         break;
                     }
                 }
@@ -211,7 +211,7 @@ function generateTransport(data, transType, routeId)
     return null;
 }
 
-function updateTransport(transport, data, stopIndex)
+function updateTransport(transport, data)
 {
     if(data != null && transport != null)
     {   
@@ -220,23 +220,26 @@ function updateTransport(transport, data, stopIndex)
         
         // IF ARRIVALTIME HAS PASSED THEN NULL HENT NY TID YEAH
             // Bussen flytter seg fjerne gammel tid, ellers blir den superior yo 
+            var bussFremme = false;
             if(transport.getArrivalTime() < new Date())
             {
                 transport.setHeadingFrom(transport.getHeadingTo());
-                if(stopIndex == 1)
+                bussFremme = true;
+                /*if(data.MonitoringRef == transport.getHeadingFrom())
+                {
+                    console.log( transport.getId() + " ID Stopp: " + data.MonitoringRef + " HeadingFrom: " + transport.getHeadingFrom());
                     transport.setArrivalTime(null);
+                }*/
             }
         
-            if(transport.getArrivalTime() > arrivalTime || transport.getArrivalTime() == null)
+            if(transport.getArrivalTime() > arrivalTime || bussFremme)
             {
                 if(transport.getHeadingFrom() == null)
                     transport.setHeadingFrom(transport.getHeadingTo());
                 transport.setHeadingTo(data.MonitoringRef);
                 transport.setArrivalTime(arrivalTime);
                 transport.setTitle(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay);
-                var newMark = transport.getMarker();
-                newMark.label.text = shortenString(transport.getTitle(), 10); // TODO:: Legge til linjenummer
-                transport.setMarker(newMark);
+                transport.getMarker().label.text = shortenString(transport.getTitle(), 10);
             }   
         
         return transport;

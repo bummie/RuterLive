@@ -33,11 +33,11 @@ function getSanntid(stoppId, linje, transType)
                 {
                     var data = JSON.parse(response);
 
-                    console.log(LOG_PARSE + " getSanntid done");
+                    //console.log(LOG_PARSE + " getSanntid done");
 
                     doneLoadingTransport(data, linje);
                 },
-                timeout: 10000,
+                timeout: 15000,
                 async:true
             });
         } 

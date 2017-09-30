@@ -9,7 +9,6 @@ var ikoner =
             trikk: ikonBase + 'trikk.png',
             baat: ikonBase + 'baat.png',
             stop: ikonBase + 'stopp.png'
-                
         };
 
 // Map
@@ -61,15 +60,6 @@ function initMap()
     setInterval(updateSanntid, 5000); 
 }
 
-function setTrafikkLag()
-{ 
-    console.log("Trafikk");
-    if(getCheckboxValue("chkMapTraffic"))
-        trafficLayer.setMap(map);
-    else
-        trafficLayer.setMap(null);
-}
-
 function updateMap()
 {
     if(ROUTE_MANAGER != null && ROUTE_MANAGER.length > 0)
@@ -113,18 +103,7 @@ function updateMap()
             map.setCenter(ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport].getPosition());
         
         // Draw line where transport is heading
-        if(selectedMarkerRoute != null && getCheckboxValue("chkMapLine"))
-        {
-            if(linePath.getMap() == null)
-                linePath.setMap(map);
-            var transport = ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport];
-            var lineCoords = [transport.getPosition(), transport.getTowardsPosition()];
-            linePath.setPath(lineCoords);
-        }else
-        {
-            if(linePath.getMap() != null)
-                linePath.setMap(null);
-        }
+       drawHeadingToLine()
         
         //Oppdateringer
         updateStopMarkers();
@@ -165,4 +144,29 @@ function updateSanntid()
             }
         }
     }
+}
+
+function drawHeadingToLine()
+{
+    if(selectedMarkerRoute != null && getCheckboxValue("chkMapLine"))
+    {
+        if(linePath.getMap() == null)
+            linePath.setMap(map);
+        var transport = ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport];
+        var lineCoords = [transport.getPosition(), transport.getTowardsPosition()];
+        linePath.setPath(lineCoords);
+    }else
+    {
+        if(linePath.getMap() != null)
+            linePath.setMap(null);
+    }
+}
+
+function setTrafikkLag()
+{ 
+    console.log("Trafikk");
+    if(getCheckboxValue("chkMapTraffic"))
+        trafficLayer.setMap(map);
+    else
+        trafficLayer.setMap(null);
 }

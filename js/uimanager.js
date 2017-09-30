@@ -339,7 +339,7 @@ function generateMapsIcon(iconVal, erTransportType)
 
 function getMarkerIcon(transType)
 {
-    console.log("Transporttype: " + transType);
+    //console.log("Transporttype: " + transType);
     switch(transType)
     {
         case 1:
@@ -370,4 +370,5 @@ function getMarkerIcon(transType)
     }
 }
 
+// Sekunder til "00:00"
 function fmtMSS(s){return(s-(s%=60))/60+(9<s?':':':0')+s}

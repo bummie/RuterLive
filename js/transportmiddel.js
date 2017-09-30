@@ -252,7 +252,7 @@ function Transport(id, marker, pos, route)
                     {
                         if(stops[stopIndex].getId() === this.getHeadingTo())
                         {
-                           if((stopIndex+1) < (stops.length-1))
+                           if((stopIndex+1) < (stops.length))
                                return stops[stopIndex+1].getId();
                             else
                                 return this.getHeadingTo();

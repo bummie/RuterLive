@@ -35,7 +35,7 @@ window.mapsCallback = function ()
 function initMap()
 {
     map = new google.maps.Map(document.getElementById('map'),
-    {
+{
         zoom: 12,
         center: osloCoords,
         disableDefaultUI: true,
@@ -80,6 +80,9 @@ function updateMap()
 
                         if(transport[j].getHeadingFrom() != null)
                             transport[j].setLastPosition(ROUTE_MANAGER[i].getPositionFromStop(transport[j].getHeadingFrom()));
+                        
+                        if(transport[j].stuck === STUCK_STUCK)
+                            transport[j].stuck = STUCK_RELEASE;
                     }
                 }   
             }

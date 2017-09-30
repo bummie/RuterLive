@@ -1,3 +1,5 @@
+var STUCK_FREE = 0, STUCK_STUCK = 1, STUCK_RELEASE = 2;
+
 function Transport(id, marker, pos, route)
 {
     this.id = id;
@@ -11,13 +13,12 @@ function Transport(id, marker, pos, route)
     this.velocity = null;
     this.firstInit = true;
     this.firstInitCounter = 0;
-    
+    this.stuck = STUCK_FREE;
     this.originId = null;
     this.originName = null;
     this.desinationId = null;
     this.destinationName = null;
     
-    this.alive = false;
     this.headingTo = null;
     this.headingFrom = null;
     
@@ -180,6 +181,7 @@ function Transport(id, marker, pos, route)
         this.lastPosition = pos;
     }
     
+    // TODO: Skrive om så den gjetter headingFrom basert på origin
     this.isStopNeighbour = function(route, id, neighid)
     {
         for(var i = 0; i < ROUTE_MANAGER.length; i++)
@@ -192,23 +194,53 @@ function Transport(id, marker, pos, route)
                     if(stops[j].getId() === id)
                     {
                         // Hvis stoppet etter i arrayen er nabo
-                        if(j+1 < stops.length)
+                        if(j+1 < stops.length-1)
                         {
-                            if(stops[j+1] === neighid)
+                            if(stops[j+1].getId() === neighid)
                                 return true;
                         }
 
                         // Hvis stoppet før i arrayen er nabo
                         if(j-1 >= 0)
                         {
-                            if(stops[j-1] === neighid)
+                            if(stops[j-1].getId() === neighid)
                                 return true;
                         }
                     }
                 }
             }
         }
-       
+        return false;
+    }
+    
+    this.lastStopFromCurrent = function(route)
+    {
+        for(var i = 0; i < ROUTE_MANAGER.length; i++)
+        {
+            if(ROUTE_MANAGER[i].getId === route)
+            {
+                var stops = ROUTE_MANAGER[i].getStops();
+                for(var j = 0; j < stops.length; j++)
+                {
+                    if(stops[j].getId() === id)
+                    {
+                        // Hvis stoppet etter i arrayen er nabo
+                        if(j+1 < stops.length-1)
+                        {
+                            if(stops[j+1].getId() === neighid)
+                                return true;
+                        }
+
+                        // Hvis stoppet før i arrayen er nabo
+                        if(j-1 >= 0)
+                        {
+                            if(stops[j-1].getId() === neighid)
+                                return true;
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
     
@@ -217,9 +249,6 @@ function Transport(id, marker, pos, route)
     {
         if(!this.firstInit)
         {
-            //if(!this.isStopNeighbour(this.route, this.getHeadingFrom(), this.getHeadingTo()))
-                //this.setPosition(this.getTowardsPosition());
-            
             if(this.getHeadingFrom() == null)
                 this.setPosition(this.getTowardsPosition());
             

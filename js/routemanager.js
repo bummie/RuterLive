@@ -132,7 +132,7 @@ function doneLoadingTransport(transportArray, linje)
                     if(transportId == transportRouteArray[j].getId())
                     {
                         hasFoundTransport = true;
-                        transportRouteArray[j] = updateTransport(transportRouteArray[j], transportArray[i] );
+                        transportRouteArray[j] = updateTransport(transportRouteArray[j], transportArray[i], route);
                         break;
                     }
                 }
@@ -211,7 +211,7 @@ function generateTransport(data, transType, routeId)
     return null;
 }
 
-function updateTransport(transport, data)
+function updateTransport(transport, data, route)
 {
     if(data != null && transport != null)
     {   
@@ -220,19 +220,21 @@ function updateTransport(transport, data)
         
         // IF ARRIVALTIME HAS PASSED THEN NULL HENT NY TID YEAH
             // Bussen flytter seg fjerne gammel tid, ellers blir den superior yo 
-            var bussFremme = false;
             if(transport.getArrivalTime() < new Date())
             {
                 transport.setHeadingFrom(transport.getHeadingTo());
-                bussFremme = true;
-                /*if(data.MonitoringRef == transport.getHeadingFrom())
+                if(isStopNeighbour(route, transport.getHeadingFrom(), data.MonitoringRef) || transport.stuck === STUCK_RELEASE)
                 {
                     console.log( transport.getId() + " ID Stopp: " + data.MonitoringRef + " HeadingFrom: " + transport.getHeadingFrom());
                     transport.setArrivalTime(null);
-                }*/
+                    transport.stuck = STUCK_FREE;
+                }else
+                {
+                    transport.stuck = STUCK_STUCK;
+                }
             }
         
-            if(transport.getArrivalTime() > arrivalTime || bussFremme)
+            if(transport.getArrivalTime() > arrivalTime || transport.getArrivalTime() === null)
             {
                 if(transport.getHeadingFrom() == null)
                     transport.setHeadingFrom(transport.getHeadingTo());
@@ -345,4 +347,30 @@ function emptyStopMarkers()
         loaded_stops_markers = new Array(); 
         loaded_stops_markers_line = null;
     }
+}
+
+// Teste sjekke om nabo
+function isStopNeighbour(route, id, neighid)
+{
+       var stops = route.getStops();
+        for(var j = 0; j < stops.length; j++)
+        {
+            if(stops[j].getId() === id)
+            {
+                // Hvis stoppet etter i arrayen er nabo
+                if(j+1 < stops.length-1)
+                {
+                    if(stops[j+1].getId() === neighid)
+                        return true;
+                }
+
+                // Hvis stoppet før i arrayen er nabo
+                if(j-1 >= 0)
+                {
+                    if(stops[j-1].getId() === neighid)
+                        return true;
+                }
+            }
+        }
+    return false;
 }

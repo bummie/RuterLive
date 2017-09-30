@@ -242,6 +242,7 @@ function updateTransport(transport, data, route)
                 transport.setArrivalTime(arrivalTime);
                 transport.setTitle(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay);
                 transport.getMarker().label.text = shortenString(transport.getTitle(), 10);
+                //TODO: Force update marker label if changed title
             }   
         
         return transport;

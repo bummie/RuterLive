@@ -196,7 +196,7 @@ function updateInfo()
 // Printer ut til konsoll og app
 function print(text)
 {
-    console.log(text);
+    //console.log(text);
     document.getElementById("textConsole").innerHTML = text;
     if(!getCheckboxValue("chkHideTransportInfo"))
         document.getElementById("textConsole").style.display = "inline-block";

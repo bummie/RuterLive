@@ -55,6 +55,7 @@ a:active
     position: absolute;
     top: 5%;
     right: 0;
+    color: black;
     font-size: xx-large;
     font-family: 'Roboto', sans-serif;
 }
@@ -189,6 +190,7 @@ button:active
 
 #btnAddTransport
 {
+    width: 55%;
     border: 1px solid black;
     font-family: 'Roboto', sans-serif;
 }

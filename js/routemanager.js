@@ -181,6 +181,7 @@ function generateTransport(data, transType, routeId)
             icon: ikon,
             map: map,
             title: data["MonitoredVehicleJourney"].LineRef,
+            zIndex: 1,
             label: {
                         text: shortenString(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay, 10),
                         color: "black",
@@ -327,6 +328,7 @@ function populateStopMarkers()
         var marker = new google.maps.Marker(
         {
             icon: ikon,
+            zIndex: 0,
             map: map
         });
 

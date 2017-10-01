@@ -8,6 +8,8 @@ body
 {
     margin: 0;
     padding: 0;
+    
+    color: #EDF2F4;
 }
 
 a:link
@@ -123,9 +125,9 @@ a:active
 button
 {
     position: relative;
-    background-color: #4CAF50; /* Green */
+    margin: 0;
+    background-color: #D90429; /* Green */
     border: none;
-    color: white;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -133,11 +135,12 @@ button
      -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
+    color: #EDF2F4;
 }
 
 button:active 
 {
-    background-color: #8bcc8e; /* Green */
+    background-color: #EF233C; /* Green */
     cursor: grab;
 }
 
@@ -163,11 +166,9 @@ button:active
 {
     display: block;
     width: 100%;
-    background: #4b4b4b;
-    border-radius: 5px;
     margin-top: 1px;
     text-align: left;
-    color: #efefef;
+    font-size: x-large;
      -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
@@ -188,8 +189,6 @@ button:active
 
 #btnAddTransport
 {
-    width: 55%;
-    border-radius: 10px;
     border: 1px solid black;
     font-family: 'Roboto', sans-serif;
 }
@@ -206,7 +205,6 @@ input
 {
     height: 5%;
     width: 40%;
-    border-radius: 30px;
     padding: 3px;
 }
 
@@ -227,6 +225,7 @@ select
     font-size: larger;
     font-style: oblique;
     background: rgba(255, 255, 255, 0.6);
+    color: black;
     border-radius: 10%;
     margin: 1px;
     display: inline-block;
@@ -262,7 +261,6 @@ select
     font-family: 'Roboto', sans-serif;
     font-size: larger;
     font-style: oblique;
-    color: white;
 }
 
 #settingsContainer #txtHeader
@@ -270,7 +268,6 @@ select
     position: relative;
     display: inline-block;
     height: 100%;
-    color: white;
     margin: auto;
     text-align: center;
 }
@@ -279,8 +276,6 @@ select
 {
     position: relative;
     height: 100%;
-    color: white;
-    background: red;
     text-align: center;
     margin: 0;
     float: right;
@@ -316,7 +311,6 @@ select
     font-size: larger;
     font-style: oblique;
     overflow-y: scroll;
-    color: white;
 }
 
 #helpContainer #txtHeader
@@ -324,7 +318,6 @@ select
     position: relative;
     display: inline-block;
     height: 100%;
-    color: white;
     margin: auto;
     text-align: center;
 }
@@ -333,8 +326,6 @@ select
 {
     position: relative;
     height: 100%;
-    color: white;
-    background: red;
     text-align: center;
     margin: 0;
     float: right;
@@ -371,7 +362,6 @@ select
     font-family: 'Roboto', sans-serif;
     font-size: larger;
     font-style: oblique;
-    color: white;
 }
 
 #historyContainer #txtHeader
@@ -379,7 +369,6 @@ select
     position: relative;
     display: inline-block;
     height: 100%;
-    color: white;
     margin: auto;
     text-align: center;
 }
@@ -388,8 +377,6 @@ select
 {
     position: relative;
     height: 100%;
-    color: white;
-    background: red;
     text-align: center;
     margin: 0;
     float: right;

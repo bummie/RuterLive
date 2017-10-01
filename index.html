@@ -20,12 +20,12 @@ http://reisapi.ruter.no/Place/GetStopsRuter
         
         <!--Scripts-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="js/cookie.js"></script>
-        <script src="js/routemanager.js"></script>
-        <script src="js/googlemaps.js"></script>
-        <script src="js/transportmiddel.js"></script>
-        <script src="js/parser.js"></script>
-        <script src="js/uimanager.js?id=3"></script>
+        <script src="js/cookie.js?id=1"></script>
+        <script src="js/routemanager.js?id=1"></script>
+        <script src="js/googlemaps.js?id=1"></script>
+        <script src="js/transportmiddel.js?id=1"></script>
+        <script src="js/parser.js?id=1"></script>
+        <script src="js/uimanager.js?id=1"></script>
         <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClR0KjmU1mJysUUiezMNZJ25WCXB4W7ag&callback=mapsCallback">
         </script>
@@ -45,7 +45,7 @@ http://reisapi.ruter.no/Place/GetStopsRuter
              <!--Search bar-->
              <div id="searchBarContainer">
                 <input id="inputTransportId" tabindex="-1" type="text" name="transportId" placeholder="Linjenummer.." onkeydown="if (event.keyCode == 13) {btnAddTransport();}">
-                <button id="btnAddTransport" onclick="btnAddTransport()"><img class="btnImage" src="img/ikoner/add.png">Legg til transport</button>
+                <button id="btnAddTransport" onclick="btnAddTransport()">Legg til transport</button>
                  <div id="textInfo" class="textInfoStyle"></div>
                  <div id="textConsole" class="textInfoStyle"></div>
             </div>
@@ -74,16 +74,16 @@ http://reisapi.ruter.no/Place/GetStopsRuter
                 <div id="bodyContainer">
                     <div style="display: inline-block; text-align: left">
                         <h3>Moduser</h3>
-                        <input type="checkbox" id="chkMapFollow">Stalker<br>
-                        <input type="checkbox" id="chkMapTraffic" onclick='setTrafikkLag();'>Trafikk<br>
-                        <input type="checkbox" id="chkMapLine">Linje<br>
+                        <label><input type="checkbox" id="chkMapFollow">Stalker<br></label>
+                        <label><input type="checkbox" id="chkMapTraffic" onclick='setTrafikkLag();'>Trafikk<br></label>
+                        <label><input type="checkbox" id="chkMapLine">Linje<br></label>
 
                         <h3>Hide</h3>
-                        <input type="checkbox" id="chkHideSearch">Søkebar<br>
-                        <input type="checkbox" id="chkHideSelect">Seleksjonsmenyer<br>
-                        <input type="checkbox" id="chkHideTransportInfo">Transportinformasjon<br>
-                        <input type="checkbox" id="chkHideInfo">Infoboks<br>
-                        <input type="checkbox" id="chkHideStops">Stoppesteder<br>
+                        <label><input type="checkbox" id="chkHideSearch">Søkebar<br></label>
+                        <label><input type="checkbox" id="chkHideSelect">Seleksjonsmenyer<br></label>
+                        <label><input type="checkbox" id="chkHideTransportInfo">Transportinformasjon<br></label>
+                        <label><input type="checkbox" id="chkHideInfo">Infoboks<br></label>
+                        <label><input type="checkbox" id="chkHideStops">Stoppesteder<br></label>
                     </div>
                 </div>
             </div> 

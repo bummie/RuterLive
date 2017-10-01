@@ -248,7 +248,7 @@ function Transport(id, marker, pos, route)
                     }
                 }else
                 {
-                    for(stopIndex = stopIndex; stopIndex > 0; stopIndex--)
+                    for(stopIndex; stopIndex > 0; stopIndex--)
                     {
                         if(stops[stopIndex].getId() === this.getHeadingTo())
                         {

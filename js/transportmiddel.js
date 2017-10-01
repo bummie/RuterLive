@@ -230,9 +230,9 @@ function Transport(id, marker, pos, route)
                 }
                 
                 // Finne retningen i array vi beveger oss
-                var arrayUp = true;
+                var arrayUp = false;
                 if(stopIndex > (stops.length - stopIndex))
-                    arrayUp = false;
+                    arrayUp = true;
                 
                 if(arrayUp)
                 {

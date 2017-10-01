@@ -240,9 +240,14 @@ function updateTransport(transport, data, route)
                     transport.setHeadingFrom(transport.getHeadingTo());
                 transport.setHeadingTo(data.MonitoringRef);
                 transport.setArrivalTime(arrivalTime);
-                transport.setTitle(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay);
-                transport.getMarker().label.text = shortenString(transport.getTitle(), 10);
-                //TODO: Force update marker label if changed title
+                
+                // Oppdaterer tittel om ny tittel funnet
+                if(transport.getTitle().localeCompare(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay) != 0)
+                {
+                    transport.setTitle(data["MonitoredVehicleJourney"]["MonitoredCall"].DestinationDisplay);
+                    transport.getMarker().label.text = shortenString(transport.getTitle(), 10);
+                    transport.getMarker().setLabel(transport.getMarker().label);
+                }
             }   
         
         return transport;

@@ -32,6 +32,17 @@ window.mapsCallback = function ()
     initMap();
 };
 
+// Backbutton pressed
+$(window).on('hashchange', function() 
+{
+    if(window.location.hash === "" || !window.location.hash)
+    {
+        btnSettingsClose();
+        btnHelpClose();
+        btnHistoryClose();
+    }
+});
+
 function initMap()
 {
     map = new google.maps.Map(document.getElementById('map'),

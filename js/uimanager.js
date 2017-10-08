@@ -17,6 +17,8 @@ function btnAddTransport()
     }
 }
 
+// Viser og skjuler sidebarmenyen
+// TODO: Rydde opp
 function buttonArrow()
 {
     if(!SIDEBAR_OPEN)
@@ -63,6 +65,7 @@ function btnSettingsOpen()
     
     btnHelpClose();
     btnHistoryClose();
+    addMenuHash();
 }
 
 // Close button in the help menu
@@ -79,6 +82,7 @@ function btnHelpOpen()
     
     btnSettingsClose();
     btnHistoryClose();
+    addMenuHash();
 }
 
 // Close button in the history menu
@@ -95,8 +99,13 @@ function btnHistoryOpen()
     
     btnSettingsClose();
     btnHelpClose();
-    
+    addMenuHash();
     loadHistory();
+}
+
+function addMenuHash()
+{
+    window.location.hash='m';
 }
 
 // Sletter valgt linje

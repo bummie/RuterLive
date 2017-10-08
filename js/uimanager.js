@@ -17,6 +17,12 @@ function btnAddTransport()
     }
 }
 
+function btnShare()
+{
+    $('btnShare').attr('data-clipboard-text', 'some attributes value')
+    alert("Copied shareable link to clipboard");
+}
+
 // Viser og skjuler sidebarmenyen
 // TODO: Rydde opp
 function buttonArrow()
@@ -24,6 +30,7 @@ function buttonArrow()
     if(!SIDEBAR_OPEN)
     {
         document.getElementById("btnHelp").style.display = "block";
+        document.getElementById("btnShare").style.display = "block";
         document.getElementById("btnHistory").style.display = "block";
         document.getElementById("btnSettings").style.display = "block";
 
@@ -33,6 +40,7 @@ function buttonArrow()
     }else
     {
         document.getElementById("btnHelp").style.display = "none";
+        document.getElementById("btnShare").style.display = "none";
         document.getElementById("btnHistory").style.display = "none";
         document.getElementById("btnSettings").style.display = "none";
         
@@ -403,5 +411,27 @@ function getMarkerIcon(transType)
     }
 }
 
+// Function by Geoffrey Crofte
+function $_GET(param) {
+	var vars = {};
+	window.location.href.replace( location.hash, '' ).replace( 
+		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+		function( m, key, value ) { // callback
+			vars[key] = value !== undefined ? value : '';
+		}
+	);
+
+	if ( param ) {
+		return vars[param] ? vars[param] : null;	
+	}
+	return vars;
+}
+
 // Sekunder til "00:00"
 function fmtMSS(s){return(s-(s%=60))/60+(9<s?':':':0')+s}
+
+// Get share link
+function getShareLink()
+{
+    
+}

@@ -32,17 +32,6 @@ window.mapsCallback = function ()
     initMap();
 };
 
-// Backbutton pressed
-$(window).on('hashchange', function() 
-{
-    if(window.location.hash === "" || !window.location.hash)
-    {
-        btnSettingsClose();
-        btnHelpClose();
-        btnHistoryClose();
-    }
-});
-
 function initMap()
 {
     map = new google.maps.Map(document.getElementById('map'),
@@ -343,9 +332,28 @@ function initMap()
     // Load stored settings
     loadSettings();
     
+    // Load line if given in URL
+    if($_GET("line") != null)
+        getLinjeData($_GET("line"));
+    
+    // Start updateloops
     setInterval(updateMap, 10); 
     setInterval(updateSanntid, 5000); 
+    
+    // Init clipboard
+    var clipboard = new Clipboard('#btnShare');
 }
+
+// Backbutton pressed
+$(window).on('hashchange', function() 
+{
+    if(window.location.hash === "" || !window.location.hash)
+    {
+        btnSettingsClose();
+        btnHelpClose();
+        btnHistoryClose();
+    }
+});
 
 function updateMap()
 {

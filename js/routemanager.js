@@ -2,6 +2,8 @@
 
 var ROUTE_MANAGER = new Array();
 var last_zoom = -1;
+var loaded_params = false;
+
 function Route(id, stopArray, transType, stopsSorted)
 {
     this.id = id;
@@ -165,6 +167,16 @@ function doneLoadingTransport(transportArray, linje)
         route.updateSanntid = false;
         route.updateSanntidAmount = 0;
         route.updateSanntidSize = 0;
+        
+        // Laster inn valgte transport ut fra GET
+        if(!loaded_params)
+        {
+            if($_GET("line") != null && $_GET("t") != null )
+            {
+                changeCurrentMarker($_GET("t"));
+                loaded_params = true;
+            }
+        }
     }
 
     updateDropdown();

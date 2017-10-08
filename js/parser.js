@@ -48,7 +48,7 @@ function getSanntid(stoppId, linje, transType)
     }   
 }
 
-function getStops(linje, transType)
+function getStops(linjeNavn, linje, transType)
 {
     var URL_SANNTID = "php/index.php?type=stops&linje=" + linje;
 
@@ -68,14 +68,14 @@ function getStops(linje, transType)
                     //console.log(i + " " + data[i].ID);
                 }
                 print(LOG_PARSE + " getStops done");
-                getStartStop(stoppArr, linje, transType);
+                getStartStop(linjeNavn, stoppArr, linje, transType);
             },
             async:true
         });
     }
 }
 
-function getStartStop(stoppArray, linje, transType)
+function getStartStop(linjeNavn, stoppArray, linje, transType)
 {
     var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppArray[0] 
     
@@ -99,7 +99,7 @@ function getStartStop(stoppArray, linje, transType)
                         print("Fant ingen startId");
                     
                     print(LOG_PARSE + " getStartStop done");
-                    getStopPositions(stoppArray, startStoppId, linje, transType);    
+                    getStopPositions(linjeNavn, stoppArray, startStoppId, linje, transType);    
 
                 }else
                     print(LOG_PARSE + "Fant ikke startId, kan ikke hente stoppesteder");
@@ -111,7 +111,7 @@ function getStartStop(stoppArray, linje, transType)
 }
 
 // Henter stoppestedposisjon fra stoppesteder.stop
-function getStopPositions(stoppIdList, startStopp, linje, transType)
+function getStopPositions(linjeNavn, stoppIdList, startStopp, linje, transType)
 {
     if(stoppIdList != null && stoppIdList.length > 0)
     {
@@ -148,7 +148,7 @@ function getStopPositions(stoppIdList, startStopp, linje, transType)
                 }
                 
                 if(stopsList != null)
-                    doneLoadingStops(stopsList, linje, transType, sortert);
+                    doneLoadingStops(linjeNavn, stopsList, linje, transType, sortert);
                 else
                     print("Feil med sortering");
             },
@@ -186,7 +186,7 @@ function getLinjeData(linjeNavn)
                         }
                         
                         if(!idEksisterer)
-                            getStops(response[i].ID, response[i].Transportation);
+                            getStops(linjeNavn, response[i].ID, response[i].Transportation);
                         funnetNavn = true;
                         break;
                     }

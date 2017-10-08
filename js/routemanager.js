@@ -7,6 +7,7 @@ var loaded_params = false;
 function Route(id, stopArray, transType, stopsSorted)
 {
     this.id = id;
+    this.name = "";
     this.stops = stopArray
     this.transport = new Array();
     this.transportType = transType;
@@ -19,6 +20,16 @@ function Route(id, stopArray, transType, stopsSorted)
     this.getId = function()
     {
         return this.id;
+    }
+    
+    this.getName = function()
+    {
+        return this.name;
+    }
+    
+    this.setName = function(name)
+    {
+        this.name = name;
     }
     
     this.getStops = function()
@@ -79,7 +90,7 @@ function Stop(id, name, position)
     }
 }
 
-function doneLoadingStops(stopsArray, linje, transType, sorted)
+function doneLoadingStops(linjeNavn, stopsArray, linje, transType, sorted)
 {
     if(stopsArray != null && stopsArray.length > 0)
     {
@@ -94,6 +105,7 @@ function doneLoadingStops(stopsArray, linje, transType, sorted)
             }
         }
         ROUTE_MANAGER[pos] = new Route(linje, stopsArray, transType, sorted);
+        ROUTE_MANAGER[pos].setName(linjeNavn);
         updateDropdown();
 
     }else

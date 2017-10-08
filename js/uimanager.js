@@ -19,8 +19,24 @@ function btnAddTransport()
 
 function btnShare()
 {
-    $('btnShare').attr('data-clipboard-text', 'some attributes value')
-    alert("Copied shareable link to clipboard");
+    var url = getSelectedURL();
+    $('#btnShare').attr('data-clipboard-text', url);
+    alert("Copied: "+ getSelectedURL());
+}
+
+// Returns an URL for the selected route
+function getSelectedURL()
+{
+    if(ROUTE_MANAGER.length > 0)
+    {
+        var routeName = ROUTE_MANAGER[selectedMarkerRoute].getName();
+        var transportId = ROUTE_MANAGER[selectedMarkerRoute].getTransport()[selectedMarkerTransport].getId();
+        
+        return "http://ruter.live/?line=" + routeName + "&t=" + transportId;
+    }else
+    {
+        return "Non-selected";
+    }
 }
 
 // Viser og skjuler sidebarmenyen

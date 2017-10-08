@@ -127,19 +127,25 @@ button
 {
     position: relative;
     margin: 0;
-    background-color: #D90429; /* Green */
+    background-color: #D90429; 
     border: none;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-     -webkit-transition-duration: 0.4s; /* Safari */
+     -webkit-transition-duration: 0.4s; 
     transition-duration: 0.4s;
     cursor: pointer;
     color: #EDF2F4;
 }
 
 button:active 
+{
+    background-color: #EF233C; /* Green */
+    cursor: grab;
+}
+
+button:hover 
 {
     background-color: #EF233C; /* Green */
     cursor: grab;
@@ -168,10 +174,21 @@ button:active
     display: block;
     width: 100%;
     margin-top: 1px;
+    padding: 5px;
     text-align: left;
-    font-size: x-large;
+    border-radius: 100%;
+    border: grey 1px solid;
      -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;  
+}
+
+.iconSidebar
+{
+    height: auto;
+    width: auto;
+    vertical-align: middle;
 }
 
 .btnSidebar:active
@@ -191,7 +208,7 @@ button:active
 #btnAddTransport
 {
     width: 55%;
-    border: 1px solid black;
+    border: 1px solid grey;
     font-family: 'Roboto', sans-serif;
 }
 

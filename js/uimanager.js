@@ -2,6 +2,8 @@
 var CONSOLE_DELAY = 1500;
 var CONSOLE_LAST_MESSAGE_TIME = new Date();
 
+var SIDEBAR_OPEN = false;
+
 function btnAddTransport()
 {
     var inputValue = document.getElementById("inputTransportId").value;
@@ -12,6 +14,28 @@ function btnAddTransport()
         //document.getElementById("btnAddTransport").disabled = true;
         
         $('#inputTransportId').blur();
+    }
+}
+
+function buttonArrow()
+{
+    if(!SIDEBAR_OPEN)
+    {
+        document.getElementById("btnHelp").style.display = "block";
+        document.getElementById("btnHistory").style.display = "block";
+        document.getElementById("btnSettings").style.display = "block";
+
+        document.getElementById("btnArrow").style.backgroundImage = "url('../img/ikoner/arrow_down.png')";
+
+        SIDEBAR_OPEN = true;
+    }else
+    {
+        document.getElementById("btnHelp").style.display = "none";
+        document.getElementById("btnHistory").style.display = "none";
+        document.getElementById("btnSettings").style.display = "none";
+        
+        document.getElementById("btnArrow").style.backgroundImage = "url('../img/ikoner/arrow_up.png')";
+        SIDEBAR_OPEN = false;
     }
 }
 

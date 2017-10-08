@@ -59,9 +59,14 @@ http://reisapi.ruter.no/Place/GetStopsRuter
              
             <!--Sidebarknapper-->
             <div id="sideBarContainer">
-                <button id="btnHelp" class="btnSidebar" onclick="btnHelpOpen()"><img class="btnImage" src="img/ikoner/help.png">Hjelp</button>
-                <button id="btnHistory" class="btnSidebar" onclick="btnHistoryOpen()"><img class="btnImage" src="img/ikoner/book_addresses.png">Historie</button>
-                <button id="btnSettings" class="btnSidebar" onclick="btnSettingsOpen()"><img class="btnImage" src="img/ikoner/wrench.png">Innstillinger</button>
+                <button id="btnHelp" class="btnSidebar" onclick="btnHelpOpen()" style="display: none;background-image: url(../img/ikoner/help.png);
+"><img class="btnImage" src="img/ikoner/blank.png"></button>
+                <button id="btnHistory" class="btnSidebar" onclick="btnHistoryOpen()" style="display: none;background-image: url(../img/ikoner/history.png);
+"><img class="btnImage" src="img/ikoner/blank.png"></button>
+                <button id="btnSettings" class="btnSidebar" onclick="btnSettingsOpen()" style="display: none;background-image: url(../img/ikoner/settings.png);
+"><img class="btnImage" src="img/ikoner/blank.png"></button>
+                <button id="btnArrow" class="btnSidebar" onclick="buttonArrow()" style="background-image: url(../img/ikoner/arrow_up.png);
+"><img class="btnImage" src="img/ikoner/blank.png"></button>
             </div>
              
              <!--Settings-->

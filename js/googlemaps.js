@@ -329,7 +329,9 @@ function initMap()
     linePath.setMap(map);
     trafficLayer = new google.maps.TrafficLayer();
     
-    // Load stored settings
+    // Load stored settings & show help if first time here
+    if(firstLoad())
+        btnHelpOpen();
     loadSettings();
     
     // Load line if given in URL

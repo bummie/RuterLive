@@ -91,6 +91,16 @@ function loadSettings()
     setCheckboxValue(settings.hideStops, toBool(getCookie(settings.hideStops)));
 }
 
+function firstLoad()
+{
+    if(getCookie(settings.modeStalker) === "")
+    {
+        saveSettings()
+        return true;
+    }
+    else return false;
+}
+
 function toBool(bool)
 {
     if(bool === "true")

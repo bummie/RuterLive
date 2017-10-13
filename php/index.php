@@ -5,7 +5,6 @@ $LOAD_STOPS = 'Place/GetStopsByLineID/';
 $LOAD_SANNTID = 'StopVisit/GetDepartures/';
 $LOAD_LINJER = 'Line/GetLines/';
 
-
 switch($_GET["type"])
 {
     case 'stops':

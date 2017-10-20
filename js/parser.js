@@ -8,6 +8,13 @@ var URL_STOPPESTEDER = "php/index.php?type=stops";
 
 var LOG_PARSE = "[PARSER]: ";
 
+const TRANSTYPE_AIRPORTBUSS = 1;
+const TRANSTYPE_BUSS = 2;
+const TRANSTYPE_BOAT = 5;
+const TRANSTYPE_TOG = 6;
+const TRANSTYPE_TRAM = 7;
+const TRANSTYPE_METRO = 8;
+
 function getSanntid(stoppId, linje, transType)
 {
     if(stoppId != null)
@@ -79,7 +86,7 @@ function getStartStop(linjeNavn, stoppArray, linje, transType)
 {
     var URL_SANNTID = "php/index.php?type=sanntid&id=" + stoppArray[0] 
     
-    if(transType === 2 || transType === 7 || transType === 8 ) // Om buss legg til filter
+    if(transType === TRANSTYPE_BUSS || transType === TRANSTYPE_TRAM || transType === TRANSTYPE_METRO ) // Om buss/trikk/metro legg til filter
          URL_SANNTID = URL_SANNTID + "&linje=" + linje;
     
     console.log(URL_SANNTID);
